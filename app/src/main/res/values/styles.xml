@@ -1,0 +1,56 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorControlHighlight">#0087cf</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar" parent="AppTheme.AppBarOverlay">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:itemBackground">@android:color/white</item>
+        <item name="android:titleTextStyle">@style/MyActionBar</item>
+    </style>
+
+    <style name="MyActionBar">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyCircularProgressBar">
+        <item name="android:layout_gravity">center</item>
+        <item name="cpd_padding">0dp</item>
+        <item name="cpd_initialAngle">0</item>
+        <item name="cpd_maxSweepAngle">270</item>
+        <item name="cpd_minSweepAngle">1</item>
+        <item name="cpd_strokeSize">5.5dp</item>
+        <item name="cpd_strokeColor">@color/colorPrimary</item>
+        <item name="cpd_strokeSecondaryColor">@android:color/transparent</item>
+        <item name="cpd_reverse">false</item>
+        <item name="cpd_strokeColors">@array/my_colors</item>
+        <item name="cpd_rotateDuration">1000</item>
+        <item name="cpd_transformDuration">600</item>
+        <item name="cpd_keepDuration">200</item>
+        <item name="cpd_transformInterpolator">@android:anim/decelerate_interpolator</item>
+        <item name="pv_progressMode">buffer</item>
+        <item name="cpd_inAnimDuration">0</item>
+        <item name="cpd_outAnimDuration">@android:integer/config_mediumAnimTime</item>
+    </style>
+
+    <style name="MaterialHorizontalSeparator">
+        <item name="android:background">@color/separator_color</item>
+        <item name="android:layout_height">0.5dip</item>
+    </style>
+
+    <style name="MaterialDialogTitleSeparator" parent="@style/MaterialHorizontalSeparator">
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+</resources>

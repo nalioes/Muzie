@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="my_colors">
+        <item>@color/my_pb_color_1</item>
+        <item>@color/my_pb_color_2</item>
+        <item>@color/my_pb_color_3</item>
+    </array>
+
+</resources>
