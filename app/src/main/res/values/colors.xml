@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3c6ce4</color>
-    <color name="colorPrimaryDark">#2b41cf</color>
+    <color name="colorPrimaryDark">#3148df</color>
     <color name="colorAccent">#1140da</color>
 
     <color name="my_pb_color_1">#fffc5e5e</color>
     <color name="my_pb_color_2">#fff165d7</color>
     <color name="my_pb_color_3">#fffc6e4a</color>
-    <color name="cpb_default_color">#ff33b5e5</color>
+    <color name="default_color">#ff33b5e5</color>
 
     <color name="background_color">#fdfdfe</color>
     <color name="separator_color">#ffd5d6d9</color>
     <color name="txt_color">#ff686868</color>
     <color name="white">#ffffff</color>
-    <color name="test">#0087cf</color>
+    <color name="test">#2a62ef</color>
     <color name="black">#ef080808</color>
 </resources>

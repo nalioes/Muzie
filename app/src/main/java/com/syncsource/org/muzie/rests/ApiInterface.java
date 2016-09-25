@@ -1,5 +1,6 @@
 package com.syncsource.org.muzie.rests;
 
+import com.syncsource.org.muzie.model.MostTrackContent;
 import com.syncsource.org.muzie.model.SearchContentID;
 import com.syncsource.org.muzie.model.TrackID;
 
@@ -21,10 +22,10 @@ public interface ApiInterface {
     @GET("/youtube/v3/search?")
     Call<SearchContentID> getNextTrackId(@Query("pageToken") String token,@Query("part") String part, @Query("q") String query, @Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber, @Query("key") String key);
 
-    @GET("/youtube/v3/search?")
-    Call<SearchContentID> getLatestTrack(@Query("part") String part,@Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber,@Query("order") String order,@Query("publishedAfter") String publishedAfter,@Query("publishedBefore") String publishedBefore, @Query("key") String key);
+    @GET("/youtube/v3/videos?")
+    Call<MostTrackContent> getLatestTrack(@Query("part") String part, @Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber, @Query("chart") String chart, @Query("publishedAfter") String publishedAfter, @Query("publishedBefore") String publishedBefore, @Query("key") String key);
 
-    @GET("/youtube/v3/search?")
-    Call<SearchContentID> getLatestNextTrack(@Query("pageToken") String token,@Query("part") String part,@Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber,@Query("order") String order,@Query("publishedAfter") String publishedAfter,@Query("publishedBefore") String publishedBefore, @Query("key") String key);
+    @GET("/youtube/v3/videos?")
+    Call<MostTrackContent> getNextLatestTrack(@Query("pageToken") String token,@Query("part") String part,@Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber,@Query("chart") String chart,@Query("publishedAfter") String publishedAfter,@Query("publishedBefore") String publishedBefore, @Query("key") String key);
 
 }

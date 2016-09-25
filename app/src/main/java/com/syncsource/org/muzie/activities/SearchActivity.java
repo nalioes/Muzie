@@ -167,7 +167,7 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
     }
 
     @Subscribe
-    protected void EventSnippetID(TrackEvent.OnSnippetEvent event) {
+    public void EventSnippetID(TrackEvent.OnSnippetEvent event) {
 
         if (event.isSuccess()) {
             snippetItems = event.getItem();
@@ -178,7 +178,7 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
 
 
     @Subscribe
-    protected void EventTrackID(TrackEvent.OnTrackIDEvent event) {
+    public void EventTrackID(TrackEvent.OnTrackIDEvent event) {
 
         if (event.isSuccess()) {
             trackItems = event.getItem();
@@ -206,7 +206,7 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
                 }
             }
             if (!TextUtils.isEmpty(sb)) {
-                apiClient.getTrackDuration(Config.CONTENTDETAIL, sb.toString(), Config.SEARCH_APIKEY);
+                apiClient.getTrackDuration(Config.CONTENTDETAIL + "," + Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
             }
         }
     }

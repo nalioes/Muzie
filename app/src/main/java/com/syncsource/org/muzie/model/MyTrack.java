@@ -1,14 +1,12 @@
 package com.syncsource.org.muzie.model;
 
-import android.os.Parcelable;
-
+import android.databinding.BaseObservable;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 /**
  * Created by SyncSource on 9/4/2016.
  */
-public class MyTrack implements Serializable {
+public class MyTrack extends BaseObservable implements Serializable{
     private String videoID;
     private String title;
     private String description;
@@ -17,6 +15,7 @@ public class MyTrack implements Serializable {
     private String artistName;
     private String nextToken;
     private String channelTitle;
+    private String viewCount;
 
     public MyTrack() {
     }
@@ -30,6 +29,14 @@ public class MyTrack implements Serializable {
         this.artistName = artistName;
         nextToken = token;
         this.channelTitle = channelTitle;
+    }
+
+    public String getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(String viewCount) {
+        this.viewCount = viewCount;
     }
 
     public String getChannelTitle() {
@@ -72,12 +79,14 @@ public class MyTrack implements Serializable {
         this.description = description;
     }
 
+
     public String getDuration() {
         return duration;
     }
 
     public void setDuration(String duration) {
         this.duration = duration;
+
     }
 
     public String getThumbnail() {

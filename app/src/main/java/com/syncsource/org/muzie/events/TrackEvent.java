@@ -1,6 +1,7 @@
 package com.syncsource.org.muzie.events;
 
 import com.syncsource.org.muzie.model.Item;
+import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
 import com.syncsource.org.muzie.model.TrackItem;
 
@@ -13,14 +14,14 @@ public class TrackEvent {
 
     public static class OnLatestSnippetEvent {
         private boolean success;
-        private List<Item> item;
+        private List<MostTrackItem> item;
         private String token;
 
         public OnLatestSnippetEvent(boolean success) {
             this.success = success;
         }
 
-        public OnLatestSnippetEvent(boolean success, List<Item> item,String token) {
+        public OnLatestSnippetEvent(boolean success, List<MostTrackItem> item, String token) {
             this.success = success;
             this.item = item;
             this.token = token;
@@ -30,7 +31,35 @@ public class TrackEvent {
             return token;
         }
 
-        public List<Item> getItem() {
+        public List<MostTrackItem> getItem() {
+            return item;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+    }
+
+    public static class OnNextLatestSnippetEvent {
+        private boolean success;
+        private List<MostTrackItem> item;
+        private String token;
+
+        public OnNextLatestSnippetEvent(boolean success) {
+            this.success = success;
+        }
+
+        public OnNextLatestSnippetEvent(boolean success, List<MostTrackItem> item, String token) {
+            this.success = success;
+            this.item = item;
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public List<MostTrackItem> getItem() {
             return item;
         }
 
@@ -48,7 +77,7 @@ public class TrackEvent {
             this.success = success;
         }
 
-        public OnSnippetEvent(boolean success, List<Item> item,String token) {
+        public OnSnippetEvent(boolean success, List<Item> item, String token) {
             this.success = success;
             this.item = item;
             this.token = token;
@@ -76,7 +105,7 @@ public class TrackEvent {
             this.success = success;
         }
 
-        public OnSnippetTrackEvent(boolean success, List<Item> item,String token) {
+        public OnSnippetTrackEvent(boolean success, List<Item> item, String token) {
             this.success = success;
             this.item = item;
             this.token = token;
@@ -104,6 +133,28 @@ public class TrackEvent {
         }
 
         public OnLatestTrackIDEvent(boolean success, List<TrackItem> item) {
+            this.success = success;
+            this.item = item;
+        }
+
+        public List<TrackItem> getItem() {
+            return item;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+    }
+
+    public static class OnNextLatestTrackIDEvent {
+        private boolean success;
+        private List<TrackItem> item;
+
+        public OnNextLatestTrackIDEvent(boolean success) {
+            this.success = success;
+        }
+
+        public OnNextLatestTrackIDEvent(boolean success, List<TrackItem> item) {
             this.success = success;
             this.item = item;
         }
@@ -169,7 +220,7 @@ public class TrackEvent {
             this.success = success;
         }
 
-        public OnSyncEvent(boolean success ,MyTrack myTrack) {
+        public OnSyncEvent(boolean success, MyTrack myTrack) {
             this.success = success;
             this.myTrack = myTrack;
         }

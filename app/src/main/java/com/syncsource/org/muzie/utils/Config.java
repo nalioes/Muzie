@@ -14,6 +14,8 @@ public class Config {
     public static final String TYPE = "video";
     public static final String CATEGORY = "10";
     public static final String ORDER = "viewCount";
+    public static final String STATISTICS = "statistics";
+    public static final String CHART = "mostPopular";
     public static final int TOTAL_ITEM = 30;
 
 

@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:gravity="center"
+>
+    <TextView
+        android:id="@+id/txt_no_network"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        android:text="There is no network connection right now"/>
     <ProgressBar
         android:id="@+id/load_more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
+        android:indeterminateTintMode="src_in"
+        android:layout_marginBottom="4dp"
         android:theme="@style/Material.Drawable.CircularProgress.Determinate"
-        android:layout_marginBottom="@dimen/margin_header"
-        android:paddingTop="@dimen/dialog_bottom_margin"/>
-</LinearLayout>
+
+        />
+</FrameLayout>

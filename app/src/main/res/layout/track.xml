@@ -1,92 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="4dp"
-    android:background="@color/white"
-    android:layout_marginTop="4dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/trackLayout"
+    <data>
+        <import type="com.syncsource.org.muzie.ImageBindingAdapter"/>
+        <import type="com.syncsource.org.muzie.model.MyTrack" />
+        <variable
+            name="track"
+            type="MyTrack" />
+    </data>
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp">
-
-        <ImageView
-            android:id="@+id/trackImage"
-            android:layout_width="match_parent"
-            android:layout_height="175dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="8dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/background" />
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:theme="@style/AppTheme"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@color/white">
 
         <RelativeLayout
-
-            android:layout_width="wrap_content"
+            android:id="@+id/trackLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/trackImage"
-            android:layout_marginTop="8dp">
+            android:layout_marginBottom="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp">
 
-            <TextView
-                android:id="@+id/trackTitle"
+            <ImageView
+                android:id="@+id/trackImage"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:adjustViewBounds="true"
+                app:imageUrl = "@{myTrack.thumbnail}"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/background" />
+
+            <RelativeLayout
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:ellipsize="end"
-                android:fontFamily="sans-serif-light"
-                android:lineSpacingMultiplier="1.2"
-                android:layout_alignParentLeft="true"
-                android:gravity="left"
-                android:maxLines="1"
-                android:layout_toLeftOf="@+id/trackDuration"
-                android:paddingLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:paddingRight="4dp"
-                android:textColor="@color/black"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                tools:text="Sia - The GreatestSia " />
+                android:layout_below="@+id/trackImage"
+                android:layout_marginTop="8dp">
 
-            <TextView
-                android:id="@+id/channelTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/trackTitle"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="4dp"
-                android:fontFamily="sans-serif-light"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:textSize="15sp"
-                tools:text="SiaVEVO" />
+                <TextView
+                    android:id="@+id/trackTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toLeftOf="@+id/trackDuration"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif"
+                    android:gravity="left"
+                    android:lineSpacingMultiplier="1.2"
+                    android:maxLines="1"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                    android:textColor="@color/black"
+                    android:textSize="15.5sp"
+                    android:textStyle="normal"
+                    android:text="@{track.title}"
+                    tools:text="Sia -The GreatestSia " />
 
-            <TextView
-                android:id="@+id/trackDuration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/textrect"
-                android:fontFamily="sans-serif-light"
-                android:layout_marginTop="4dp"
-                android:paddingBottom="4dp"
-                android:paddingLeft="8dp"
-                android:layout_marginRight="4dp"
-                android:paddingRight="8dp"
-                android:paddingTop="4dp"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"
-                tools:text="4:33" />
+                <TextView
+                    android:id="@+id/channelTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/trackTitle"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="2dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+                    android:textColor="@color/txt_color"
+                    android:textSize="14sp"
+                    android:text="@{track.channelTitle}"
+                    tools:text="SiaVEVO" />
+                <TextView
+                    android:id="@+id/viewCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/channelTitle"
+                    android:layout_below="@+id/trackTitle"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="2dp"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+                    android:textColor="@color/txt_color"
+                    android:textSize="14sp"
+                    android:text="@{track.viewCount}"
+                    tools:text="14M" />
+                <TextView
+                    android:id="@+id/trackDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/textrect"
+                    android:fontFamily="sans-serif-light"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="4dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp"
+                    android:text="@{track.getDuration}"
+                    tools:text="4:33" />
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/trackLayout"
-        android:background="@color/separator_color" />
-</RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/trackLayout"
+            android:background="@color/separator_color" />
+    </RelativeLayout>
+</layout>

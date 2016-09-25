@@ -2,22 +2,20 @@ package com.syncsource.org.muzie.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.activities.SyncsTrackActivity;
+import com.syncsource.org.muzie.databinding.TrackBinding;
 import com.syncsource.org.muzie.model.MyTrack;
 
 import java.util.List;
+
+import static android.databinding.tool.util.GenerationalClassUtil.ExtensionFilter.BR;
 
 /**
  * Created by SyncSource on 9/18/2016.
@@ -43,20 +41,16 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView trackImage;
-        TextView trackTitle;
-        TextView durationTime;
-        TextView channelTitle;
+        private TrackBinding view;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-            trackImage = (ImageView) itemView.findViewById(R.id.trackImage);
-            trackTitle = (TextView) itemView.findViewById(R.id.trackTitle);
-            durationTime = (TextView) itemView.findViewById(R.id.trackDuration);
-            channelTitle = (TextView) itemView.findViewById(R.id.channelTitle);
+            view = DataBindingUtil.bind(itemView);
         }
 
+        public TrackBinding getView() {
+            return view;
+        }
     }
 
     @Override
@@ -79,16 +73,9 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((LoadViewHolder) holder).progressBar.setIndeterminate(true);
         } else {
             final MyTrack myTrack = myTracks.get(position);
-            Glide.with(context)
-                    .load(myTrack.getThumbnail())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .centerCrop()
-                    .into(((ImageViewHolder) holder).trackImage);
-            ((ImageViewHolder) holder).trackTitle.setText(myTrack.getTitle());
-            ((ImageViewHolder) holder).durationTime.setText("04:30");
-            ((ImageViewHolder) holder).channelTitle.setText(myTrack.getChannelTitle());
-
-            ((ImageViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+            ((ImageViewHolder) holder).getView().setVariable(BR.track, myTrack);
+            ((ImageViewHolder) holder).getView().executePendingBindings();
+            ((ImageViewHolder) holder).getView().getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, SyncsTrackActivity.class);
@@ -98,26 +85,21 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
             });
         }
-
     }
 
     @Override
     public int getItemCount() {
-        return (isFooterEnabled) ? myTracks.size() + 1 : myTracks.size();
+        if (!isFooterEnabled) {
+            return myTracks.size();
+        } else {
+            if (myTracks.size() == 30) {
+                return myTracks.size();
+            } else {
+                return myTracks.size() + 1;
+            }
+        }
     }
 
-    /**
-     * Return the view type of the item at <code>position</code> for the purposes
-     * of view recycling.
-     * <p/>
-     * <p>The default implementation of this method returns 0, making the assumption of
-     * a single view type for the adapter. Unlike ListView adapters, types need not
-     * be contiguous. Consider using id resources to uniquely identify item view types.
-     *
-     * @param position position to query
-     * @return integer value identifying the type of the view needed to represent the item at
-     * <code>position</code>. Type codes need not be contiguous.
-     */
     @Override
     public int getItemViewType(int position) {
         return (isFooterEnabled && position >= myTracks.size()) ? VIEW_LOADING : VIEW_ITEM;

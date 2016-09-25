@@ -1,6 +1,7 @@
 package com.syncsource.org.muzie.rests;
 
 import com.syncsource.org.muzie.events.TrackEvent;
+import com.syncsource.org.muzie.model.MostTrackContent;
 import com.syncsource.org.muzie.model.SearchContentID;
 import com.syncsource.org.muzie.model.TrackID;
 import com.syncsource.org.muzie.utils.Config;
@@ -54,7 +55,7 @@ public class ApiClient implements MuzieApiAccess {
             @Override
             public void onResponse(Call<SearchContentID> call, Response<SearchContentID> response) {
                 if (response.body().getItems().size() > 0) {
-                    EventBus.getDefault().post(new TrackEvent.OnSnippetEvent(true, response.body().getItems(),response.body().getNextPageToken()));
+                    EventBus.getDefault().post(new TrackEvent.OnSnippetEvent(true, response.body().getItems(), response.body().getNextPageToken()));
                 } else {
                     EventBus.getDefault().post(new TrackEvent.OnSnippetEvent(false));
                 }
@@ -89,12 +90,12 @@ public class ApiClient implements MuzieApiAccess {
 
     @Override
     public void getNextTrackID(String token, String part, String query, String maxNumber, String key) {
-        Call<SearchContentID> call = apiInterface.getNextTrackId(token,part, query, Config.TYPE, Config.CATEGORY, maxNumber, key);
+        Call<SearchContentID> call = apiInterface.getNextTrackId(token, part, query, Config.TYPE, Config.CATEGORY, maxNumber, key);
         call.enqueue(new Callback<SearchContentID>() {
             @Override
             public void onResponse(Call<SearchContentID> call, Response<SearchContentID> response) {
                 if (response.body().getItems().size() > 0) {
-                    EventBus.getDefault().post(new TrackEvent.OnSnippetTrackEvent(true, response.body().getItems(),response.body().getNextPageToken()));
+                    EventBus.getDefault().post(new TrackEvent.OnSnippetTrackEvent(true, response.body().getItems(), response.body().getNextPageToken()));
                 } else {
                     EventBus.getDefault().post(new TrackEvent.OnSnippetTrackEvent(false));
                 }
@@ -129,19 +130,19 @@ public class ApiClient implements MuzieApiAccess {
 
     @Override
     public void getLatestTrack(String part, String afterAt, String beforeAt, String key) {
-        Call<SearchContentID> call = apiInterface.getLatestTrack(part,Config.TYPE,Config.CATEGORY,Config.MAX_NUMBER,Config.ORDER,afterAt,beforeAt,key);
-        call.enqueue(new Callback<SearchContentID>() {
+        Call<MostTrackContent> call = apiInterface.getLatestTrack(part, Config.TYPE, Config.CATEGORY, Config.MAX_NUMBER, Config.CHART, afterAt, beforeAt, key);
+        call.enqueue(new Callback<MostTrackContent>() {
             @Override
-            public void onResponse(Call<SearchContentID> call, Response<SearchContentID> response) {
+            public void onResponse(Call<MostTrackContent> call, Response<MostTrackContent> response) {
                 if (response.body().getItems().size() > 0) {
-                    EventBus.getDefault().post(new TrackEvent.OnLatestSnippetEvent(true, response.body().getItems(),response.body().getNextPageToken()));
+                    EventBus.getDefault().post(new TrackEvent.OnLatestSnippetEvent(true, response.body().getItems(), response.body().getNextPageToken()));
                 } else {
                     EventBus.getDefault().post(new TrackEvent.OnLatestSnippetEvent(false));
                 }
             }
 
             @Override
-            public void onFailure(Call<SearchContentID> call, Throwable t) {
+            public void onFailure(Call<MostTrackContent> call, Throwable t) {
                 EventBus.getDefault().post(new TrackEvent.OnLatestSnippetEvent(false));
             }
         });
@@ -163,6 +164,46 @@ public class ApiClient implements MuzieApiAccess {
             @Override
             public void onFailure(Call<TrackID> call, Throwable t) {
                 EventBus.getDefault().post(new TrackEvent.OnLatestTrackIDEvent(false));
+            }
+        });
+    }
+
+    @Override
+    public void getNextLatestTrack(String token, String part, String afterAt, String beforeAt, String key) {
+        Call<MostTrackContent> call = apiInterface.getNextLatestTrack(token, part, Config.TYPE, Config.CATEGORY, Config.MAX_NUMBER, Config.CHART, afterAt, beforeAt, key);
+        call.enqueue(new Callback<MostTrackContent>() {
+            @Override
+            public void onResponse(Call<MostTrackContent> call, Response<MostTrackContent> response) {
+                if (response.body().getItems().size() > 0) {
+                    EventBus.getDefault().post(new TrackEvent.OnNextLatestSnippetEvent(true, response.body().getItems(), response.body().getNextPageToken()));
+                } else {
+                    EventBus.getDefault().post(new TrackEvent.OnNextLatestSnippetEvent(false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MostTrackContent> call, Throwable t) {
+                EventBus.getDefault().post(new TrackEvent.OnNextLatestSnippetEvent(false));
+            }
+        });
+    }
+
+    @Override
+    public void getNextLatestTrackDuration(String part, String id, String key) {
+        Call<TrackID> call = apiInterface.getTrackDuration(part, id, key);
+        call.enqueue(new Callback<TrackID>() {
+            @Override
+            public void onResponse(Call<TrackID> call, Response<TrackID> response) {
+                if (response.body().getItems().size() > 0) {
+                    EventBus.getDefault().post(new TrackEvent.OnNextLatestTrackIDEvent(true, response.body().getItems()));
+                } else {
+                    EventBus.getDefault().post(new TrackEvent.OnNextLatestTrackIDEvent(false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TrackID> call, Throwable t) {
+                EventBus.getDefault().post(new TrackEvent.OnNextLatestTrackIDEvent(false));
             }
         });
     }

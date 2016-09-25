@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.Item;
+import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
 import com.syncsource.org.muzie.model.TrackItem;
 import com.syncsource.org.muzie.rests.ApiClient;
@@ -25,7 +26,7 @@ import java.util.List;
 public class LoadingActivity extends AppCompatActivity {
 
     private ApiClient apiClient;
-    private List<Item> snippetItems = new ArrayList<>();
+    private List<MostTrackItem> snippetItems = new ArrayList<>();
     private String token;
     private List<TrackItem> trackItems = new ArrayList<>();
     private List<MyTrack> myTrackList;
@@ -36,7 +37,6 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         apiClient = ApiClient.getApiClientInstance();
         apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
-
     }
 
     @Override
@@ -52,7 +52,7 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    protected void eventSnippet(TrackEvent.OnLatestSnippetEvent event) {
+    public void eventSnippet(TrackEvent.OnLatestSnippetEvent event) {
         if (event.isSuccess()) {
             snippetItems = event.getItem();
             token = event.getToken();
@@ -61,13 +61,13 @@ public class LoadingActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    protected void eventTrack(TrackEvent.OnLatestTrackIDEvent event) {
+    public void eventTrack(TrackEvent.OnLatestTrackIDEvent event) {
 
         if (event.isSuccess()) {
             trackItems = event.getItem();
             if (snippetItems.size() > 0 && trackItems.size() > 0) {
                 TrackManageUtil trackManageUtil = new TrackManageUtil();
-                myTrackList = trackManageUtil.getTrackList(snippetItems, trackItems, token);
+                myTrackList = trackManageUtil.getMostPopuTrackList(snippetItems, trackItems, token);
                 if (myTrackList.size() > 0) {
                     EventBus.getDefault().postSticky(new TrackEvent.OnTrackSyncEvent(true, myTrackList));
                     Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
@@ -78,18 +78,17 @@ public class LoadingActivity extends AppCompatActivity {
         }
     }
 
-
-    public void getTrackDuration(List<Item> items) {
+    public void getTrackDuration(List<MostTrackItem> items) {
         StringBuilder sb = new StringBuilder();
         if (items.size() > 0) {
 
             for (int i = 0; i < items.size(); i++) {
-                if (!TextUtils.isEmpty(items.get(i).getId().getVideoId())) {
-                    sb.append(items.get(i).getId().getVideoId() + ",");
+                if (!TextUtils.isEmpty(items.get(i).getId())) {
+                    sb.append(items.get(i).getId() + ",");
                 }
             }
             if (!TextUtils.isEmpty(sb)) {
-                apiClient.getLatestTrackDuration(Config.CONTENTDETAIL, sb.toString(), Config.SEARCH_APIKEY);
+                apiClient.getLatestTrackDuration(Config.CONTENTDETAIL +","+Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
             }
         }
     }

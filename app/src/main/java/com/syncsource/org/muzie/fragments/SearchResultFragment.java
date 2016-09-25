@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.SearchAdapter;
 import com.syncsource.org.muzie.events.TrackEvent;
@@ -21,8 +22,10 @@ import com.syncsource.org.muzie.model.TrackItem;
 import com.syncsource.org.muzie.rests.ApiClient;
 import com.syncsource.org.muzie.utils.Config;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +44,6 @@ public class SearchResultFragment extends Fragment {
     private List<TrackItem> trackItems = new ArrayList<>();
     MyTrackDataInterface trackDataInterface;
     private LinearLayoutManager layoutManager;
-    private int currentPage = 1;
     ApiClient apiClient;
     private String searchContent;
     private String token;
@@ -138,7 +140,7 @@ public class SearchResultFragment extends Fragment {
                 }
             }
 
-            if (myTracks.size() == Config.TOTAL_ITEM){
+            if (myTracks.size() == Config.TOTAL_ITEM) {
                 loading = false;
                 adapter.enableFooter(false);
             }
@@ -151,7 +153,7 @@ public class SearchResultFragment extends Fragment {
     };
 
     @Subscribe
-    protected void eventSnippet(TrackEvent.OnSnippetTrackEvent event) {
+    public void eventSnippet(TrackEvent.OnSnippetTrackEvent event) {
         if (event.isSuccess()) {
             snippetItems = event.getItem();
             token = event.getToken();
@@ -160,7 +162,7 @@ public class SearchResultFragment extends Fragment {
     }
 
     @Subscribe
-    protected void eventTrack(TrackEvent.OnNextTrackIDEvent event) {
+    public void eventTrack(TrackEvent.OnNextTrackIDEvent event) {
 
         if (event.isSuccess()) {
             trackItems = event.getItem();
@@ -189,7 +191,7 @@ public class SearchResultFragment extends Fragment {
                 }
             }
             if (!TextUtils.isEmpty(sb)) {
-                apiClient.getNextTrackDuration(Config.CONTENTDETAIL, sb.toString(), Config.SEARCH_APIKEY);
+                apiClient.getNextTrackDuration(Config.CONTENTDETAIL + "," + Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
             }
         }
     }

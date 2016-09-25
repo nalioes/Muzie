@@ -19,15 +19,19 @@ public class TrackItem {
     @SerializedName("contentDetails")
     @Expose
     private ContentDetails contentDetails;
+    @SerializedName("statistics")
+    @Expose
+    private Statistics statistics;
 
     public TrackItem() {
     }
 
-    public TrackItem(String kind, String etag, String id, ContentDetails contentDetails) {
+    public TrackItem(String kind, String etag, String id, ContentDetails contentDetails, Statistics statistics) {
         this.kind = kind;
         this.etag = etag;
         this.id = id;
         this.contentDetails = contentDetails;
+        this.statistics = statistics;
     }
 
     public String getKind() {
@@ -44,5 +48,9 @@ public class TrackItem {
 
     public ContentDetails getContentDetails() {
         return contentDetails;
+    }
+
+    public Statistics getStatistics() {
+        return statistics;
     }
 }

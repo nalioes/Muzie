@@ -2,22 +2,21 @@ package com.syncsource.org.muzie.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.activities.SyncsTrackActivity;
+import com.syncsource.org.muzie.databinding.ItemsBinding;
 import com.syncsource.org.muzie.model.MyTrack;
 
 import java.util.List;
+
+import mm.technomation.mmtext.mmtext;
+import static android.databinding.tool.util.GenerationalClassUtil.ExtensionFilter.BR;
 
 /**
  * Created by SyncSource on 9/4/2016.
@@ -40,24 +39,19 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.context = context;
         this.myTracks = myTracksList;
         notifyDataSetChanged();
-//        notifyItemInserted(getItemCount() - 1);
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
-
-        ImageView trackImage;
-        TextView trackTitle;
-        TextView durationTime;
-        Button downloadTrack;
+        private ItemsBinding view;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-            trackImage = (ImageView) itemView.findViewById(R.id.track_image);
-            trackTitle = (TextView) itemView.findViewById(R.id.track_title);
-            durationTime = (TextView) itemView.findViewById(R.id.duration);
-            downloadTrack = (Button) itemView.findViewById(R.id.download_track);
+            view = DataBindingUtil.bind(itemView);
         }
 
+        public ItemsBinding getItemsBinding() {
+            return view;
+        }
     }
 
     @Override
@@ -80,25 +74,10 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((LoadViewHolder) holder).progressBar.setIndeterminate(true);
         } else {
             final MyTrack myTrack = myTracks.get(position);
-            Glide.with(context)
-                    .load(myTrack.getThumbnail())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .centerCrop()
-                    .into(((ImageViewHolder) holder).trackImage);
-            ((ImageViewHolder) holder).trackTitle.setText(myTrack.getTitle());
-            ((ImageViewHolder) holder).durationTime.setText("04:30");
-            ((ImageViewHolder) holder).downloadTrack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, SyncsTrackActivity.class);
-                    intent.putExtra(SyncsTrackActivity.SYNCID, myTrack);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
+            ((ImageViewHolder) holder).getItemsBinding().setVariable(BR.item, myTrack);
+            ((ImageViewHolder) holder).getItemsBinding().executePendingBindings();
 
-                }
-            });
-
-            ((ImageViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+            ((ImageViewHolder) holder).getItemsBinding().getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, SyncsTrackActivity.class);
@@ -107,27 +86,34 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     context.startActivity(intent);
                 }
             });
+
+            ((ImageViewHolder) holder).getItemsBinding().downloadTrack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, SyncsTrackActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(SyncsTrackActivity.SYNCID, myTrack);
+                    context.startActivity(intent);
+                }
+            });
+            mmtext.prepareView(context, ((ImageViewHolder) holder).getItemsBinding().trackTitle, mmtext.TEXT_UNICODE, true, false);
         }
-
     }
 
     @Override
     public int getItemCount() {
-        return (isFooterEnabled) ? myTracks.size() + 1: myTracks.size();
+
+        if (!isFooterEnabled) {
+            return myTracks.size();
+        } else {
+            if (myTracks.size() == 30) {
+                return myTracks.size();
+            } else {
+                return myTracks.size() + 1;
+            }
+        }
     }
 
-    /**
-     * Return the view type of the item at <code>position</code> for the purposes
-     * of view recycling.
-     * <p/>
-     * <p>The default implementation of this method returns 0, making the assumption of
-     * a single view type for the adapter. Unlike ListView adapters, types need not
-     * be contiguous. Consider using id resources to uniquely identify item view types.
-     *
-     * @param position position to query
-     * @return integer value identifying the type of the view needed to represent the item at
-     * <code>position</code>. Type codes need not be contiguous.
-     */
     @Override
     public int getItemViewType(int position) {
         return (isFooterEnabled && position >= myTracks.size()) ? VIEW_LOADING : VIEW_ITEM;
