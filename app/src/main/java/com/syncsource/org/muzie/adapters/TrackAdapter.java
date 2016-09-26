@@ -8,14 +8,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.syncsource.org.muzie.BR;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.activities.SyncsTrackActivity;
-import com.syncsource.org.muzie.databinding.TrackBinding;
+import com.syncsource.org.muzie.databinding.PopularTrackBinding;
 import com.syncsource.org.muzie.model.MyTrack;
-
 import java.util.List;
-
-import static android.databinding.tool.util.GenerationalClassUtil.ExtensionFilter.BR;
 
 /**
  * Created by SyncSource on 9/18/2016.
@@ -41,15 +40,15 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
-        private TrackBinding view;
+        private PopularTrackBinding binding;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-            view = DataBindingUtil.bind(itemView);
+            binding = DataBindingUtil.bind(itemView);
         }
 
-        public TrackBinding getView() {
-            return view;
+        public PopularTrackBinding getBinding() {
+            return binding;
         }
     }
 
@@ -57,7 +56,7 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == VIEW_ITEM) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.popular_track, parent, false);
             view.setVisibility(view.VISIBLE);
             return new ImageViewHolder(view);
         } else {
@@ -73,9 +72,9 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((LoadViewHolder) holder).progressBar.setIndeterminate(true);
         } else {
             final MyTrack myTrack = myTracks.get(position);
-            ((ImageViewHolder) holder).getView().setVariable(BR.track, myTrack);
-            ((ImageViewHolder) holder).getView().executePendingBindings();
-            ((ImageViewHolder) holder).getView().getRoot().setOnClickListener(new View.OnClickListener() {
+            ((ImageViewHolder) holder).getBinding().setVariable(BR.track, myTrack);
+            ((ImageViewHolder) holder).getBinding().executePendingBindings();
+            ((ImageViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, SyncsTrackActivity.class);

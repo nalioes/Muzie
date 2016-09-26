@@ -25,7 +25,7 @@ public class SearchContentID {
     @SerializedName("pageInfo")
     @Expose
     private PageInfo pageInfo;
-    @SerializedName("items")
+    @SerializedName("search_items")
     @Expose
     private List<Item> items = new ArrayList<Item>();
 

@@ -4,10 +4,9 @@
 
     <data>
         <import type="com.syncsource.org.muzie.ImageBindingAdapter"/>
-        <import type="com.syncsource.org.muzie.model.MyTrack" />
         <variable
             name="track"
-            type="MyTrack" />
+            type="com.syncsource.org.muzie.model.MyTrack" />
     </data>
 
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
@@ -34,7 +33,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="8dp"
                 android:adjustViewBounds="true"
-                app:imageUrl = "@{myTrack.thumbnail}"
+                app:imageUrl="@{track.thumbnail}"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/background" />
 

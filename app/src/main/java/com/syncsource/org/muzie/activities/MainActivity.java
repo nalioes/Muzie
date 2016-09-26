@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.syncsource.org.muzie.R;
+
 import com.syncsource.org.muzie.adapters.TrackAdapter;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.Item;
@@ -143,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this adds search_items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }

@@ -8,15 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.syncsource.org.muzie.BR;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.activities.SyncsTrackActivity;
-import com.syncsource.org.muzie.databinding.ItemsBinding;
+import com.syncsource.org.muzie.databinding.SearchItemsBinding;
 import com.syncsource.org.muzie.model.MyTrack;
 
 import java.util.List;
 
-import mm.technomation.mmtext.mmtext;
-import static android.databinding.tool.util.GenerationalClassUtil.ExtensionFilter.BR;
 
 /**
  * Created by SyncSource on 9/4/2016.
@@ -42,15 +42,15 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public class ImageViewHolder extends RecyclerView.ViewHolder {
-        private ItemsBinding view;
+        private SearchItemsBinding bindView;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-            view = DataBindingUtil.bind(itemView);
+            bindView = DataBindingUtil.bind(itemView);
         }
 
-        public ItemsBinding getItemsBinding() {
-            return view;
+        public SearchItemsBinding getBindView() {
+            return bindView;
         }
     }
 
@@ -58,7 +58,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         if (viewType == VIEW_ITEM) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_items, parent, false);
             view.setVisibility(view.VISIBLE);
             return new ImageViewHolder(view);
         } else {
@@ -74,10 +74,10 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((LoadViewHolder) holder).progressBar.setIndeterminate(true);
         } else {
             final MyTrack myTrack = myTracks.get(position);
-            ((ImageViewHolder) holder).getItemsBinding().setVariable(BR.item, myTrack);
-            ((ImageViewHolder) holder).getItemsBinding().executePendingBindings();
+            ((ImageViewHolder) holder).getBindView().setVariable(BR.item, myTrack);
+            ((ImageViewHolder) holder).getBindView().executePendingBindings();
 
-            ((ImageViewHolder) holder).getItemsBinding().getRoot().setOnClickListener(new View.OnClickListener() {
+            ((ImageViewHolder) holder).getBindView().getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, SyncsTrackActivity.class);
@@ -87,7 +87,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
 
-            ((ImageViewHolder) holder).getItemsBinding().downloadTrack.setOnClickListener(new View.OnClickListener() {
+            ((ImageViewHolder) holder).getBindView().downloadTrack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(context, SyncsTrackActivity.class);
@@ -96,7 +96,6 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     context.startActivity(intent);
                 }
             });
-            mmtext.prepareView(context, ((ImageViewHolder) holder).getItemsBinding().trackTitle, mmtext.TEXT_UNICODE, true, false);
         }
     }
 

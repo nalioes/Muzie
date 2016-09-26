@@ -3,8 +3,6 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'syncsource'
-            storeFile file('C:/Nalioesyn/app.jks')
         }
     }
     compileSdkVersion 24
@@ -43,5 +41,4 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.google.code.gson:gson:2.6.2'
-    compile project(':mmtext')
 }

@@ -1,1 +1,1 @@
-include ':app', ':mmtext'
+include ':app'
