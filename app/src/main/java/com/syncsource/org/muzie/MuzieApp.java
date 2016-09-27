@@ -10,16 +10,18 @@ public class MuzieApp extends Application {
 
     private static Context context;
     public static String TAG = "Muzie";
+    public static MuzieApp MUSIE;
 
-    public static Context getContext() {
-        return context;
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        MUSIE = this;
 
     }
 
+    public static Context getContext() {
+        return context;
+    }
 }
