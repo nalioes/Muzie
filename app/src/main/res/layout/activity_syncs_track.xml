@@ -8,30 +8,25 @@
     android:theme="@style/myTheme"
     tools:context="com.syncsource.org.muzie.activities.SyncsTrackActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <!--<android.support.design.widget.AppBarLayout-->
+    <!--android:id="@+id/app_bar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/app_bar_height"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:theme="@style/AppTheme.NoActionBar">-->
+    <!---->
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--app:layout_collapseMode="pin"-->
+    <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtube_view"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:background="@android:color/transparent"
-        android:theme="@style/AppTheme.NoActionBar">
-
-            <ImageView
-                android:id="@+id/sync_img"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax" />
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-    </android.support.design.widget.AppBarLayout>
-
+        android:layout_height="@dimen/app_bar_height" />
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

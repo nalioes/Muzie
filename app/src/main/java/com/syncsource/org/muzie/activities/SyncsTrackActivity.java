@@ -33,10 +33,17 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayer.Provider;
+import com.google.android.youtube.player.YouTubePlayerView;
+
 import com.syncsource.org.muzie.MuzieApp;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.MyTrack;
+import com.syncsource.org.muzie.utils.Config;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -44,9 +51,10 @@ import org.greenrobot.eventbus.Subscribe;
 import static android.view.View.GONE;
 
 
-public class SyncsTrackActivity extends AppCompatActivity {
+public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
     public static final String SYNCID = "sync_id";
     WebView webView;
+    private YouTubePlayerView youtubeView;
     private String videoId;
     LinearLayout progressLayout;
     RelativeLayout syncContainer;
@@ -54,29 +62,30 @@ public class SyncsTrackActivity extends AppCompatActivity {
     private boolean isError;
     private boolean isGranted = false;
     MyTrack myTrack;
-    ImageView syncImage;
+    // ImageView syncImage;
     ImageView trackImage;
     TextView title;
+    private static final int RECOVERY_REQUEST = 1;
     TextView duration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syncs_track);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-        }
-
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
+//        if (actionBar != null) {
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setDisplayShowHomeEnabled(true);
+//        }
+        youtubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         trackImage = (ImageView) findViewById(R.id.sync_track_img);
         title = (TextView) findViewById(R.id.sync_title);
         duration = (TextView) findViewById(R.id.sync_duration);
         progressLayout = (LinearLayout) findViewById(R.id.progress_layout);
         syncContainer = (RelativeLayout) findViewById(R.id.sync_container);
-        syncImage = (ImageView) findViewById(R.id.sync_img);
+        // syncImage = (ImageView) findViewById(R.id.sync_img);
         webView = (WebView) findViewById(R.id.webView);
         reloadLayout = (LinearLayout) findViewById(R.id.reload_layout);
         reloadLayout.setVisibility(GONE);
@@ -86,7 +95,7 @@ public class SyncsTrackActivity extends AppCompatActivity {
             final MyTrack myTrack = (MyTrack) intent.getSerializableExtra(SYNCID);
             bindSyncData(myTrack);
         }
-
+        youtubeView.initialize(Config.SEARCH_APIKEY, this);
         progressLayout.setVisibility(View.VISIBLE);
         syncContainer.setVisibility(View.INVISIBLE);
         webView.setVisibility(View.INVISIBLE);
@@ -203,11 +212,11 @@ public class SyncsTrackActivity extends AppCompatActivity {
 
             videoId = track.getVideoID();
             title.setText(track.getTitle().toString());
-            Glide.with(getApplicationContext())
-                    .load(track.getThumbnail())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .centerCrop()
-                    .into(syncImage);
+//            Glide.with(getApplicationContext())
+//                    .load(track.getThumbnail())
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .centerCrop()
+//                    .into(syncImage);
             Glide.with(getApplicationContext())
                     .load(track.getThumbnail())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -257,4 +266,33 @@ public class SyncsTrackActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+        if (!b) {
+            youTubePlayer.cueVideo(videoId);
+        }
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult error) {
+        if (error.isUserRecoverableError()) {
+            error.getErrorDialog(this, RECOVERY_REQUEST).show();
+        } else {
+//            String errorReason = String.format(getString(R.string.player_error), error.toString());
+//            Toast.makeText(this, errorReason, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RECOVERY_REQUEST) {
+            getYouTubePlayerProvider().initialize(Config.SEARCH_APIKEY, this);
+        }
+    }
+
+    protected Provider getYouTubePlayerProvider() {
+        return youtubeView;
+    }
+
 }
