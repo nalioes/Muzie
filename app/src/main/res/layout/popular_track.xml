@@ -12,17 +12,15 @@
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginTop="4dp"
-        android:theme="@style/AppTheme"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:background="@color/white">
+        android:theme="@style/myItem"
+        android:background="?android:attr/selectableItemBackground">
 
         <RelativeLayout
             android:id="@+id/trackLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
             android:layout_marginLeft="12dp"
             android:layout_marginRight="12dp">
 

@@ -11,4 +11,8 @@
     <string name="title_activity_sync_track"></string>
     <string name="title_activity_syncs_track"></string>
     <string name="player_error">Error initializing YouTube player</string>
+    <string name="title_activity_youtube_view">YoutubeViewActivity</string>
+    <string name="error_message">Connection Not Available</string>
+    <string name="err_message">Please check your network connection and try again.</string>
+    <string name="fetch_error_message">Failed to fetch data</string>
 </resources>

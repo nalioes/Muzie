@@ -3,13 +3,14 @@ package com.syncsource.org.muzie.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.TrackEvent;
-import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
 import com.syncsource.org.muzie.model.TrackItem;
@@ -30,13 +31,28 @@ public class LoadingActivity extends AppCompatActivity {
     private String token;
     private List<TrackItem> trackItems = new ArrayList<>();
     private List<MyTrack> myTrackList;
+    private LinearLayout errorLayout;
+    private Button reloadButton;
+    ProgressBar progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+        errorLayout = (LinearLayout) findViewById(R.id.error_layout);
+        reloadButton = (Button) findViewById(R.id.reload);
+        progress = (ProgressBar) findViewById(R.id.load_more);
         apiClient = ApiClient.getApiClientInstance();
+        errorLayout.setVisibility(View.GONE);
         apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
+        reloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                errorLayout.setVisibility(View.GONE);
+                progress.setVisibility(View.VISIBLE);
+                apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
+            }
+        });
     }
 
     @Override
@@ -57,6 +73,9 @@ public class LoadingActivity extends AppCompatActivity {
             snippetItems = event.getItem();
             token = event.getToken();
             getTrackDuration(snippetItems);
+        } else {
+            progress.setVisibility(View.GONE);
+            errorLayout.setVisibility(View.VISIBLE);
         }
     }
 

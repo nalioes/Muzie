@@ -1,35 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:theme="@style/myTheme"
     tools:context="com.syncsource.org.muzie.activities.SyncsTrackActivity">
 
-    <!--<android.support.design.widget.AppBarLayout-->
-    <!--android:id="@+id/app_bar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/app_bar_height"-->
-    <!--android:background="@android:color/transparent"-->
-    <!--android:theme="@style/AppTheme.NoActionBar">-->
-    <!---->
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/toolbar"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--app:layout_collapseMode="pin"-->
-    <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
-
-    <!--</android.support.design.widget.AppBarLayout>-->
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/youtube_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height" />
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/youtube_view"
         android:background="#ffffff"
         android:theme="@style/myTheme"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -46,19 +31,19 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-
                 <TextView
+                    android:id="@+id/error_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="13dp"
-                    android:fontFamily="sans-serif-light"
+                    android:fontFamily="sans-serif"
                     android:gravity="center"
                     android:lineSpacingMultiplier="1.2"
                     android:padding="4dp"
-                    android:text="Something went wrong"
+                    android:text="@string/error_message"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/error_text" />
 
                 <Button
                     android:id="@+id/button_reload"
@@ -73,8 +58,6 @@
                     android:text="Reload"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white" />
-
-
             </LinearLayout>
 
             <RelativeLayout
@@ -122,20 +105,39 @@
                             tools:text="Seller Information asdfa sdf sadfaf asdfasdfasfsaf" />
 
                         <TextView
-                            android:id="@+id/sync_duration"
+                            android:id="@+id/sync_view_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/sync_title"
                             android:layout_marginLeft="12dp"
                             android:layout_marginTop="2dp"
-                            android:fontFamily="sans-serif-light"
+                            android:fontFamily="sans-serif"
                             android:paddingBottom="2dp"
                             android:paddingLeft="4dp"
                             android:paddingRight="4dp"
                             android:textColor="@color/txt_color"
                             android:textSize="14sp"
                             android:textStyle="normal"
-                            tools:text="Duration | 04:30" />
+                            tools:text="230 Views" />
+
+                        <TextView
+                            android:id="@+id/sync_duration"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/sync_title"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="2dp"
+                            android:fontFamily="sans-serif-light"
+                            android:background="@drawable/textrect"
+                            android:paddingBottom="4dp"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="4dp"
+                            android:textColor="@color/txt_color"
+                            android:textSize="12sp"
+                            android:textStyle="normal"
+                            tools:text="04:30" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -167,15 +169,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
                     android:layout_marginTop="2dp"
                     android:indeterminate="true"
                     android:indeterminateTint="@color/colorPrimary"
                     android:indeterminateTintMode="src_in"
-                    android:layout_marginBottom="4dp"
-                    android:theme="@style/Material.Drawable.CircularProgress.Determinate"/>
+                    android:theme="@style/Material.Drawable.CircularProgress.Determinate" />
 
             </LinearLayout>
 
         </FrameLayout>
     </android.support.v4.widget.NestedScrollView>
-</android.support.design.widget.CoordinatorLayout>
+</RelativeLayout>
+

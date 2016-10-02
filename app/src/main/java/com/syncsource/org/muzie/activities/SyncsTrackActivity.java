@@ -2,20 +2,19 @@ package com.syncsource.org.muzie.activities;
 
 import android.Manifest;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +24,7 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,6 +40,8 @@ import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import com.syncsource.org.muzie.MuzieApp;
+import com.syncsource.org.muzie.network.HttpDataHandler;
+import com.syncsource.org.muzie.network.NetworkUtil;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.MyTrack;
@@ -47,24 +49,32 @@ import com.syncsource.org.muzie.utils.Config;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import static android.view.View.GONE;
 
 
 public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
     public static final String SYNCID = "sync_id";
-    WebView webView;
     private YouTubePlayerView youtubeView;
+    WebView webView;
     private String videoId;
     LinearLayout progressLayout;
     RelativeLayout syncContainer;
     LinearLayout reloadLayout;
     private boolean isError;
+    private boolean isFetchError;
     private boolean isGranted = false;
     MyTrack myTrack;
-    // ImageView syncImage;
     ImageView trackImage;
     TextView title;
+    TextView errorMessage;
+    TextView viewCount;
+    Button reloadData;
     private static final int RECOVERY_REQUEST = 1;
     TextView duration;
 
@@ -72,20 +82,16 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_syncs_track);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
-//        if (actionBar != null) {
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//            actionBar.setDisplayShowHomeEnabled(true);
-//        }
+
         youtubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         trackImage = (ImageView) findViewById(R.id.sync_track_img);
         title = (TextView) findViewById(R.id.sync_title);
+        reloadData = (Button) findViewById(R.id.button_reload);
+        viewCount = (TextView) findViewById(R.id.sync_view_count);
+        errorMessage = (TextView) findViewById(R.id.error_message);
         duration = (TextView) findViewById(R.id.sync_duration);
         progressLayout = (LinearLayout) findViewById(R.id.progress_layout);
         syncContainer = (RelativeLayout) findViewById(R.id.sync_container);
-        // syncImage = (ImageView) findViewById(R.id.sync_img);
         webView = (WebView) findViewById(R.id.webView);
         reloadLayout = (LinearLayout) findViewById(R.id.reload_layout);
         reloadLayout.setVisibility(GONE);
@@ -95,6 +101,17 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
             final MyTrack myTrack = (MyTrack) intent.getSerializableExtra(SYNCID);
             bindSyncData(myTrack);
         }
+        loadData();
+        reloadData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reloadLayout.setVisibility(GONE);
+                loadData();
+            }
+        });
+    }
+
+    public void loadData() {
         youtubeView.initialize(Config.SEARCH_APIKEY, this);
         progressLayout.setVisibility(View.VISIBLE);
         syncContainer.setVisibility(View.INVISIBLE);
@@ -106,7 +123,6 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         webSettings.setUseWideViewPort(true);
         trackDownload();
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -123,15 +139,22 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
 
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-
             return super.shouldOverrideUrlLoading(view, request);
         }
 
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
+
+            if (NetworkUtil.isOnline(getApplicationContext())) {
+                new ConnectToUrl().execute();
+            } else {
+                isError = true;
+            }
             String mainUrl = "https://www.youtube2mp3.cc/";
             if (mainUrl.compareTo(url) == 0) {
+                reloadData.setVisibility(GONE);
+                errorMessage.setText(getString(R.string.fetch_error_message));
                 progressLayout.setVisibility(View.VISIBLE);
                 webView.setVisibility(GONE);
                 syncContainer.setVisibility(GONE);
@@ -159,11 +182,19 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
             super.onPageFinished(view, url);
         }
 
+        @SuppressWarnings("deprecation")
+        @Override
+        public void onReceivedError(WebView webview, int errorCode, String description, String failUrl) {
+            super.onReceivedError(webview, errorCode, description, failUrl);
+            isError = true;
+        }
+
         @Override
         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
             isError = true;
             super.onReceivedError(view, request, error);
         }
+
     }
 
     @Override
@@ -209,20 +240,15 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
 
     public void bindSyncData(MyTrack track) {
         if (track != null) {
-
             videoId = track.getVideoID();
             title.setText(track.getTitle().toString());
-//            Glide.with(getApplicationContext())
-//                    .load(track.getThumbnail())
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .centerCrop()
-//                    .into(syncImage);
             Glide.with(getApplicationContext())
                     .load(track.getThumbnail())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
                     .into(trackImage);
             duration.setText(track.getDuration());
+            viewCount.setText(track.getViewCount());
         }
     }
 
@@ -243,7 +269,6 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
             Log.v(MuzieApp.TAG, "Permission is granted");
             return true;
         }
-
     }
 
     public void trackDownload() {
@@ -269,8 +294,10 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
 
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+        YouTubePlayer.PlayerStyle style = YouTubePlayer.PlayerStyle.MINIMAL;
         if (!b) {
             youTubePlayer.cueVideo(videoId);
+            youTubePlayer.setPlayerStyle(style);
         }
     }
 
@@ -295,4 +322,22 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         return youtubeView;
     }
 
+    private class ConnectToUrl extends AsyncTask<Void, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            HttpDataHandler httpDataHandler = new HttpDataHandler();
+            boolean response = httpDataHandler.GetHTTPData(Config.URL);
+            return response;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean res) {
+            if (!res) {
+                isError = true;
+            } else {
+                isError = false;
+            }
+        }
+    }
 }
