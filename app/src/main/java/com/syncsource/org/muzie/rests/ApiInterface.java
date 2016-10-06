@@ -28,4 +28,10 @@ public interface ApiInterface {
     @GET("/youtube/v3/videos?")
     Call<MostTrackContent> getNextLatestTrack(@Query("pageToken") String token,@Query("part") String part,@Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber,@Query("chart") String chart,@Query("publishedAfter") String publishedAfter,@Query("publishedBefore") String publishedBefore, @Query("key") String key);
 
+    @GET("/youtube/v3/search?")
+    Call<SearchContentID> getRelatedTrackId(@Query("part") String part, @Query("type") String type, @Query("relatedToVideoId") String relatedToVideoId, @Query("maxResults") String maxNumber, @Query("key") String key);
+
+    @GET("/youtube/v3/search?")
+    Call<SearchContentID> getNextRelatedTrackId(@Query("pageToken") String token, @Query("part") String part, @Query("type") String type, @Query("relatedToVideoId") String relatedToVideoId, @Query("maxResults") String maxNumber, @Query("key") String key);
+
 }

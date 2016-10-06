@@ -207,4 +207,44 @@ public class ApiClient implements MuzieApiAccess {
             }
         });
     }
+
+    @Override
+    public void getRelatedTrackID(String part, String maxNumber, String key) {
+        Call<SearchContentID> call = apiInterface.getRelatedTrackId(part, Config.TYPE, Config.CATEGORY, maxNumber, key);
+        call.enqueue(new Callback<SearchContentID>() {
+            @Override
+            public void onResponse(Call<SearchContentID> call, Response<SearchContentID> response) {
+                if (response.body().getItems().size() > 0) {
+                    EventBus.getDefault().post(new TrackEvent.OnRelatedSnippetEvent(true, response.body().getItems(), response.body().getNextPageToken()));
+                } else {
+                    EventBus.getDefault().post(new TrackEvent.OnRelatedSnippetEvent(false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchContentID> call, Throwable t) {
+                EventBus.getDefault().post(new TrackEvent.OnRelatedSnippetEvent(false));
+            }
+        });
+    }
+
+    @Override
+    public void getNextRelatedTrackID(String token, String part, String maxNumber, String key) {
+        Call<SearchContentID> call = apiInterface.getNextRelatedTrackId(token, part, Config.TYPE, Config.CATEGORY, maxNumber, key);
+        call.enqueue(new Callback<SearchContentID>() {
+            @Override
+            public void onResponse(Call<SearchContentID> call, Response<SearchContentID> response) {
+                if (response.body().getItems().size() > 0) {
+                    EventBus.getDefault().post(new TrackEvent.OnNextRelatedSnippetEvent(true, response.body().getItems(), response.body().getNextPageToken()));
+                } else {
+                    EventBus.getDefault().post(new TrackEvent.OnNextRelatedSnippetEvent(false));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchContentID> call, Throwable t) {
+                EventBus.getDefault().post(new TrackEvent.OnNextRelatedSnippetEvent(false));
+            }
+        });
+    }
 }

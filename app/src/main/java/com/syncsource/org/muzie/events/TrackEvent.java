@@ -251,4 +251,61 @@ public class TrackEvent {
             return myTrack;
         }
     }
+
+    public static class OnRelatedSnippetEvent {
+        private boolean success;
+        private List<Item> item;
+        private String token;
+
+        public OnRelatedSnippetEvent(boolean success) {
+            this.success = success;
+        }
+
+        public OnRelatedSnippetEvent(boolean success, List<Item> item, String token) {
+            this.success = success;
+            this.item = item;
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public List<Item> getItem() {
+            return item;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+    }
+
+    public static class OnNextRelatedSnippetEvent {
+        private boolean success;
+        private List<Item> item;
+        private String token;
+
+        public OnNextRelatedSnippetEvent(boolean success) {
+            this.success = success;
+        }
+
+        public OnNextRelatedSnippetEvent(boolean success, List<Item> item, String token) {
+            this.success = success;
+            this.item = item;
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public List<Item> getItem() {
+            return item;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+    }
+
 }
