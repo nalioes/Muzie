@@ -40,6 +40,7 @@ import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import com.syncsource.org.muzie.MuzieApp;
+import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.network.HttpDataHandler;
 import com.syncsource.org.muzie.network.NetworkUtil;
 import com.syncsource.org.muzie.R;
@@ -67,7 +68,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     RelativeLayout syncContainer;
     LinearLayout reloadLayout;
     private boolean isError;
-    private boolean isFetchError;
+    private boolean isFetchError = false;
     private boolean isGranted = false;
     MyTrack myTrack;
     ImageView trackImage;
@@ -159,6 +160,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
                 webView.setVisibility(GONE);
                 syncContainer.setVisibility(GONE);
                 isError = true;
+                isFetchError = true;
             }
         }
 
@@ -195,6 +197,12 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
             super.onReceivedError(view, request, error);
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsManager.sendScreenView(getString(R.string.download_music_screen));
     }
 
     @Override
@@ -335,8 +343,13 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         protected void onPostExecute(Boolean res) {
             if (!res) {
                 isError = true;
+
             } else {
-                isError = false;
+                if (isFetchError) {
+                    isError = true;
+                } else {
+                    isError = false;
+                }
             }
         }
     }

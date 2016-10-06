@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.SearchAdapter;
+import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MyTrack;
@@ -96,6 +97,7 @@ public class SearchResultFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        AnalyticsManager.sendScreenView(getString(R.string.search_music_screen));
 
     }
 
@@ -195,5 +197,4 @@ public class SearchResultFragment extends Fragment {
             }
         }
     }
-
 }

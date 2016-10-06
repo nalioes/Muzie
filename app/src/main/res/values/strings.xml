@@ -15,4 +15,10 @@
     <string name="error_message">Connection Not Available</string>
     <string name="err_message">Please check your network connection and try again.</string>
     <string name="fetch_error_message">Failed to fetch data</string>
+
+
+    <string name="popular_music_screen">Popular music screen</string>
+    <string name="search_music_screen">Search music screen</string>
+    <string name="download_music_screen">Download music screen</string>
+
 </resources>

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.fragments.ProgressFragment;
 import com.syncsource.org.muzie.fragments.SearchResultFragment;
@@ -131,6 +132,7 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
     @Override
     protected void onResume() {
         super.onResume();
+        AnalyticsManager.sendScreenView(getString(R.string.search_music_screen));
     }
 
     @Override

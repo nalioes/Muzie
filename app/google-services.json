@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "616430287624",
+    "project_id": "firebase-musichub"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:616430287624:android:ca48f0d635a4ffbc",
+        "android_client_info": {
+          "package_name": "musichub.zwenexsys.com.musichub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoe_Cz_iCBxfQ22iV6g5kbCnK5gdHj-Os"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-84999042-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

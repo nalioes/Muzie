@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.syncsource.org.muzie.R;
 
 import com.syncsource.org.muzie.adapters.TrackAdapter;
+import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MostTrackItem;
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent);
                     }
                 });
@@ -125,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        AnalyticsManager.sendScreenView(getString(R.string.popular_music_screen));
         if (recyclerState != null) {
             layoutManager.onRestoreInstanceState(recyclerState);
         }
