@@ -15,6 +15,9 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,13 +43,19 @@ import com.google.android.youtube.player.YouTubePlayer.Provider;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import com.syncsource.org.muzie.MuzieApp;
+import com.syncsource.org.muzie.adapters.RelatedTrackAdapter;
 import com.syncsource.org.muzie.analytics.AnalyticsManager;
+import com.syncsource.org.muzie.fragments.SearchResultFragment;
+import com.syncsource.org.muzie.model.Item;
+import com.syncsource.org.muzie.model.TrackItem;
 import com.syncsource.org.muzie.network.HttpDataHandler;
 import com.syncsource.org.muzie.network.NetworkUtil;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.MyTrack;
+import com.syncsource.org.muzie.rests.ApiClient;
 import com.syncsource.org.muzie.utils.Config;
+import com.syncsource.org.muzie.utils.TrackManageUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -54,9 +63,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static android.view.View.GONE;
+import static com.syncsource.org.muzie.utils.Config.TOTAL_ITEM;
 
 
 public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener {
@@ -76,8 +87,19 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     TextView errorMessage;
     TextView viewCount;
     Button reloadData;
+    RecyclerView recyclerView;
+    LinearLayoutManager layoutManager;
+    RelatedTrackAdapter adapter;
+    public static final int TOTAL_ITEM = 20;
+    public static final String MAX_NUMBER = "15";
     private static final int RECOVERY_REQUEST = 1;
     TextView duration;
+    ApiClient apiClient;
+    private List<Item> snippetItems = new ArrayList<>();
+    private String token;
+    private List<MyTrack> myRelatedTrackList = new ArrayList<>();
+    private List<MyTrack> myTrackList = new ArrayList<>();
+    private List<TrackItem> trackItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +108,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
 
         youtubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
         trackImage = (ImageView) findViewById(R.id.sync_track_img);
+        recyclerView = (RecyclerView) findViewById(R.id.related_recycler);
         title = (TextView) findViewById(R.id.sync_title);
         reloadData = (Button) findViewById(R.id.button_reload);
         viewCount = (TextView) findViewById(R.id.sync_view_count);
@@ -96,11 +119,20 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         webView = (WebView) findViewById(R.id.webView);
         reloadLayout = (LinearLayout) findViewById(R.id.reload_layout);
         reloadLayout.setVisibility(GONE);
-
+        apiClient = ApiClient.getApiClientInstance();
+        layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.scrollToPosition(0);
+//        recyclerView.addOnScrollListener(recyclerViewScroller);
         Intent intent = getIntent();
         if (intent.hasExtra(SYNCID)) {
             final MyTrack myTrack = (MyTrack) intent.getSerializableExtra(SYNCID);
             bindSyncData(myTrack);
+            if (!TextUtils.isEmpty(myTrack.getVideoID())) {
+                apiClient.getRelatedTrackID(Config.SNIPPET, myTrack.getVideoID(), MAX_NUMBER, Config.SEARCH_APIKEY);
+            }
         }
         loadData();
         reloadData.setOnClickListener(new View.OnClickListener() {
@@ -238,11 +270,29 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     }
 
     @Subscribe
-    public void eventSync(TrackEvent.OnSyncEvent event) {
+    public void eventSync(TrackEvent.OnRelatedSnippetEvent event) {
 
         if (event.isSuccess()) {
-            myTrack = event.getMyTrack();
-            bindSyncData(myTrack);
+            snippetItems = event.getItem();
+            token = event.getToken();
+            relatedTrackId(snippetItems);
+
+        }
+    }
+
+    @Subscribe
+    public void EventTrackID(TrackEvent.OnTrackIDEvent event) {
+
+        if (event.isSuccess()) {
+            trackItems = event.getItem();
+            if (snippetItems.size() > 0 && trackItems.size() > 0) {
+                TrackManageUtil trackManageUtil = new TrackManageUtil();
+                myRelatedTrackList = trackManageUtil.getTrackList(snippetItems, trackItems, token);
+                if (myRelatedTrackList.size() > 0) {
+                    adapter = new RelatedTrackAdapter(getApplicationContext(), myRelatedTrackList);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
         }
     }
 
@@ -352,5 +402,89 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
                 }
             }
         }
+
     }
+
+    @Subscribe
+    public void eventSnippet(TrackEvent.OnNextRelatedSnippetEvent event) {
+        if (event.isSuccess()) {
+            snippetItems = event.getItem();
+            token = event.getToken();
+            relatedTrackId(snippetItems);
+        }
+    }
+
+    @Subscribe
+    public void eventTrack(TrackEvent.OnNextRelatedTrackIDEvent event) {
+
+        if (event.isSuccess()) {
+            trackItems = event.getItem();
+            if (snippetItems.size() > 0 && trackItems.size() > 0) {
+                TrackManageUtil trackManageUtil = new TrackManageUtil();
+                myTrackList = trackManageUtil.getTrackList(snippetItems, trackItems, token);
+                if (myTrackList.size() > 0) {
+                    for (int i = 0; i < myTrackList.size(); i++) {
+                        myRelatedTrackList.add(myTrackList.get(i));
+                    }
+                    adapter.addRelatedTrackItem(getApplicationContext(), myRelatedTrackList);
+                    recyclerView.getRecycledViewPool().clear();
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+    public void relatedTrackId(List<Item> items) {
+        StringBuilder sb = new StringBuilder();
+        if (items.size() > 0) {
+
+            for (int i = 0; i < items.size(); i++) {
+                if (!TextUtils.isEmpty(items.get(i).getId().getVideoId())) {
+                    sb.append(items.get(i).getId().getVideoId() + ",");
+                }
+            }
+            if (!TextUtils.isEmpty(sb)) {
+                apiClient.getTrackDuration(Config.CONTENTDETAIL + "," + Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
+            }
+        }
+    }
+
+    private RecyclerView.OnScrollListener recyclerViewScroller = new RecyclerView.OnScrollListener() {
+        private int totalItem, visibleItemCount, firstVisibleItem;
+        private boolean loading = true;
+        private int visibleThreshold = 1;
+        private int previousTotal = 0;
+
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            visibleItemCount = recyclerView.getChildCount();
+            totalItem = layoutManager.getItemCount();
+            firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+
+            if (loading) {
+                if (totalItem > previousTotal + 1) {
+                    loading = false;
+                    previousTotal = totalItem;
+                }
+            }
+
+            if (myRelatedTrackList.size() == TOTAL_ITEM) {
+                loading = false;
+                adapter.enableFooter(false);
+            }
+
+            if (!loading && (totalItem - visibleItemCount) <= (firstVisibleItem + visibleThreshold) && myRelatedTrackList.size() != TOTAL_ITEM) {
+                apiClient.getNextRelatedTrackID(myRelatedTrackList.get(adapter.getItemCount() - 3).getNextToken(),Config.SNIPPET, videoId, Config.MAX_NUMBER, Config.SEARCH_APIKEY);
+                loading = true;
+            }
+        }
+    };
+
+
 }

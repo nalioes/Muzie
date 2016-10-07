@@ -209,8 +209,8 @@ public class ApiClient implements MuzieApiAccess {
     }
 
     @Override
-    public void getRelatedTrackID(String part, String maxNumber, String key) {
-        Call<SearchContentID> call = apiInterface.getRelatedTrackId(part, Config.TYPE, Config.CATEGORY, maxNumber, key);
+    public void getRelatedTrackID(String part, String videoId, String maxNumber, String key) {
+        Call<SearchContentID> call = apiInterface.getRelatedTrackId(part, Config.TYPE, videoId , maxNumber, key);
         call.enqueue(new Callback<SearchContentID>() {
             @Override
             public void onResponse(Call<SearchContentID> call, Response<SearchContentID> response) {
@@ -229,8 +229,8 @@ public class ApiClient implements MuzieApiAccess {
     }
 
     @Override
-    public void getNextRelatedTrackID(String token, String part, String maxNumber, String key) {
-        Call<SearchContentID> call = apiInterface.getNextRelatedTrackId(token, part, Config.TYPE, Config.CATEGORY, maxNumber, key);
+    public void getNextRelatedTrackID(String token, String part, String videoID,String maxNumber, String key) {
+        Call<SearchContentID> call = apiInterface.getNextRelatedTrackId(token, part, Config.TYPE, videoID, maxNumber, key);
         call.enqueue(new Callback<SearchContentID>() {
             @Override
             public void onResponse(Call<SearchContentID> call, Response<SearchContentID> response) {

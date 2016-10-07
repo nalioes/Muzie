@@ -21,8 +21,8 @@ public interface MuzieApiAccess {
 
     void getNextLatestTrackDuration(String part, String id, String key);
 
-    void getRelatedTrackID(String part, String maxNumber, String key);
+    void getRelatedTrackID(String part, String relatedVideoId, String maxNumber, String key);
 
-    void getNextRelatedTrackID(String token, String part, String maxNumber, String key);
+    void getNextRelatedTrackID(String token, String part, String videoId, String maxNumber, String key);
 
 }

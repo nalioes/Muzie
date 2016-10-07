@@ -308,4 +308,26 @@ public class TrackEvent {
         }
     }
 
+    public static class OnNextRelatedTrackIDEvent {
+        private boolean success;
+        private List<TrackItem> item;
+
+        public OnNextRelatedTrackIDEvent(boolean success) {
+            this.success = success;
+        }
+
+        public OnNextRelatedTrackIDEvent(boolean success, List<TrackItem> item) {
+            this.success = success;
+            this.item = item;
+        }
+
+        public List<TrackItem> getItem() {
+            return item;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+    }
+
 }
