@@ -132,7 +132,7 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
     @Override
     protected void onResume() {
         super.onResume();
-        AnalyticsManager.sendScreenView(getString(R.string.search_music_screen));
+        AnalyticsManager.getObjInstance().sendScreenView(getString(R.string.search_music_screen));
     }
 
     @Override

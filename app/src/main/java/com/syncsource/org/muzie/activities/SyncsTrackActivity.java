@@ -236,7 +236,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     @Override
     protected void onResume() {
         super.onResume();
-        AnalyticsManager.sendScreenView(getString(R.string.download_music_screen));
+        AnalyticsManager.getObjInstance().sendScreenView(getString(R.string.download_music_screen));
     }
 
     @Override

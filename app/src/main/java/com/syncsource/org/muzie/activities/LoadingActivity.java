@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.crashlytics.android.Crashlytics;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.MostTrackItem;
@@ -18,6 +19,7 @@ import com.syncsource.org.muzie.rests.ApiClient;
 import com.syncsource.org.muzie.utils.Config;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
+import io.fabric.sdk.android.Fabric;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 

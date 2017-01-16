@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.syncsource.org.muzie.MuzieApp;
 
 /**
  * Created by user on 8/29/16.
@@ -13,6 +14,18 @@ import com.google.android.gms.analytics.Tracker;
 public class AnalyticsManager {
     private static Context sAppContext = null;
     private static Tracker mTracker;
+    private static AnalyticsManager objInstance = null;
+
+    public AnalyticsManager() {
+        initializeAnalyticsTracker(MuzieApp.getContext());
+    }
+
+    public static AnalyticsManager getObjInstance() {
+        if (objInstance == null) {
+            objInstance = new AnalyticsManager();
+        }
+        return objInstance;
+    }
 
     private static boolean canSend() {
         // We can only send Google Analytics when ALL the following conditions are true:
@@ -68,3 +81,4 @@ public class AnalyticsManager {
         mTracker = tracker;
     }
 }
+

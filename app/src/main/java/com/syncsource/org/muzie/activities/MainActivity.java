@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        AnalyticsManager.sendScreenView(getString(R.string.popular_music_screen));
+        AnalyticsManager.getObjInstance().sendScreenView(getString(R.string.popular_music_screen));
         if (recyclerState != null) {
             layoutManager.onRestoreInstanceState(recyclerState);
         }

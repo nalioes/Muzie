@@ -97,7 +97,7 @@ public class SearchResultFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        AnalyticsManager.sendScreenView(getString(R.string.search_music_screen));
+        AnalyticsManager.getObjInstance().sendScreenView(getString(R.string.search_music_screen));
 
     }
 

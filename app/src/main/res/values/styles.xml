@@ -9,12 +9,17 @@
 
     </style>
 
-    <style name="AppTheme.NoActionBar" parent="AppTheme.AppBarOverlay">
+    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:itemBackground">@android:color/white</item>
-        <item name="android:titleTextStyle">@style/MyActionBar</item>
     </style>
+
+    <!--<style name="AppTheme.NoActionBar" parent="AppTheme.AppBarOverlay">-->
+    <!--<item name="windowActionBar">false</item>-->
+    <!--<item name="windowNoTitle">true</item>-->
+    <!--<item name="android:itemBackground">@android:color/white</item>-->
+    <!--<item name="android:titleTextStyle">@style/MyActionBar</item>-->
+    <!--</style>-->
 
     <style name="MyActionBar">
         <item name="android:textColor">@android:color/white</item>

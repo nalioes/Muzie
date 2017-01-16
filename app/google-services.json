@@ -1,35 +1,39 @@
 {
   "project_info": {
-    "project_number": "616430287624",
-    "project_id": "firebase-musichub"
+    "project_number": "941805444615",
+    "firebase_url": "https://musync-141018.firebaseio.com",
+    "project_id": "musync-141018",
+    "storage_bucket": "musync-141018.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:616430287624:android:ca48f0d635a4ffbc",
+        "mobilesdk_app_id": "1:941805444615:android:5ed8075d006d04c2",
         "android_client_info": {
-          "package_name": "musichub.zwenexsys.com.musichub"
+          "package_name": "com.syncsource.org.muzie"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "941805444615-an5qn7o1135itkjhnghs8i9hung5mr26.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDoe_Cz_iCBxfQ22iV6g5kbCnK5gdHj-Os"
+          "current_key": "AIzaSyAvD_QvpBV8JONSJiRnObSSkBJ9yW8rLHg"
         }
       ],
       "services": {
         "analytics_service": {
-          "status": 2,
-          "analytics_property": {
-            "tracking_id": "UA-84999042-1"
-          }
+          "status": 1
         },
         "appinvite_service": {
           "status": 1,
           "other_platform_oauth_client": []
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }
