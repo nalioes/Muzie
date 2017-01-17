@@ -1,8 +1,11 @@
 package com.syncsource.org.muzie.rests;
 
 import com.syncsource.org.muzie.model.MostTrackContent;
+import com.syncsource.org.muzie.model.ScTrackContent;
 import com.syncsource.org.muzie.model.SearchContentID;
 import com.syncsource.org.muzie.model.TrackID;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -20,18 +23,24 @@ public interface ApiInterface {
     Call<SearchContentID> getTrackId(@Query("part") String part, @Query("q") String query, @Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber, @Query("key") String key);
 
     @GET("/youtube/v3/search?")
-    Call<SearchContentID> getNextTrackId(@Query("pageToken") String token,@Query("part") String part, @Query("q") String query, @Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber, @Query("key") String key);
+    Call<SearchContentID> getNextTrackId(@Query("pageToken") String token, @Query("part") String part, @Query("q") String query, @Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber, @Query("key") String key);
 
     @GET("/youtube/v3/videos?")
     Call<MostTrackContent> getLatestTrack(@Query("part") String part, @Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber, @Query("chart") String chart, @Query("publishedAfter") String publishedAfter, @Query("publishedBefore") String publishedBefore, @Query("key") String key);
 
     @GET("/youtube/v3/videos?")
-    Call<MostTrackContent> getNextLatestTrack(@Query("pageToken") String token,@Query("part") String part,@Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber,@Query("chart") String chart,@Query("publishedAfter") String publishedAfter,@Query("publishedBefore") String publishedBefore, @Query("key") String key);
+    Call<MostTrackContent> getNextLatestTrack(@Query("pageToken") String token, @Query("part") String part, @Query("type") String type, @Query("videoCategoryId") String categoryId, @Query("maxResults") String maxNumber, @Query("chart") String chart, @Query("publishedAfter") String publishedAfter, @Query("publishedBefore") String publishedBefore, @Query("key") String key);
 
     @GET("/youtube/v3/search?")
     Call<SearchContentID> getRelatedTrackId(@Query("part") String part, @Query("type") String type, @Query("relatedToVideoId") String relatedToVideoId, @Query("maxResults") String maxNumber, @Query("key") String key);
 
     @GET("/youtube/v3/search?")
     Call<SearchContentID> getNextRelatedTrackId(@Query("pageToken") String token, @Query("part") String part, @Query("type") String type, @Query("relatedToVideoId") String relatedToVideoId, @Query("maxResults") String maxNumber, @Query("key") String key);
+
+    @GET("/tracks?")
+    Call<List<ScTrackContent>> getLatestScTrack(@Query("created_at[to]") String toDate, @Query("created_at[from]") String fromDate, @Query("limit") String limit, @Query("client_id") String clientId, @Query("order") String order);
+
+    @GET("/tracks?")
+    Call<List<ScTrackContent>> getSearchScTrack(@Query("q") String query, @Query("limit") String limit, @Query("client_id") String clientId);
 
 }

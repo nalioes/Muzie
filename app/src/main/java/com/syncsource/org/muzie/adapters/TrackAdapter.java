@@ -14,6 +14,8 @@ import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.activities.SyncsTrackActivity;
 import com.syncsource.org.muzie.databinding.PopularTrackBinding;
 import com.syncsource.org.muzie.model.MyTrack;
+import com.syncsource.org.muzie.utils.TrackManageUtil;
+
 import java.util.List;
 
 /**
@@ -71,6 +73,8 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof LoadViewHolder) {
             ((LoadViewHolder) holder).progressBar.setIndeterminate(true);
         } else {
+            long time = 225588;
+            String tt = TrackManageUtil.convertToSCDuration(time);
             final MyTrack myTrack = myTracks.get(position);
             ((ImageViewHolder) holder).getBinding().setVariable(BR.track, myTrack);
             ((ImageViewHolder) holder).getBinding().executePendingBindings();

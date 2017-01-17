@@ -20,5 +20,7 @@
     <string name="popular_music_screen">Popular music screen</string>
     <string name="search_music_screen">Search music screen</string>
     <string name="download_music_screen">Download music screen</string>
+    <string name="title_activity_sc_track">ScTrackActivity</string>
+    <string name="search_the_music">Search Music</string>
 
 </resources>

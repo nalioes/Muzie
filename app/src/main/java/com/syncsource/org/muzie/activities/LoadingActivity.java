@@ -16,6 +16,7 @@ import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
 import com.syncsource.org.muzie.model.TrackItem;
 import com.syncsource.org.muzie.rests.ApiClient;
+import com.syncsource.org.muzie.rests.ScApiClient;
 import com.syncsource.org.muzie.utils.Config;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
@@ -29,6 +30,7 @@ import java.util.List;
 public class LoadingActivity extends AppCompatActivity {
 
     private ApiClient apiClient;
+    private ScApiClient scApiClient;
     private List<MostTrackItem> snippetItems = new ArrayList<>();
     private String token;
     private List<TrackItem> trackItems = new ArrayList<>();
@@ -45,7 +47,9 @@ public class LoadingActivity extends AppCompatActivity {
         reloadButton = (Button) findViewById(R.id.reload);
         progress = (ProgressBar) findViewById(R.id.load_more);
         apiClient = ApiClient.getApiClientInstance();
+        scApiClient = ScApiClient.getApiClientInstance();
         errorLayout.setVisibility(View.GONE);
+        scApiClient.getMostPopularTrack(TrackManageUtil.getScCurrentTime(), TrackManageUtil.getScPreviousTime());
         apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
         reloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,7 +113,7 @@ public class LoadingActivity extends AppCompatActivity {
                 }
             }
             if (!TextUtils.isEmpty(sb)) {
-                apiClient.getLatestTrackDuration(Config.CONTENTDETAIL +","+Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
+                apiClient.getLatestTrackDuration(Config.CONTENTDETAIL + "," + Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
             }
         }
     }

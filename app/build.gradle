@@ -1,23 +1,24 @@
-buildscript {
-    repositories {
-        maven { url 'https://maven.fabric.io/public' }
-    }
-
-    dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
-    }
-}
+//apply plugin: 'android-apt'
 apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
+
+def majorVersion = 1
+def minorVersion = 0
+def patchVersion = 0
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
 
-
+def sc_url = scurl;
+def youtube_url = youtubeurl;
 android {
     signingConfigs {
         config {
+            keyAlias 'muzie'
+            keyPassword 'syncsource'
+            storeFile file('/home/nalioes/Desktop/Projects/Muzie/app/muzie.jks')
+            storePassword 'syncsource'
         }
     }
     compileSdkVersion 24
@@ -29,8 +30,11 @@ android {
         applicationId "com.syncsource.org.muzie"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionName "${majorVersion}.${minorVersion}.${patchVersion}"
+        buildConfigField "String", "SC_URL", sc_url
+        buildConfigField "String", "YOUTUBE_URL", youtube_url
+        vectorDrawables.useSupportLibrary = true
+        signingConfig signingConfigs.config
     }
     buildTypes {
         release {
@@ -39,10 +43,19 @@ android {
         }
     }
     packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
 
+    }
+    productFlavors {
     }
 }
 

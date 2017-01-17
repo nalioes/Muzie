@@ -1,5 +1,6 @@
 package com.syncsource.org.muzie.rests;
 
+import com.syncsource.org.muzie.BuildConfig;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.MostTrackContent;
 import com.syncsource.org.muzie.model.SearchContentID;
@@ -19,7 +20,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class ApiClient implements MuzieApiAccess {
 
-    public static final String BASE_SEARCH_URL = "https://www.googleapis.com";
     private static Retrofit retrofit = null;
     private static ApiClient apiClient;
     private ApiInterface apiInterface;
@@ -40,7 +40,7 @@ public class ApiClient implements MuzieApiAccess {
     public static Retrofit getClient() {
 
         if (retrofit == null) {
-            retrofit = new Retrofit.Builder().baseUrl(BASE_SEARCH_URL)
+            retrofit = new Retrofit.Builder().baseUrl(BuildConfig.YOUTUBE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
         }

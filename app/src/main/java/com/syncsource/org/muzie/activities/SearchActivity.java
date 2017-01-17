@@ -16,6 +16,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.syncsource.org.muzie.BuildConfig;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.events.TrackEvent;
@@ -59,7 +60,6 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);

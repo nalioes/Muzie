@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/cus_nav_bar"
     >
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
-
         >
 
         <SearchView
@@ -19,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:queryHint="Search Mp3"
+            android:queryHint="@string/search_the_music"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="12dp"

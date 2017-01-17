@@ -85,7 +85,6 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     ImageView trackImage;
     TextView title;
     TextView errorMessage;
-    TextView relatedTitlle;
     TextView viewCount;
     Button reloadData;
     RecyclerView recyclerView;
@@ -112,7 +111,6 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         recyclerView = (RecyclerView) findViewById(R.id.related_recycler);
         title = (TextView) findViewById(R.id.sync_title);
         reloadData = (Button) findViewById(R.id.button_reload);
-        relatedTitlle = (TextView) findViewById(R.id.textView);
         viewCount = (TextView) findViewById(R.id.sync_view_count);
         errorMessage = (TextView) findViewById(R.id.error_message);
         duration = (TextView) findViewById(R.id.sync_duration);
@@ -236,7 +234,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     @Override
     protected void onResume() {
         super.onResume();
-        AnalyticsManager.getObjInstance().sendScreenView(getString(R.string.download_music_screen));
+        AnalyticsManager.sendScreenView(getString(R.string.download_music_screen));
     }
 
     @Override
@@ -291,7 +289,6 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
                 TrackManageUtil trackManageUtil = new TrackManageUtil();
                 myRelatedTrackList = trackManageUtil.getTrackList(snippetItems, trackItems, token);
                 if (myRelatedTrackList.size() > 0) {
-                    relatedTitlle.setVisibility(View.VISIBLE);
                     adapter = new RelatedTrackAdapter(getApplicationContext(), myRelatedTrackList);
                     recyclerView.setAdapter(adapter);
                 }
@@ -341,7 +338,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
                 requestDownload.allowScanningByMediaScanner();
                 requestDownload.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 requestDownload.setDescription("");
-                if (isGranted) {
+                if (isStoragePermissionGranted()) {
                     Toast.makeText(getApplicationContext(), "Downloading File.", Toast.LENGTH_SHORT).show();
                     final String fileName = URLUtil.guessFileName(s, urlContent, mime);
                     requestDownload.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);

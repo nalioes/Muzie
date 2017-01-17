@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.GregorianCalendar;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by SyncSource on 9/4/2016.
@@ -160,5 +161,26 @@ public class TrackManageUtil {
         }
         int exp = (int) (Math.log(viewCount) / Math.log(1000));
         return String.format("%.1f%c", viewCount / Math.pow(1000, exp), "kMGTPE".charAt(exp - 1));
+    }
+
+    public static String convertToSCDuration(long ms) {
+        long seconds = ms / 1000;
+        long minutes = seconds / 60;
+        return minutes % 60 < 10 ? "0" + minutes % 60 + ":" + seconds % 60 : minutes % 60 + ":" + seconds % 60;
+    }
+
+    public static String getScCurrentTime() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = format.format(calendar.getTime());
+        return date;
+    }
+
+    public static String getScPreviousTime() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = format.format(calendar.getTime());
+        return date;
     }
 }

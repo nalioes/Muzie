@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#3c6ce4</color>
     <color name="colorPrimaryDark">#3148df</color>
-    <color name="colorAccent">#1140da</color>
+    <color name="colorAccent">#3963ed</color>
 
     <color name="my_pb_color_1">#fffc5e5e</color>
     <color name="my_pb_color_2">#fff165d7</color>
