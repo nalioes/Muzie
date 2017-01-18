@@ -12,16 +12,25 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <ImageView
+            android:id="@+id/init_bg_image"
+            android:layout_width="@dimen/ini_bg_image"
+            android:layout_height="@dimen/ini_bg_image"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:src="@drawable/muzie" />
+
         <ProgressBar
             android:id="@+id/load_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="@dimen/normal_margin"
             android:layout_marginTop="2dp"
             android:indeterminate="true"
             android:indeterminateTint="@color/colorPrimary"
             android:indeterminateTintMode="src_in"
-            android:layout_marginBottom="4dp"
             android:theme="@style/Material.Drawable.CircularProgress.Determinate"
 
             />
@@ -31,9 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="center"
             android:layout_marginLeft="@dimen/large_margin"
             android:layout_marginRight="@dimen/large_margin"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView

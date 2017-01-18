@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -37,6 +38,7 @@ public class LoadingActivity extends AppCompatActivity {
     private List<MyTrack> myTrackList;
     private LinearLayout errorLayout;
     private Button reloadButton;
+    private ImageView initBgImage;
     ProgressBar progress;
 
     @Override
@@ -45,6 +47,7 @@ public class LoadingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         errorLayout = (LinearLayout) findViewById(R.id.error_layout);
         reloadButton = (Button) findViewById(R.id.reload);
+        initBgImage = (ImageView) findViewById(R.id.init_bg_image);
         progress = (ProgressBar) findViewById(R.id.load_more);
         apiClient = ApiClient.getApiClientInstance();
         scApiClient = ScApiClient.getApiClientInstance();
@@ -82,6 +85,7 @@ public class LoadingActivity extends AppCompatActivity {
         } else {
             progress.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
+            initBgImage.setVisibility(View.GONE);
         }
     }
 

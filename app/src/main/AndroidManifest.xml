@@ -17,10 +17,12 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activities.MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name" />
         <activity
             android:name=".activities.LoadingActivity"
             android:label="@string/title_activity_loading"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,11 +33,13 @@
         <activity
             android:name=".activities.SearchActivity"
             android:label="@string/title_activity_search"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.SyncsTrackActivity"
             android:label="@string/title_activity_syncs_track"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
 
         <meta-data
@@ -44,6 +48,7 @@
         <activity
             android:name=".ScTrackActivity"
             android:label="@string/title_activity_sc_track"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

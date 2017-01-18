@@ -37,10 +37,17 @@ android {
         signingConfig signingConfigs.config
     }
     buildTypes {
-        release {
-            minifyEnabled false
+        debug {
+//            minifyEnabled true
+//            useProguard false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        release {
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'

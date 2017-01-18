@@ -8,7 +8,7 @@ public class Config {
     public static final String SEARCH_APIKEY = "AIzaSyBAxGRoLtw5UjMAIuybDgOANm021rmowZU";
     public static final String CLIENT_ID = "6dbfcdd828adf44359b78580fe4d6023";
 
-    public static final String MAX_NUMBER = "15";
+    public static final String MAX_NUMBER = "10";
     public static final String URL = "https://www.google.com/";
     public static final String SC_URL = "https://api.soundcloud.com";
     public static final String ID = "id";
@@ -20,7 +20,7 @@ public class Config {
     public static final String STATISTICS = "statistics";
     public static final String CHART = "mostPopular";
     public static final String SC_ORDER = "hotness";
-    public static final int TOTAL_ITEM = 60;
+    public static final int TOTAL_ITEM = 30;
 
 
 }

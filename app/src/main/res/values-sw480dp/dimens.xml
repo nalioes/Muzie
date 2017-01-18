@@ -8,4 +8,5 @@
 
     <dimen name="margin_header">5dp</dimen>
     <dimen name="dialog_bottom_margin">10dp</dimen>
+    <dimen name="ini_bg_image">90dp</dimen>
 </resources>

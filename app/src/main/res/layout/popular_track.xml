@@ -19,17 +19,17 @@
             android:id="@+id/trackLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginRight="12dp">
+            android:layout_marginBottom="@dimen/medium_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginLeft="@dimen/medium_margin"
+            android:layout_marginRight="@dimen/medium_margin">
 
             <ImageView
                 android:id="@+id/trackImage"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="@dimen/popular_image_size"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/normal_margin"
                 android:adjustViewBounds="true"
                 app:imageUrl="@{track.thumbnail}"
                 android:scaleType="centerCrop"
@@ -40,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/trackImage"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="@dimen/normal_margin">
 
                 <TextView
                     android:id="@+id/trackTitle"

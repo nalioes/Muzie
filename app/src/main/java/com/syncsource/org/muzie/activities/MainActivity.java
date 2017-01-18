@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }
+        adapter = new TrackAdapter(getApplicationContext());
+        recyclerView.setAdapter(adapter);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -169,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     public void myTrackEvent(TrackEvent.OnTrackSyncEvent event) {
         if (event.isSuccess()) {
             myTracks = event.getMyTrack();
-            adapter = new TrackAdapter(getApplicationContext(), myTracks);
+            adapter.addTrackItem(getApplicationContext(), myTracks);
             recyclerView.setAdapter(adapter);
         }
     }

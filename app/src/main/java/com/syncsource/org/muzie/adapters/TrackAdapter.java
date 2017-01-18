@@ -14,8 +14,10 @@ import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.activities.SyncsTrackActivity;
 import com.syncsource.org.muzie.databinding.PopularTrackBinding;
 import com.syncsource.org.muzie.model.MyTrack;
+import com.syncsource.org.muzie.utils.Config;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,15 +25,15 @@ import java.util.List;
  */
 public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<MyTrack> myTracks;
+    private List<MyTrack> myTracks = new ArrayList<>();
     private Context context;
     private boolean isFooterEnabled = true;
     private final int VIEW_ITEM = 0;
     private final int VIEW_LOADING = 1;
+    int position;
 
-    public TrackAdapter(Context context, List<MyTrack> myTracks) {
+    public TrackAdapter(Context context) {
         this.context = context;
-        this.myTracks = myTracks;
         notifyDataSetChanged();
     }
 
@@ -95,7 +97,8 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (!isFooterEnabled) {
             return myTracks.size();
         } else {
-            if (myTracks.size() == 30) {
+
+            if (myTracks.size() == Config.TOTAL_ITEM) {
                 return myTracks.size();
             } else {
                 return myTracks.size() + 1;
@@ -105,6 +108,7 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
+        this.position = position;
         return (isFooterEnabled && position >= myTracks.size()) ? VIEW_LOADING : VIEW_ITEM;
     }
 

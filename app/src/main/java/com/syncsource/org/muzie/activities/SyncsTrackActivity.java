@@ -91,7 +91,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     LinearLayoutManager layoutManager;
     RelatedTrackAdapter adapter;
     public static final int TOTAL_ITEM = 20;
-    public static final String MAX_NUMBER = "15";
+    public static final String MAX_NUMBER = "30";
     private static final int RECOVERY_REQUEST = 1;
     TextView duration;
     ApiClient apiClient;
@@ -321,12 +321,13 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
 
                 Log.v(MuzieApp.TAG, "Permission is revoked");
                 ActivityCompat.requestPermissions(SyncsTrackActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
+                isGranted = false;
             }
         } else {
             Log.v(MuzieApp.TAG, "Permission is granted");
-            return true;
+            isGranted = true;
         }
+        return isGranted;
     }
 
     public void trackDownload() {
@@ -338,7 +339,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
                 requestDownload.allowScanningByMediaScanner();
                 requestDownload.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
                 requestDownload.setDescription("");
-                if (isStoragePermissionGranted()) {
+                if (isGranted) {
                     Toast.makeText(getApplicationContext(), "Downloading File.", Toast.LENGTH_SHORT).show();
                     final String fileName = URLUtil.guessFileName(s, urlContent, mime);
                     requestDownload.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
