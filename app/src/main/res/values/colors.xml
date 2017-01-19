@@ -15,4 +15,9 @@
     <color name="white">#ffffff</color>
     <color name="test">#2a62ef</color>
     <color name="black">#ef080808</color>
+
+    <color name="background_listview">#ff212b2c</color>
+    <color name="background_listview_cell">#ff334344</color>
+    <color name="divx_light_gray">#ff919191</color>
+    <color name="white_text">#ffffffff</color>
 </resources>

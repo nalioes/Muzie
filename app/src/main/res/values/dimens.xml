@@ -23,4 +23,7 @@
     <dimen name="yt_relate_image_width">120dp</dimen>
     <dimen name="yt_relate_image_height">90dp</dimen>
     <dimen name="ini_bg_image">100dp</dimen>
+
+    <dimen name="listview_thumbnail_height">100.0dip</dimen>
+    <dimen name="listview_thumbnail_width">100.0dip</dimen>
 </resources>
