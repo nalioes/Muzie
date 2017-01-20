@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="app_bar_height">240dp</dimen>
+    <dimen name="app_bar_height">270dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="margin_header">5dp</dimen>
@@ -15,4 +15,5 @@
     <dimen name="track_image_size">120dp</dimen>
     <dimen name="yt_relate_image_width">160dp</dimen>
     <dimen name="yt_relate_image_height">130dp</dimen>
+    <dimen name="ini_bg_image">140dp</dimen>
 </resources>

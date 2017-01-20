@@ -12,14 +12,13 @@
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.ListView.Layout"
+        android:theme="@style/myItem"
         android:background="?android:attr/selectableItemBackground">
 
         <RelativeLayout
             android:id="@+id/trackLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/AppTheme.ListView.Layout"
             android:layout_marginBottom="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin"
             android:layout_marginLeft="@dimen/medium_margin"
@@ -41,7 +40,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/trackImage"
-                style="@style/AppTheme.ListViewItem.TextLayout"
                 android:layout_marginTop="@dimen/normal_margin">
 
                 <TextView
@@ -64,7 +62,6 @@
                     android:textSize="15.5sp"
                     android:textStyle="normal"
                     android:text="@{track.title}"
-                    style="@style/AppTheme.ListViewItem.Title"
                     tools:text="Sia -The GreatestSia " />
 
                 <TextView
@@ -76,7 +73,6 @@
                     android:layout_marginTop="2dp"
                     android:paddingLeft="4dp"
                     android:paddingRight="4dp"
-                    style="@style/AppTheme.ListViewItem.Subtitle"
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
                     android:textColor="@color/txt_color"
                     android:textSize="14sp"
@@ -96,8 +92,7 @@
                     android:textColor="@color/txt_color"
                     android:textSize="14sp"
                     android:text="@{track.viewCount}"
-                    tools:text="14M"
-                    style="@style/AppTheme.ListViewItem.Subtitle" />
+                    tools:text="14M" />
                 <TextView
                     android:id="@+id/trackDuration"
                     android:layout_width="wrap_content"
@@ -114,8 +109,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
                     android:text="@{track.getDuration}"
-                    tools:text="4:33"
-                    style="@style/AppTheme.ListViewItem.Subtitle" />
+                    tools:text="4:33" />
             </RelativeLayout>
         </RelativeLayout>
 

@@ -89,5 +89,6 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
+    compile files('libs/divxMobile.jar')
 }
 apply plugin: 'com.google.gms.google-services'

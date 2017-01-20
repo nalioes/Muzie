@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.syncsource.org.muzie.BR;
@@ -31,6 +33,7 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final int VIEW_ITEM = 0;
     private final int VIEW_LOADING = 1;
     int position;
+    int lastPosition = -1;
 
     public TrackAdapter(Context context) {
         this.context = context;
@@ -89,6 +92,13 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     context.startActivity(intent);
                 }
             });
+//            if(position >lastPosition) {
+//
+//                Animation animation = AnimationUtils.loadAnimation(context,
+//                        R.anim.up_to_buttom);
+//                ((ImageViewHolder)holder).itemView.startAnimation(animation);
+//                lastPosition = position;
+//            }
         }
     }
 

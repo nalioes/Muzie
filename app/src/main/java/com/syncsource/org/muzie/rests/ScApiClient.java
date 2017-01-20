@@ -1,8 +1,11 @@
 package com.syncsource.org.muzie.rests;
 
 import com.syncsource.org.muzie.BuildConfig;
+import com.syncsource.org.muzie.events.ScTrackEvent;
 import com.syncsource.org.muzie.model.ScTrackContent;
 import com.syncsource.org.muzie.utils.Config;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -67,7 +70,7 @@ public class ScApiClient implements ScApiAccess {
             @Override
             public void onResponse(Call<List<ScTrackContent>> call, Response<List<ScTrackContent>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-
+//                    EventBus.getDefault().post(new ScTrackEvent.OnMostPopularTrackEvent(true,response.body(),));
                 }
             }
 
