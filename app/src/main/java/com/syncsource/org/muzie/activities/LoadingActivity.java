@@ -9,9 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.events.ScTrackEvent;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
@@ -22,6 +24,7 @@ import com.syncsource.org.muzie.utils.Config;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
 import io.fabric.sdk.android.Fabric;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -35,7 +38,7 @@ public class LoadingActivity extends AppCompatActivity {
     private List<MostTrackItem> snippetItems = new ArrayList<>();
     private String token;
     private List<TrackItem> trackItems = new ArrayList<>();
-    private List<MyTrack> myTrackList;
+    private List<MyTrack> myTrackList = new ArrayList<>();
     private LinearLayout errorLayout;
     private Button reloadButton;
     private ImageView initBgImage;
@@ -52,13 +55,13 @@ public class LoadingActivity extends AppCompatActivity {
         apiClient = ApiClient.getApiClientInstance();
         scApiClient = ScApiClient.getApiClientInstance();
         errorLayout.setVisibility(View.GONE);
-        scApiClient.getMostPopularTrack(TrackManageUtil.getScCurrentTime(), TrackManageUtil.getScPreviousTime());
         apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
         reloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 errorLayout.setVisibility(View.GONE);
                 progress.setVisibility(View.VISIBLE);
+                initBgImage.setVisibility(View.VISIBLE);
                 apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
             }
         });
@@ -81,7 +84,8 @@ public class LoadingActivity extends AppCompatActivity {
         if (event.isSuccess()) {
             snippetItems = event.getItem();
             token = event.getToken();
-            getTrackDuration(snippetItems);
+            scApiClient.getMostPopularTrack(TrackManageUtil.getScCurrentTime(), TrackManageUtil.getScPreviousTime());
+
         } else {
             progress.setVisibility(View.GONE);
             errorLayout.setVisibility(View.VISIBLE);
@@ -96,7 +100,14 @@ public class LoadingActivity extends AppCompatActivity {
             trackItems = event.getItem();
             if (snippetItems.size() > 0 && trackItems.size() > 0) {
                 TrackManageUtil trackManageUtil = new TrackManageUtil();
-                myTrackList = trackManageUtil.getMostPopuTrackList(snippetItems, trackItems, token);
+                List<MyTrack> ytTrackList = new ArrayList<>();
+
+                ytTrackList = trackManageUtil.getMostPopuTrackList(snippetItems, trackItems, token);
+                if (ytTrackList.size() > 0) {
+                    for (MyTrack myTrack : ytTrackList) {
+                        myTrackList.add(myTrack);
+                    }
+                }
                 if (myTrackList.size() > 0) {
                     EventBus.getDefault().postSticky(new TrackEvent.OnTrackSyncEvent(true, myTrackList));
                     Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
@@ -118,6 +129,20 @@ public class LoadingActivity extends AppCompatActivity {
             }
             if (!TextUtils.isEmpty(sb)) {
                 apiClient.getLatestTrackDuration(Config.CONTENTDETAIL + "," + Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
+            }
+        }
+    }
+
+    @Subscribe
+    public void getMostTrack(ScTrackEvent.OnMostPopularTrackEvent mostTrack) {
+        List<MyTrack> myScTracks = new ArrayList<>();
+        if (mostTrack.isSuccess()) {
+            getTrackDuration(snippetItems);
+            myScTracks = new TrackManageUtil().getScTrackList(mostTrack.getItem());
+            if (myScTracks.size() > 0) {
+                for (MyTrack myTrack : myScTracks) {
+                    myTrackList.add(myTrack);
+                }
             }
         }
     }

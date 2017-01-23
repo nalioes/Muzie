@@ -1,34 +1,249 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.syncsource.org.muzie.ScTrackActivity">
+<layout>
 
-    <android.support.design.widget.AppBarLayout
+    <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.NoActionBar.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:background="@color/background_scview"
+        android:fitsSystemWindows="true"
+        tools:context="com.syncsource.org.muzie.ScTrackActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </android.support.design.widget.AppBarLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-    <include layout="@layout/content_sc_track" />
+                <ImageView
+                    android:id="@+id/sc_track_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/background" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:layout_marginLeft="@dimen/medium_margin"
+                    android:layout_marginTop="@dimen/medium_margin"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_arrow_back" />
 
-</android.support.design.widget.CoordinatorLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="@dimen/card_tiny_margin"
+                    android:layout_marginRight="@dimen/card_tiny_margin"
+                    android:background="@color/background_trans_scview"
+                    android:weightSum="5">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/normal_margin"
+                        android:layout_marginLeft="@dimen/medium_margin"
+                        android:layout_marginRight="@dimen/medium_margin"
+                        android:layout_weight="4"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/scTrackTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/normal_margin"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif"
+                            android:gravity="left"
+                            android:lineSpacingMultiplier="1.2"
+                            android:maxLines="2"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
+                            android:text="GreatestSia "
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                            android:textColor="@color/white"
+                            android:textSize="16.5sp"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/subTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/normal_margin"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
+                            android:text="SiaVEVO created at "
+                            android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/card_tiny_margin"
+                android:layout_marginRight="@dimen/card_tiny_margin"
+                app:cardBackgroundColor="@color/background_listview_cell"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:cardUseCompatPadding="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/normal_margin"
+                    android:layout_marginTop="@dimen/normal_margin">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:weightSum="4">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.4"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/playTrack"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_play" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="3"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="3.2">
+
+                            <TextView
+                                android:id="@+id/current_duration"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_weight="0.5"
+                                android:gravity="center"
+                                android:text="0:00:00"
+                                android:textColor="@color/white" />
+
+                            <SeekBar
+                                android:id="@+id/progress_length"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2" />
+
+                            <TextView
+                                android:id="@+id/total_duration"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.7"
+                                android:gravity="center"
+                                android:text="1:00:02"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.4"
+                            android:gravity="center">
+
+                            <ImageView
+                                android:id="@+id/fileDownload"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/ic_file_download" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/card_tiny_margin"
+                android:layout_marginRight="@dimen/card_tiny_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                app:cardBackgroundColor="@color/background_listview_cell"
+                app:cardCornerRadius="@dimen/card_corner"
+                app:cardElevation="@dimen/tiny_margin"
+                app:cardUseCompatPadding="false">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/small_margin"
+                        android:layout_marginRight="@dimen/small_margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/normal_margin"
+                            android:layout_marginLeft="@dimen/small_margin"
+                            android:layout_marginTop="@dimen/normal_margin"
+                            android:ellipsize="end"
+                            android:fontFamily="sans-serif"
+                            android:gravity="left"
+                            android:lineSpacingMultiplier="1.2"
+                            android:maxLines="1"
+                            android:paddingLeft="4dp"
+                            android:paddingRight="4dp"
+                            android:text="Related Tracks"
+                            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                            android:textColor="@color/white"
+                            android:textSize="16.5sp"
+                            android:textStyle="normal" />
+                        <!--<View-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="0.7dp"-->
+                        <!--android:background="@color/divx_light_gray"/>-->
+                    </LinearLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/sc_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

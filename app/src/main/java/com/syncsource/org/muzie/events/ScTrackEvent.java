@@ -10,31 +10,41 @@ import java.util.List;
  */
 
 public class ScTrackEvent {
+
     public static class OnMostPopularTrackEvent {
         private boolean success;
         private List<ScTrackContent> item;
-        private String token;
 
-        public OnMostPopularTrackEvent(boolean success) {
-            this.success = success;
+        public static class Builder {
+            public boolean success;
+            public List<ScTrackContent> item;
+
+            public Builder isSuccess(boolean success) {
+                this.success = success;
+                return this;
+            }
+
+            public Builder setItem(List<ScTrackContent> item) {
+                this.item = item;
+                return this;
+            }
+
+            public OnMostPopularTrackEvent Build() {
+                return new OnMostPopularTrackEvent(this);
+            }
         }
 
-        public OnMostPopularTrackEvent(boolean success, List<ScTrackContent> item, String token) {
-            this.success = success;
-            this.item = item;
-            this.token = token;
-        }
-
-        public String getToken() {
-            return token;
-        }
-
-        public List<ScTrackContent> getItem() {
-            return item;
+        public OnMostPopularTrackEvent(Builder builder) {
+            this.success = builder.success;
+            this.item = builder.item;
         }
 
         public boolean isSuccess() {
             return success;
+        }
+
+        public List<ScTrackContent> getItem() {
+            return item;
         }
     }
 }

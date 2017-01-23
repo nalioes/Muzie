@@ -8,6 +8,7 @@ import android.view.View;
 import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
+import com.syncsource.org.muzie.model.ScTrackContent;
 import com.syncsource.org.muzie.model.TrackItem;
 
 import java.text.DateFormat;
@@ -43,6 +44,7 @@ public class TrackManageUtil {
                     if (!TextUtils.isEmpty(snippetItems.get(j).getId().getVideoId())) {
                         if (trackItems.get(i).getId().toString().compareToIgnoreCase(snippetItems.get(j).getId().getVideoId().toString()) == 0) {
                             MyTrack myTrack = new MyTrack();
+                            myTrack.setYouTube(true);
                             myTrack.setVideoID(trackItems.get(i).getId());
                             myTrack.setViewCount(convertViewCount(trackItems.get(i).getStatistics().getViewCount()) + " views");
                             myTrack.setDuration(convertDuration(trackItems.get(i).getContentDetails().getDuration()));
@@ -72,6 +74,7 @@ public class TrackManageUtil {
                     if (!TextUtils.isEmpty(snippetItems.get(j).getId())) {
                         if (trackItems.get(i).getId().toString().compareToIgnoreCase(snippetItems.get(j).getId().toString()) == 0) {
                             MyTrack myTrack = new MyTrack();
+                            myTrack.setYouTube(true);
                             myTrack.setVideoID(trackItems.get(i).getId());
                             myTrack.setViewCount(convertViewCount(trackItems.get(i).getStatistics().getViewCount()) + " views");
                             myTrack.setDuration(convertDuration(trackItems.get(i).getContentDetails().getDuration()));
@@ -92,6 +95,32 @@ public class TrackManageUtil {
         return myTracks;
     }
 
+    public List<MyTrack> getScTrackList(List<ScTrackContent> trackContents) {
+        if (trackContents.size() > 0) {
+            myTracks = new ArrayList<>();
+            for (ScTrackContent trackContent : trackContents) {
+                if (trackContent.getArtworkUrl() != null && trackContent.getStreamUrl() != null && trackContent.getTitle() != null && trackContent.getGenre() != null && !TextUtils.isEmpty(trackContent.getGenre())) {
+                    MyTrack myTrack = new MyTrack();
+                    myTrack.setSoundCloud(true);
+                    myTrack.setVideoID(String.valueOf(trackContent.getId()));
+                    myTrack.setDuration(milliSecondsToTimer(trackContent.getDuration()));
+
+                    myTrack.setTitle(trackContent.getTitle());
+                    myTrack.setStreamUrl(trackContent.getStreamUrl());
+                    myTrack.setThumbnail(trackContent.getArtworkUrl().replace("large", "t500x500"));
+                    myTrack.setGenreType(trackContent.getGenre());
+
+                    if (trackContent.getLikesCount() != null) {
+                        myTrack.setLikeCount(trackContent.getLikesCount());
+                    }
+
+                    myTracks.add(myTrack);
+                }
+
+            }
+        }
+        return myTracks;
+    }
 
     public static String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
@@ -182,5 +211,76 @@ public class TrackManageUtil {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String date = format.format(calendar.getTime());
         return date;
+    }
+
+    /**
+     * Function to convert milliseconds time to
+     * Timer Format
+     * Hours:Minutes:Seconds
+     */
+    public static String milliSecondsToTimer(long milliseconds) {
+        String finalTimerString = "";
+        String secondsString = "";
+        String minutesString = "";
+
+        // Convert total duration into time
+        int hours = (int) (milliseconds / (1000 * 60 * 60));
+        int minutes = (int) (milliseconds % (1000 * 60 * 60)) / (1000 * 60);
+        int seconds = (int) ((milliseconds % (1000 * 60 * 60)) % (1000 * 60) / 1000);
+        // Add hours if there
+        if (hours > 0) {
+            finalTimerString = hours + ":";
+        }
+
+        // Prepending 0 to seconds if it is one digit
+        if (seconds < 10) {
+            secondsString = "0" + seconds;
+        } else {
+            secondsString = "" + seconds;
+        }
+
+        if (minutes < 10) {
+            minutesString = "0" + minutes;
+        } else {
+            minutesString = "" + minutes;
+        }
+        finalTimerString = finalTimerString + minutesString + ":" + secondsString;
+
+        // return timer string
+        return finalTimerString;
+    }
+
+    /**
+     * Function to get Progress percentage
+     *
+     * @param currentDuration
+     * @param totalDuration
+     */
+    public static int getProgressPercentage(long currentDuration, long totalDuration) {
+        Double percentage = (double) 0;
+
+        long currentSeconds = (int) (currentDuration / 1000);
+        long totalSeconds = (int) (totalDuration / 1000);
+
+        // calculating percentage
+        percentage = (((double) currentSeconds) / totalSeconds) * 100;
+
+        // return percentage
+        return percentage.intValue();
+    }
+
+    /**
+     * Function to change progress to timer
+     *
+     * @param progress      -
+     * @param totalDuration returns current duration in milliseconds
+     */
+    public static int progressToTimer(int progress, int totalDuration) {
+        int currentDuration = 0;
+        totalDuration = (int) (totalDuration / 1000);
+        currentDuration = (int) ((((double) progress) / 100) * totalDuration);
+
+        // return current duration in milliseconds
+        return currentDuration * 1000;
     }
 }

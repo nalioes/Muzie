@@ -9,6 +9,7 @@
     <dimen name="margin_header">5dp</dimen>
     <dimen name="dialog_bottom_margin">10dp</dimen>
 
+    <dimen name="card_tiny_margin">1.5dp</dimen>
     <dimen name="tiny_margin">2dp</dimen>
     <dimen name="small_margin">4dp</dimen>
     <dimen name="normal_margin">8dp</dimen>
@@ -26,4 +27,5 @@
 
     <dimen name="listview_thumbnail_height">100.0dip</dimen>
     <dimen name="listview_thumbnail_width">100.0dip</dimen>
+    <dimen name="card_corner">1dp</dimen>
 </resources>

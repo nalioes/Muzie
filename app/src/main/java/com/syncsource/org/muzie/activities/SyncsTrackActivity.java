@@ -86,6 +86,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     TextView title;
     TextView errorMessage;
     TextView viewCount;
+    TextView relatedTitle;
     Button reloadData;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
@@ -110,6 +111,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         trackImage = (ImageView) findViewById(R.id.sync_track_img);
         recyclerView = (RecyclerView) findViewById(R.id.related_recycler);
         title = (TextView) findViewById(R.id.sync_title);
+        relatedTitle = (TextView) findViewById(R.id.textView);
         reloadData = (Button) findViewById(R.id.button_reload);
         viewCount = (TextView) findViewById(R.id.sync_view_count);
         errorMessage = (TextView) findViewById(R.id.error_message);
@@ -289,6 +291,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
                 TrackManageUtil trackManageUtil = new TrackManageUtil();
                 myRelatedTrackList = trackManageUtil.getTrackList(snippetItems, trackItems, token);
                 if (myRelatedTrackList.size() > 0) {
+                    relatedTitle.setVisibility(View.VISIBLE);
                     adapter = new RelatedTrackAdapter(getApplicationContext(), myRelatedTrackList);
                     recyclerView.setAdapter(adapter);
                 }

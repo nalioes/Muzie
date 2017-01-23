@@ -16,6 +16,11 @@ public class MyTrack extends BaseObservable implements Serializable{
     private String nextToken;
     private String channelTitle;
     private String viewCount;
+    private boolean isYouTube = false;
+    private boolean isSoundCloud = false;
+    private String streamUrl;
+    private String genreType;
+    private int likeCount;
 
     public MyTrack() {
     }
@@ -103,5 +108,45 @@ public class MyTrack extends BaseObservable implements Serializable{
 
     public void setArtistName(String artistName) {
         this.artistName = artistName;
+    }
+
+    public boolean isYouTube() {
+        return isYouTube;
+    }
+
+    public void setYouTube(boolean youTube) {
+        isYouTube = youTube;
+    }
+
+    public boolean isSoundCloud() {
+        return isSoundCloud;
+    }
+
+    public void setSoundCloud(boolean soundCloud) {
+        isSoundCloud = soundCloud;
+    }
+
+    public String getStreamUrl() {
+        return streamUrl;
+    }
+
+    public void setStreamUrl(String streamUrl) {
+        this.streamUrl = streamUrl;
+    }
+
+    public String getGenreType() {
+        return genreType;
+    }
+
+    public void setGenreType(String genreType) {
+        this.genreType = genreType;
+    }
+
+    public int getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 }

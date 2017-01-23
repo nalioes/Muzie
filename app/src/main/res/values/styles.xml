@@ -61,64 +61,64 @@
     <!--</style>-->
 
 
-    <style name="AppTheme.ListView" parent="@style/AppTheme">
-        <item name="android:background">@color/background_listview</item>
-        <item name="android:scrollbars">none</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:listSelector">@drawable/listview_selector</item>
-        <item name="android:drawSelectorOnTop">true</item>
-        <item name="android:dividerHeight">0.0dip</item>
-    </style>
+    <!--<style name="AppTheme.ListView" parent="@style/AppTheme">-->
+    <!--<item name="android:background">@color/background_listview</item>-->
+    <!--<item name="android:scrollbars">none</item>-->
+    <!--<item name="android:layout_width">fill_parent</item>-->
+    <!--<item name="android:layout_height">fill_parent</item>-->
+    <!--<item name="android:listSelector">@drawable/listview_selector</item>-->
+    <!--<item name="android:drawSelectorOnTop">true</item>-->
+    <!--<item name="android:dividerHeight">0.0dip</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.ListView.Layout" parent="@style/AppTheme.ListView">
-        <item name="android:orientation">vertical</item>
-        <item name="android:background">@color/background_listview</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">fill_parent</item>
-    </style>
+    <!--<style name="AppTheme.ListView.Layout" parent="@style/AppTheme.ListView">-->
+    <!--<item name="android:orientation">vertical</item>-->
+    <!--<item name="android:background">@color/background_listview</item>-->
+    <!--<item name="android:layout_width">fill_parent</item>-->
+    <!--<item name="android:layout_height">fill_parent</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.ListViewItem" parent="@style/AppTheme" />
+    <!--<style name="AppTheme.ListViewItem" parent="@style/AppTheme" />-->
 
-    <style name="AppTheme.ListViewItem.Image" parent="@style/AppTheme.ListViewItem">
-        <item name="android:layout_width">@dimen/listview_thumbnail_width</item>
-        <item name="android:layout_height">@dimen/listview_thumbnail_height</item>
-        <item name="android:layout_margin">5.0dip</item>
-    </style>
+    <!--<style name="AppTheme.ListViewItem.Image" parent="@style/AppTheme.ListViewItem">-->
+    <!--<item name="android:layout_width">@dimen/listview_thumbnail_width</item>-->
+    <!--<item name="android:layout_height">@dimen/listview_thumbnail_height</item>-->
+    <!--<item name="android:layout_margin">5.0dip</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.ListViewItem.Layout" parent="@style/AppTheme.ListViewItem">
-        <item name="android:orientation">horizontal</item>
-        <item name="android:background">@color/background_listview_cell</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
+    <!--<style name="AppTheme.ListViewItem.Layout" parent="@style/AppTheme.ListViewItem">-->
+    <!--<item name="android:orientation">horizontal</item>-->
+    <!--<item name="android:background">@color/background_listview_cell</item>-->
+    <!--<item name="android:layout_width">fill_parent</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.ListViewItem.Subtitle" parent="@style/Base.TextAppearance.AppCompat.Small">
-        <item name="android:textColor">@color/divx_light_gray</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
+    <!--<style name="AppTheme.ListViewItem.Subtitle" parent="@style/Base.TextAppearance.AppCompat.Small">-->
+    <!--<item name="android:textColor">@color/divx_light_gray</item>-->
+    <!--<item name="android:layout_width">fill_parent</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.ListViewItem.TextLayout" parent="@style/AppTheme.ListViewItem">
-        <item name="android:layout_gravity">center</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginRight">8.0dip</item>
-        <item name="android:animateLayoutChanges">true</item>
-    </style>
+    <!--<style name="AppTheme.ListViewItem.TextLayout" parent="@style/AppTheme.ListViewItem">-->
+    <!--<item name="android:layout_gravity">center</item>-->
+    <!--<item name="android:orientation">vertical</item>-->
+    <!--<item name="android:layout_width">fill_parent</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:layout_marginRight">8.0dip</item>-->
+    <!--<item name="android:animateLayoutChanges">true</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.ListViewItem.Title" parent="@style/Base.TextAppearance.AppCompat.Medium">
-        <item name="android:textColor">@color/white_text</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
+    <!--<style name="AppTheme.ListViewItem.Title" parent="@style/Base.TextAppearance.AppCompat.Medium">-->
+    <!--<item name="android:textColor">@color/white_text</item>-->
+    <!--<item name="android:layout_width">fill_parent</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--</style>-->
 
-    <style name="AppTheme.AnimatedDrawable" parent="@style/AppTheme" />
+    <!--<style name="AppTheme.AnimatedDrawable" parent="@style/AppTheme" />-->
 
-    <style name="AppTheme.AnimatedDrawable.ImageView" parent="@style/AppTheme.AnimatedDrawable">
-        <item name="android:layout_gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-    </style>
+    <!--<style name="AppTheme.AnimatedDrawable.ImageView" parent="@style/AppTheme.AnimatedDrawable">-->
+    <!--<item name="android:layout_gravity">center</item>-->
+    <!--<item name="android:layout_width">wrap_content</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--</style>-->
 </resources>

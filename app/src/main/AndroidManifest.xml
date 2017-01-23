@@ -49,7 +49,7 @@
             android:name=".ScTrackActivity"
             android:label="@string/title_activity_sc_track"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
     </application>
 
 </manifest>

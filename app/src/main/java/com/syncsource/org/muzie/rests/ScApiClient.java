@@ -65,17 +65,18 @@ public class ScApiClient implements ScApiAccess {
 
     @Override
     public void getMostPopularTrack(String to, String from) {
-        Call<List<ScTrackContent>> call = apiInterface.getLatestScTrack(to, from, Config.MAX_NUMBER, Config.CLIENT_ID, Config.SC_ORDER);
+        Call<List<ScTrackContent>> call = apiInterface.getLatestScTrack(to, from, Config.SC_MAX_NUMBER, Config.CLIENT_ID, Config.SC_ORDER);
         call.enqueue(new Callback<List<ScTrackContent>>() {
             @Override
             public void onResponse(Call<List<ScTrackContent>> call, Response<List<ScTrackContent>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-//                    EventBus.getDefault().post(new ScTrackEvent.OnMostPopularTrackEvent(true,response.body(),));
+                    EventBus.getDefault().post(new ScTrackEvent.OnMostPopularTrackEvent.Builder().isSuccess(true).setItem(response.body()).Build());
                 }
             }
 
             @Override
             public void onFailure(Call<List<ScTrackContent>> call, Throwable t) {
+                EventBus.getDefault().post(new ScTrackEvent.OnMostPopularTrackEvent.Builder().isSuccess(false).Build());
 
             }
         });

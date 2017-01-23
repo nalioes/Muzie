@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <import type="com.syncsource.org.muzie.ImageBindingAdapter"/>
-        <variable
-            name="track"
-            type="com.syncsource.org.muzie.model.MyTrack" />
-    </data>
-
     <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,12 +23,10 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:adjustViewBounds="true"
-                app:imageUrl="@{track.thumbnail}"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/background" />
 
             <RelativeLayout
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/trackImage"
@@ -61,7 +51,6 @@
                     android:textColor="@color/black"
                     android:textSize="15.5sp"
                     android:textStyle="normal"
-                    android:text="@{track.title}"
                     tools:text="Sia -The GreatestSia " />
 
                 <TextView
@@ -76,7 +65,6 @@
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
                     android:textColor="@color/txt_color"
                     android:textSize="14sp"
-                    android:text="@{track.channelTitle}"
                     tools:text="SiaVEVO" />
                 <TextView
                     android:id="@+id/viewCount"
@@ -91,7 +79,6 @@
                     android:textAppearance="@android:style/TextAppearance.Holo.Medium"
                     android:textColor="@color/txt_color"
                     android:textSize="14sp"
-                    android:text="@{track.viewCount}"
                     tools:text="14M" />
                 <TextView
                     android:id="@+id/trackDuration"
@@ -108,7 +95,6 @@
                     android:paddingTop="4dp"
                     android:textColor="@android:color/black"
                     android:textSize="12sp"
-                    android:text="@{track.getDuration}"
                     tools:text="4:33" />
             </RelativeLayout>
         </RelativeLayout>

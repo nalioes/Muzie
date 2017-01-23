@@ -11,8 +11,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.syncsource.org.muzie.BR;
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.ScTrackActivity;
 import com.syncsource.org.muzie.activities.SyncsTrackActivity;
 import com.syncsource.org.muzie.databinding.PopularTrackBinding;
 import com.syncsource.org.muzie.model.MyTrack;
@@ -42,6 +45,15 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void addTrackItem(Context context, List<MyTrack> myTracksList) {
         this.context = context;
+//        List<MyTrack>randomTrackList = new ArrayList<>();
+//        Random randomTrack = new Random();
+//
+//        for (int i = 0 ; i<myTracksList.size();i++){
+//            int index = randomTrack.nextInt(myTracksList.size());
+//            MyTrack track = myTracksList.get(index);
+//            randomTrackList.add(track);
+//        }
+
         this.myTracks = myTracksList;
         notifyDataSetChanged();
     }
@@ -78,20 +90,57 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof LoadViewHolder) {
             ((LoadViewHolder) holder).progressBar.setIndeterminate(true);
         } else {
-            long time = 225588;
-            String tt = TrackManageUtil.convertToSCDuration(time);
+
             final MyTrack myTrack = myTracks.get(position);
-            ((ImageViewHolder) holder).getBinding().setVariable(BR.track, myTrack);
-            ((ImageViewHolder) holder).getBinding().executePendingBindings();
-            ((ImageViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, SyncsTrackActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(SyncsTrackActivity.SYNCID, myTrack);
-                    context.startActivity(intent);
+            if (myTrack.isYouTube()) {
+                ((ImageViewHolder) holder).binding.channelTitle.setText(myTrack.getChannelTitle());
+                ((ImageViewHolder) holder).binding.trackDuration.setText(myTrack.getDuration());
+                ((ImageViewHolder) holder).binding.trackTitle.setText(myTrack.getTitle());
+                ((ImageViewHolder) holder).binding.viewCount.setText(myTrack.getViewCount());
+                Glide.with(context)
+                        .load(myTrack.getThumbnail())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(((ImageViewHolder) holder).binding.trackImage);
+
+                ((ImageViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, SyncsTrackActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(SyncsTrackActivity.SYNCID, myTrack);
+                        context.startActivity(intent);
+                    }
+                });
+
+            } else {
+                ((ImageViewHolder) holder).binding.channelTitle.setText(myTrack.getGenreType());
+                ((ImageViewHolder) holder).binding.trackDuration.setText(myTrack.getDuration());
+                ((ImageViewHolder) holder).binding.trackTitle.setText(myTrack.getTitle());
+
+                if (myTrack.getLikeCount() > 0) {
+                    ((ImageViewHolder) holder).binding.viewCount.setText(String.valueOf(myTrack.getLikeCount()));
+                } else {
+                    ((ImageViewHolder) holder).binding.viewCount.setText("");
                 }
-            });
+
+                Glide.with(context)
+                        .load(myTrack.getThumbnail())
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(((ImageViewHolder) holder).binding.trackImage);
+
+                ((ImageViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, ScTrackActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra(ScTrackActivity.SCYNCID, myTrack);
+                        context.startActivity(intent);
+                    }
+                });
+            }
+//            ((ImageViewHolder) holder).getBinding().setVariable(BR.track, myTrack);
+//            ((ImageViewHolder) holder).getBinding().executePendingBindings();
+
 //            if(position >lastPosition) {
 //
 //                Animation animation = AnimationUtils.loadAnimation(context,
