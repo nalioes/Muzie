@@ -9,6 +9,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -38,9 +39,27 @@ public interface ApiInterface {
     Call<SearchContentID> getNextRelatedTrackId(@Query("pageToken") String token, @Query("part") String part, @Query("type") String type, @Query("relatedToVideoId") String relatedToVideoId, @Query("maxResults") String maxNumber, @Query("key") String key);
 
     @GET("/tracks?")
-    Call<List<ScTrackContent>> getLatestScTrack(@Query("created_at[to]") String toDate, @Query("created_at[from]") String fromDate, @Query("limit") String limit, @Query("client_id") String clientId, @Query("order") String order);
+    Call<List<ScTrackContent>> getSearchScTrack(@Query("q") String query, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
 
     @GET("/tracks?")
-    Call<List<ScTrackContent>> getSearchScTrack(@Query("q") String query, @Query("limit") String limit, @Query("client_id") String clientId);
+    Call<List<ScTrackContent>> getNextSearchScTrack(@Query("q") String query, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning, @Query("next_href") String next_href);
+
+
+    @GET("/tracks/{track_id}/related?")
+    Call<List<ScTrackContent>> getRelatedScTrack(@Path("track_id") String track_id, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
+
+
+    @GET("/charts?")
+    Call<List<ScTrackContent>> getTopScTrack(@Query("kind") String kind, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
+
+    @GET("/charts?")
+    Call<List<ScTrackContent>> getNextTopScTrack(@Query("kind") String kind, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning, @Query("next_href") String next_href);
+
+
+    @GET("/charts?")
+    Call<List<ScTrackContent>> getTopGenreScTrack(@Query("kind") String kind, @Query("genre") String genre, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
+
+    @GET("/charts?")
+    Call<List<ScTrackContent>> getNextTopGenreScTrack(@Query("kind") String kind, @Query("genre") String genre, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning, @Query("next_href") String next_href);
 
 }

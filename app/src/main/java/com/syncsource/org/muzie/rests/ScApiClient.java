@@ -47,25 +47,25 @@ public class ScApiClient implements ScApiAccess {
 
     @Override
     public void getSearchScTrack(String query, String limit, String client_id) {
-        Call<List<ScTrackContent>> call = apiInterface.getSearchScTrack(query, limit, client_id);
-        call.enqueue(new Callback<List<ScTrackContent>>() {
-            @Override
-            public void onResponse(Call<List<ScTrackContent>> call, Response<List<ScTrackContent>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<ScTrackContent>> call, Throwable t) {
-
-            }
-        });
+//        Call<List<ScTrackContent>> call = apiInterface.getSearchScTrack(query, limit, client_id);
+//        call.enqueue(new Callback<List<ScTrackContent>>() {
+//            @Override
+//            public void onResponse(Call<List<ScTrackContent>> call, Response<List<ScTrackContent>> response) {
+//                if (response.isSuccessful() && response.body() != null) {
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<ScTrackContent>> call, Throwable t) {
+//
+//            }
+//        });
     }
 
     @Override
     public void getMostPopularTrack(String to, String from) {
-        Call<List<ScTrackContent>> call = apiInterface.getLatestScTrack(to, from, Config.SC_MAX_NUMBER, Config.CLIENT_ID, Config.SC_ORDER);
+        Call<List<ScTrackContent>> call = apiInterface.getTopScTrack(Config.SC_KIND, Config.SC_MAX_NUMBER, Config.CLIENT_ID, String.valueOf(1));
         call.enqueue(new Callback<List<ScTrackContent>>() {
             @Override
             public void onResponse(Call<List<ScTrackContent>> call, Response<List<ScTrackContent>> response) {

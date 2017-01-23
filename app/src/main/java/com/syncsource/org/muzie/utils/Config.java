@@ -10,6 +10,7 @@ public class Config {
 
     public static final String MAX_NUMBER = "10";
     public static final String SC_MAX_NUMBER = "15";
+    public static final String SC_KIND = "top";
     public static final String URL = "https://www.google.com/";
     public static final String SC_URL = "https://api.soundcloud.com";
     public static final String ID = "id";

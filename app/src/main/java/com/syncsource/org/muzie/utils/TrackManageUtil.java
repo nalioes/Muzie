@@ -99,23 +99,23 @@ public class TrackManageUtil {
         if (trackContents.size() > 0) {
             myTracks = new ArrayList<>();
             for (ScTrackContent trackContent : trackContents) {
-                if (trackContent.getArtworkUrl() != null && trackContent.getStreamUrl() != null && trackContent.getTitle() != null && trackContent.getGenre() != null && !TextUtils.isEmpty(trackContent.getGenre())) {
-                    MyTrack myTrack = new MyTrack();
-                    myTrack.setSoundCloud(true);
-                    myTrack.setVideoID(String.valueOf(trackContent.getId()));
-                    myTrack.setDuration(milliSecondsToTimer(trackContent.getDuration()));
-
-                    myTrack.setTitle(trackContent.getTitle());
-                    myTrack.setStreamUrl(trackContent.getStreamUrl());
-                    myTrack.setThumbnail(trackContent.getArtworkUrl().replace("large", "t500x500"));
-                    myTrack.setGenreType(trackContent.getGenre());
-
-                    if (trackContent.getLikesCount() != null) {
-                        myTrack.setLikeCount(trackContent.getLikesCount());
-                    }
-
-                    myTracks.add(myTrack);
-                }
+//                if (trackContent.getArtworkUrl() != null && trackContent.getStreamUrl() != null && trackContent.getTitle() != null && trackContent.getGenre() != null && !TextUtils.isEmpty(trackContent.getGenre())) {
+//                    MyTrack myTrack = new MyTrack();
+//                    myTrack.setSoundCloud(true);
+//                    myTrack.setVideoID(String.valueOf(trackContent.getId()));
+//                    myTrack.setDuration(milliSecondsToTimer(trackContent.getDuration()));
+//
+//                    myTrack.setTitle(trackContent.getTitle());
+//                    myTrack.setStreamUrl(trackContent.getStreamUrl());
+//                    myTrack.setThumbnail(trackContent.getArtworkUrl().replace("large", "t500x500"));
+//                    myTrack.setGenreType(trackContent.getGenre());
+//
+//                    if (trackContent.getLikesCount() != null) {
+//                        myTrack.setLikeCount(trackContent.getLikesCount());
+//                    }
+//
+//                    myTracks.add(myTrack);
+//                }
 
             }
         }
