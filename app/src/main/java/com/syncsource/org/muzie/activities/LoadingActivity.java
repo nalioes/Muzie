@@ -84,7 +84,8 @@ public class LoadingActivity extends AppCompatActivity {
         if (event.isSuccess()) {
             snippetItems = event.getItem();
             token = event.getToken();
-            scApiClient.getMostPopularTrack(TrackManageUtil.getScCurrentTime(), TrackManageUtil.getScPreviousTime());
+            getTrackDuration(snippetItems);
+            scApiClient.getMostPopularTrack();
 
         } else {
             progress.setVisibility(View.GONE);
@@ -137,7 +138,7 @@ public class LoadingActivity extends AppCompatActivity {
     public void getMostTrack(ScTrackEvent.OnMostPopularTrackEvent mostTrack) {
         List<MyTrack> myScTracks = new ArrayList<>();
         if (mostTrack.isSuccess()) {
-            getTrackDuration(snippetItems);
+//            getTrackDuration(snippetItems);
             myScTracks = new TrackManageUtil().getScTrackList(mostTrack.getItem());
             if (myScTracks.size() > 0) {
                 for (MyTrack myTrack : myScTracks) {

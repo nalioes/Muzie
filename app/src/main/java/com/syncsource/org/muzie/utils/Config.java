@@ -22,6 +22,8 @@ public class Config {
     public static final String STATISTICS = "statistics";
     public static final String CHART = "mostPopular";
     public static final String SC_ORDER = "hotness";
+    public static final String SC_KIND_TOP = "top";
+    public static final String SC_KIND_TRENDING = "trending";
     public static final int TOTAL_ITEM = 30;
 
 

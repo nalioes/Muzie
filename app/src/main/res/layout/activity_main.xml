@@ -7,27 +7,27 @@
     android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <!--<android.support.design.widget.AppBarLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/cus_nav_bar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="@drawable/cus_nav_bar"-->
+    <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
 
-        <include
-            android:id="@+id/m_search_bar"
-            layout="@layout/search_content" />
-    </android.support.design.widget.AppBarLayout>
+    <!--<include-->
+    <!--android:id="@+id/m_search_bar"-->
+    <!--layout="@layout/search_content" />-->
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -37,6 +37,10 @@
             android:layout_height="wrap_content"
             android:background="#FF2195F1"
             android:elevation="6dp"
+            app:tabTextColor="#d3d3d3"
+            app:tabTextAppearance="?android:attr/textAppearanceMedium"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
             android:minHeight="?attr/actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -45,20 +49,5 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/base_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="62dp"
-        android:background="@color/white"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/latestTrackRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

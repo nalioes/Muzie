@@ -23,4 +23,53 @@
     <string name="title_activity_sc_track"></string>
     <string name="search_the_music">Search Music</string>
 
+    <string-array name="music_genres">
+        <item>soundcloud:genres:all-music</item>
+        <item>soundcloud:genres:all-audio</item>
+        <item>soundcloud:genres:alternativerock</item>
+        <item>soundcloud:genres:ambient</item>
+        <item>soundcloud:genres:classical</item>
+        <item>soundcloud:genres:country</item>
+        <item>soundcloud:genres:danceedm</item>
+        <item>soundcloud:genres:dancehall</item>
+        <item>soundcloud:genres:deephouse</item>
+        <item>soundcloud:genres:disco</item>
+        <item>soundcloud:genres:drumbass</item>
+        <item>soundcloud:genres:dubstep</item>
+        <item>soundcloud:genres:electronic</item>
+        <item>soundcloud:genres:folksingersongwriter</item>
+        <item>soundcloud:genres:hiphoprap</item>
+        <item>soundcloud:genres:house</item>
+        <item>soundcloud:genres:indie</item>
+        <item>soundcloud:genres:jazzblues</item>
+        <item>soundcloud:genres:latin</item>
+        <item>soundcloud:genres:metal</item>
+        <item>soundcloud:genres:piano</item>
+        <item>soundcloud:genres:pop</item>
+        <item>soundcloud:genres:rbsoul</item>
+        <item>soundcloud:genres:reggae</item>
+        <item>soundcloud:genres:reggaeton</item>
+        <item>soundcloud:genres:rock</item>
+        <item>soundcloud:genres:soundtrack</item>
+        <item>soundcloud:genres:techno</item>
+        <item>soundcloud:genres:trance</item>
+        <item>soundcloud:genres:trap</item>
+        <item>soundcloud:genres:triphop</item>
+        <item>soundcloud:genres:world</item>
+    </string-array>
+
+    <string-array name="audio_genres">
+        <item>audiobooks</item>
+        <item>business</item>
+        <item>comedy</item>
+        <item>entertainment</item>
+        <item>learning</item>
+        <item>newspolitics</item>
+        <item>religionspirituality</item>
+        <item>science</item>
+        <item>sports</item>
+        <item>storytelling</item>
+        <item>technology</item>
+    </string-array>
+
 </resources>

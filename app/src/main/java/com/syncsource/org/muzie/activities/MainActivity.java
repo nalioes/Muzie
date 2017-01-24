@@ -34,6 +34,7 @@ import com.syncsource.org.muzie.adapters.PagerAdapter;
 import com.syncsource.org.muzie.adapters.TrackAdapter;
 import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.events.TrackEvent;
+import com.syncsource.org.muzie.fragments.MyYtubeFragment;
 import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
@@ -49,20 +50,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MyYtubeFragment.TrackIntetface {
 
-    SearchView searchView;
-    private RecyclerView recyclerView;
-    ApiClient apiClient;
-    private LinearLayoutManager layoutManager;
-    TrackAdapter adapter;
-    private List<MyTrack> myTracks;
-    private List<MyTrack> myTracksList;
-    private List<MostTrackItem> snippetItems = new ArrayList<>();
-    private List<TrackItem> trackItems = new ArrayList<>();
-    private String token;
-    Parcelable recyclerState;
     TabLayout tabLayout;
+    List<MyTrack> myTracks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +61,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.latestTrackRecycler);
-        apiClient = ApiClient.getApiClientInstance();
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Youtube"));
         tabLayout.addTab(tabLayout.newTab().setText("SoundCloud"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        final PagerAdapter pagerAdapter = new PagerAdapter
-                (getSupportFragmentManager(), tabLayout.getTabCount());
+
+        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -98,53 +87,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.scrollToPosition(0);
-        recyclerView.addOnScrollListener(recyclerViewScroller);
-
-        searchView = (SearchView) findViewById(R.id.searchView);
-        searchView.onActionViewCollapsed();
-        searchView.clearFocus();
-        searchView.setIconifiedByDefault(false);
-        int plateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-        View view = searchView.findViewById(plateId);
-
-        if (view != null) {
-            view.setBackgroundColor(Color.parseColor("#00FFFFFF"));
-            int searchTextId = view.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-            TextView searchText = (TextView) view.findViewById(searchTextId);
-            if (searchText != null) {
-                searchText.setTextColor(Color.WHITE);
-                searchText.setFocusable(false);
-                searchText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent);
-                    }
-                });
-            }
-        }
-        adapter = new TrackAdapter(getApplicationContext());
-        recyclerView.setAdapter(adapter);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-
-                return false;
-            }
-        });
     }
 
     /**
@@ -153,16 +95,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        recyclerState = layoutManager.onSaveInstanceState();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        AnalyticsManager.getObjInstance().sendScreenView(getString(R.string.popular_music_screen));
-        if (recyclerState != null) {
-            layoutManager.onRestoreInstanceState(recyclerState);
-        }
+
     }
 
     @Override
@@ -201,88 +139,16 @@ public class MainActivity extends AppCompatActivity {
     public void myTrackEvent(TrackEvent.OnTrackSyncEvent event) {
         if (event.isSuccess()) {
             myTracks = event.getMyTrack();
-            adapter.addTrackItem(getApplicationContext(), myTracks);
-            recyclerView.setAdapter(adapter);
         }
     }
 
-    private RecyclerView.OnScrollListener recyclerViewScroller = new RecyclerView.OnScrollListener() {
-        private int totalItem, visibleItemCount, firstVisibleItem;
-        private boolean loading = true;
-        private int visibleThreshold = 1;
-        private int previousTotal = 0;
 
-        @Override
-        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-            super.onScrollStateChanged(recyclerView, newState);
-        }
-
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
-            visibleItemCount = recyclerView.getChildCount();
-            totalItem = layoutManager.getItemCount();
-            firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-
-            if (loading) {
-                if (totalItem > previousTotal + 1) {
-                    loading = false;
-                    previousTotal = totalItem;
-                }
-            }
-
-            if (myTracks.size() == Config.TOTAL_ITEM) {
-                loading = false;
-                adapter.enableFooter(false);
-            }
-
-            if (!loading && (totalItem - visibleItemCount) <= (firstVisibleItem + visibleThreshold) && myTracks.size() != Config.TOTAL_ITEM) {
-                apiClient.getNextLatestTrack(myTracks.get(adapter.getItemCount() - 3).getNextToken(), Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
-                loading = true;
-            }
-        }
-    };
-
-    @Subscribe
-    public void eventSnippet(TrackEvent.OnNextLatestSnippetEvent event) {
-        if (event.isSuccess()) {
-            snippetItems = event.getItem();
-            token = event.getToken();
-            getTrackDuration(snippetItems);
-        }
-    }
-
-    @Subscribe
-    public void eventTrack(TrackEvent.OnNextLatestTrackIDEvent event) {
-
-        if (event.isSuccess()) {
-            trackItems = event.getItem();
-            if (snippetItems.size() > 0 && trackItems.size() > 0) {
-                TrackManageUtil trackManageUtil = new TrackManageUtil();
-                myTracksList = trackManageUtil.getMostPopuTrackList(snippetItems, trackItems, token);
-                if (myTracksList.size() > 0) {
-                    for (int i = 0; i < myTracksList.size(); i++) {
-                        myTracks.add(myTracksList.get(i));
-                    }
-                    adapter.addTrackItem(getApplicationContext(), myTracks);
-
-                }
-            }
-        }
-    }
-
-    public void getTrackDuration(List<MostTrackItem> items) {
-        StringBuilder sb = new StringBuilder();
-        if (items.size() > 0) {
-
-            for (int i = 0; i < items.size(); i++) {
-                if (!TextUtils.isEmpty(items.get(i).getId())) {
-                    sb.append(items.get(i).getId() + ",");
-                }
-            }
-            if (!TextUtils.isEmpty(sb)) {
-                apiClient.getNextLatestTrackDuration(Config.CONTENTDETAIL + "," + Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
-            }
+    @Override
+    public List<MyTrack> getMyTrack() {
+        if (myTracks.size() > 0) {
+            return myTracks;
+        } else {
+            return null;
         }
     }
 }

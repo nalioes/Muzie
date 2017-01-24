@@ -8,6 +8,7 @@ import android.view.View;
 import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
+import com.syncsource.org.muzie.model.ScGenreCategory;
 import com.syncsource.org.muzie.model.ScTrackContent;
 import com.syncsource.org.muzie.model.TrackItem;
 
@@ -121,6 +122,21 @@ public class TrackManageUtil {
         }
         return myTracks;
     }
+
+    public static ScGenreCategory getGenreCategory(List<ScTrackContent> trackContents) {
+        if (trackContents.size() > 0) {
+            ScGenreCategory genreCategory = new ScGenreCategory();
+            for (ScTrackContent trackContent : trackContents) {
+                genreCategory.setGenreType(trackContent.getCollection().get(0).getTrack().getGenre());
+                genreCategory.setTitle(trackContent.getCollection().get(0).getTrack().getGenre());
+                genreCategory.setThumbnail(trackContent.getCollection().get(0).getTrack().getArtworkUrl().replace("large", "crop"));
+
+            }
+            return genreCategory;
+        }
+        return null;
+    }
+
 
     public static String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();
