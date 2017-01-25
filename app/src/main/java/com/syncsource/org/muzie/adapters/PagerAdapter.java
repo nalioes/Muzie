@@ -26,7 +26,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 MyYtubeFragment ytubeFragment = new MyYtubeFragment();
                 return ytubeFragment;
             case 1:
-                MyScloudFragment scloudFragment = new MyScloudFragment();
+                MyScloudFragment scloudFragment = MyScloudFragment.scNewInstance();
                 return scloudFragment;
             default:
                 return null;

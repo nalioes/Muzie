@@ -42,7 +42,7 @@ public class GenresCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ItemViewHolder) holder).getBinding().genresCategoryTitle.setText("");
+        ((ItemViewHolder) holder).getBinding().genresCategoryTitle.setText(genresCategory.get(position).getTitle());
         Glide.with(context)
                 .load(genresCategory.get(position).getThumbnail())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)

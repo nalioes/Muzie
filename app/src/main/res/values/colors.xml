@@ -18,6 +18,7 @@
     <color name="test">#2a62ef</color>
     <color name="black">#ef080808</color>
     <color name="sec_black">#ef080808</color>
+    <color name="sc_background_color">#f0f0f2</color>
 
     <color name="background_scview">#ff919191</color>
     <color name="background_trans_scview">#ac212b2c</color>

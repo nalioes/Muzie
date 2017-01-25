@@ -24,8 +24,6 @@
     <string name="search_the_music">Search Music</string>
 
     <string-array name="music_genres">
-        <item>soundcloud:genres:all-music</item>
-        <item>soundcloud:genres:all-audio</item>
         <item>soundcloud:genres:alternativerock</item>
         <item>soundcloud:genres:ambient</item>
         <item>soundcloud:genres:classical</item>

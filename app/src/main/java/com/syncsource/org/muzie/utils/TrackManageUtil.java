@@ -9,6 +9,7 @@ import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
 import com.syncsource.org.muzie.model.ScGenreCategory;
+import com.syncsource.org.muzie.model.ScTrack;
 import com.syncsource.org.muzie.model.ScTrackContent;
 import com.syncsource.org.muzie.model.TrackItem;
 
@@ -123,15 +124,12 @@ public class TrackManageUtil {
         return myTracks;
     }
 
-    public static ScGenreCategory getGenreCategory(List<ScTrackContent> trackContents) {
-        if (trackContents.size() > 0) {
+    public static ScGenreCategory getGenreCategory(ScTrack scTrack) {
+        if (scTrack != null) {
             ScGenreCategory genreCategory = new ScGenreCategory();
-            for (ScTrackContent trackContent : trackContents) {
-                genreCategory.setGenreType(trackContent.getCollection().get(0).getTrack().getGenre());
-                genreCategory.setTitle(trackContent.getCollection().get(0).getTrack().getGenre());
-                genreCategory.setThumbnail(trackContent.getCollection().get(0).getTrack().getArtworkUrl().replace("large", "crop"));
-
-            }
+            genreCategory.setGenreType(scTrack.getGenre());
+            genreCategory.setTitle(scTrack.getGenre());
+            genreCategory.setThumbnail(scTrack.getArtworkUrl().replace("large", "crop"));
             return genreCategory;
         }
         return null;

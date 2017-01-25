@@ -57,7 +57,7 @@ public interface ApiInterface {
 
 
     @GET("/charts?")
-    Call<List<ScTrackContent>> getTopGenreScTrack(@Query("kind") String kind, @Query("genre") String genre, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
+    Call<ScTrackContent> getTopGenreScTrack(@Query("kind") String kind, @Query("genre") String genre, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
 
     @GET("/charts?")
     Call<List<ScTrackContent>> getNextTopGenreScTrack(@Query("kind") String kind, @Query("genre") String genre, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning, @Query("next_href") String next_href);

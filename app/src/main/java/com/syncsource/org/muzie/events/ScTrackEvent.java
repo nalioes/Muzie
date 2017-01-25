@@ -50,18 +50,18 @@ public class ScTrackEvent {
 
     public static class OnTopGenresTrackEvent {
         private boolean success;
-        private List<ScTrackContent> item;
+        private ScTrackContent item;
 
         public static class Builder {
             public boolean success;
-            public List<ScTrackContent> item;
+            public ScTrackContent item;
 
             public Builder isSuccess(boolean success) {
                 this.success = success;
                 return this;
             }
 
-            public Builder setItem(List<ScTrackContent> item) {
+            public Builder setItem(ScTrackContent item) {
                 this.item = item;
                 return this;
             }
@@ -80,7 +80,7 @@ public class ScTrackEvent {
             return success;
         }
 
-        public List<ScTrackContent> getItem() {
+        public ScTrackContent getItem() {
             return item;
         }
     }

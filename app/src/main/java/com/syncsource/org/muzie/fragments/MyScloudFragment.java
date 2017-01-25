@@ -1,5 +1,6 @@
 package com.syncsource.org.muzie.fragments;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.GenresCategoryAdapter;
@@ -39,24 +41,39 @@ public class MyScloudFragment extends Fragment {
     List<ScTrackContent> newHotList = new ArrayList<>();
     List<ScTrackContent> topTrackList = new ArrayList<>();
     GenresCategoryAdapter genresCategoryAdapter;
-    private String[] genreArray;
-    private int genreIndex = 0;
-    final private int itemByCategory = 1;
+    public static String[] genreArray;
+    public static int genreIndex = 0;
+    final public static int itemByCategory = 1;
+    SCInterface scListener;
+
+    public static MyScloudFragment scNewInstance() {
+        MyScloudFragment fragment = new MyScloudFragment();
+
+        return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        scListener = (SCInterface) context;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiClient = ScApiClient.getApiClientInstance();
         genreArray = getActivity().getApplicationContext().getResources().getStringArray(R.array.music_genres);
-        apiClient.getTopGenresTrack(genreArray[genreIndex], itemByCategory);
         genresCategoryAdapter = new GenresCategoryAdapter(getActivity().getApplicationContext());
+        if (scListener != null) {
+            Toast.makeText(getActivity(), "SC", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_s_cloud, container, false);
-        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
+        layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
 
         binding.genreRecycle.setLayoutManager(layoutManager);
         binding.genreRecycle.setHasFixedSize(true);
@@ -96,20 +113,26 @@ public class MyScloudFragment extends Fragment {
 
     @Subscribe
     public void getTopGenres(ScTrackEvent.OnTopGenresTrackEvent topGenres) {
+
+        if (genreIndex + 1 != genreArray.length) {
+            apiClient.getTopGenresTrack(genreArray[++genreIndex], itemByCategory);
+        }
+
         if (topGenres.isSuccess()) {
-            if (topGenres.getItem().size() > 0) {
-                if (TrackManageUtil.getGenreCategory(topGenres.getItem()) != null) {
-                    ScGenreCategory scGenreCategory = TrackManageUtil.getGenreCategory(topGenres.getItem());
-                    scGenreCategory.setQueryGenre(genreArray[genreIndex]);
+            if (topGenres.getItem().getCollection().size() > 0) {
+                if (TrackManageUtil.getGenreCategory(topGenres.getItem().getCollection().get(0).getTrack()) != null) {
+                    ScGenreCategory scGenreCategory = TrackManageUtil.getGenreCategory(topGenres.getItem().getCollection().get(0).getTrack());
+                    scGenreCategory.setQueryGenre(topGenres.getItem().getGenre());
                     genreCategoryList.add(scGenreCategory);
                     genresCategoryAdapter.addNewItemView(genreCategoryList);
                 }
 
-                if (genreIndex + 1 != genreArray.length) {
-                    apiClient.getTopGenresTrack(genreArray[++genreIndex], itemByCategory);
-                }
             }
 
         }
+    }
+
+    public interface SCInterface {
+        boolean scReceived();
     }
 }

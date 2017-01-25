@@ -34,6 +34,7 @@ import com.syncsource.org.muzie.adapters.PagerAdapter;
 import com.syncsource.org.muzie.adapters.TrackAdapter;
 import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.events.TrackEvent;
+import com.syncsource.org.muzie.fragments.MyScloudFragment;
 import com.syncsource.org.muzie.fragments.MyYtubeFragment;
 import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MostTrackItem;
@@ -50,7 +51,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MyYtubeFragment.TrackIntetface {
+public class MainActivity extends AppCompatActivity implements MyYtubeFragment.TrackIntetface, MyScloudFragment.SCInterface {
 
     TabLayout tabLayout;
     List<MyTrack> myTracks = new ArrayList<>();
@@ -74,6 +75,9 @@ public class MainActivity extends AppCompatActivity implements MyYtubeFragment.T
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 1) {
+                    scReceived();
+                }
             }
 
             @Override
@@ -150,5 +154,10 @@ public class MainActivity extends AppCompatActivity implements MyYtubeFragment.T
         } else {
             return null;
         }
+    }
+
+    @Override
+    public boolean scReceived() {
+        return true;
     }
 }

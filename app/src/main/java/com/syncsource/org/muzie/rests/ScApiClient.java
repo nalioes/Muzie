@@ -65,17 +65,17 @@ public class ScApiClient implements ScApiAccess {
 
     @Override
     public void getTopGenresTrack(String genres, int maxNum) {
-        Call<List<ScTrackContent>> call = apiInterface.getTopGenreScTrack(Config.SC_KIND, genres, String.valueOf(maxNum), Config.CLIENT_ID, String.valueOf(1));
-        call.enqueue(new Callback<List<ScTrackContent>>() {
+        Call<ScTrackContent> call = apiInterface.getTopGenreScTrack(Config.SC_KIND, genres, String.valueOf(maxNum), Config.CLIENT_ID, String.valueOf(1));
+        call.enqueue(new Callback<ScTrackContent>() {
             @Override
-            public void onResponse(Call<List<ScTrackContent>> call, Response<List<ScTrackContent>> response) {
+            public void onResponse(Call<ScTrackContent> call, Response<ScTrackContent> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     EventBus.getDefault().post(new ScTrackEvent.OnTopGenresTrackEvent.Builder().isSuccess(true).setItem(response.body()).Build());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<ScTrackContent>> call, Throwable t) {
+            public void onFailure(Call<ScTrackContent> call, Throwable t) {
                 EventBus.getDefault().post(new ScTrackEvent.OnTopGenresTrackEvent.Builder().isSuccess(false).Build());
 
             }
