@@ -31,7 +31,7 @@ public class ScTrack {
     private Integer downloadCount;
     @SerializedName("download_url")
     @Expose
-    private Object downloadUrl;
+    private String downloadUrl;
     @SerializedName("duration")
     @Expose
     private Integer duration;
@@ -55,7 +55,7 @@ public class ScTrack {
     private String kind;
     @SerializedName("label_name")
     @Expose
-    private Object labelName;
+    private String labelName;
     @SerializedName("last_modified")
     @Expose
     private String lastModified;
@@ -88,13 +88,13 @@ public class ScTrack {
     private String purchaseUrl;
     @SerializedName("release_date")
     @Expose
-    private Object releaseDate;
+    private String releaseDate;
     @SerializedName("reposts_count")
     @Expose
     private Integer repostsCount;
     @SerializedName("secret_token")
     @Expose
-    private Object secretToken;
+    private String secretToken;
     @SerializedName("sharing")
     @Expose
     private String sharing;
@@ -121,7 +121,7 @@ public class ScTrack {
     private Integer userId;
     @SerializedName("visuals")
     @Expose
-    private Object visuals;
+    private String visuals;
     @SerializedName("waveform_url")
     @Expose
     private String waveformUrl;
@@ -163,7 +163,7 @@ public class ScTrack {
         return downloadCount;
     }
 
-    public Object getDownloadUrl() {
+    public String getDownloadUrl() {
         return downloadUrl;
     }
 
@@ -195,7 +195,7 @@ public class ScTrack {
         return kind;
     }
 
-    public Object getLabelName() {
+    public String getLabelName() {
         return labelName;
     }
 
@@ -239,7 +239,7 @@ public class ScTrack {
         return purchaseUrl;
     }
 
-    public Object getReleaseDate() {
+    public String getReleaseDate() {
         return releaseDate;
     }
 
@@ -247,7 +247,7 @@ public class ScTrack {
         return repostsCount;
     }
 
-    public Object getSecretToken() {
+    public String getSecretToken() {
         return secretToken;
     }
 
@@ -283,7 +283,7 @@ public class ScTrack {
         return userId;
     }
 
-    public Object getVisuals() {
+    public String getVisuals() {
         return visuals;
     }
 

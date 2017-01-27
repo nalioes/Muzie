@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.Tracker;
 import com.syncsource.org.muzie.R;
@@ -235,5 +236,11 @@ public class MyYtubeFragment extends Fragment {
 
     public interface TrackIntetface {
         List<MyTrack> getMyTrack();
+    }
+
+    public void onReceivedYT(boolean result) {
+        if (result) {
+
+        }
     }
 }

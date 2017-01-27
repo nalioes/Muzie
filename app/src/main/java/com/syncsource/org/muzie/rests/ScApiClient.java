@@ -65,7 +65,7 @@ public class ScApiClient implements ScApiAccess {
 
     @Override
     public void getTopGenresTrack(String genres, int maxNum) {
-        Call<ScTrackContent> call = apiInterface.getTopGenreScTrack(Config.SC_KIND, genres, String.valueOf(maxNum), Config.CLIENT_ID, String.valueOf(1));
+        Call<ScTrackContent> call = apiInterface.getTopGenreScTrack(Config.SC_KIND_TOP, genres, String.valueOf(maxNum), Config.CLIENT_ID, String.valueOf(1));
         call.enqueue(new Callback<ScTrackContent>() {
             @Override
             public void onResponse(Call<ScTrackContent> call, Response<ScTrackContent> response) {
@@ -83,19 +83,38 @@ public class ScApiClient implements ScApiAccess {
     }
 
     @Override
-    public void getMostPopularTrack() {
-        Call<List<ScTrackContent>> call = apiInterface.getTopScTrack(Config.SC_KIND, Config.SC_MAX_NUMBER, Config.CLIENT_ID, String.valueOf(1));
-        call.enqueue(new Callback<List<ScTrackContent>>() {
+    public void getTopPopularTrack() {
+        Call<ScTrackContent> call = apiInterface.getTopScTrack(Config.SC_KIND_TOP, Config.SC_MAX_NUMBER, Config.CLIENT_ID, String.valueOf(1));
+        call.enqueue(new Callback<ScTrackContent>() {
             @Override
-            public void onResponse(Call<List<ScTrackContent>> call, Response<List<ScTrackContent>> response) {
+            public void onResponse(Call<ScTrackContent> call, Response<ScTrackContent> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    EventBus.getDefault().post(new ScTrackEvent.OnMostPopularTrackEvent.Builder().isSuccess(true).setItem(response.body()).Build());
+                    EventBus.getDefault().post(new ScTrackEvent.OnTopTrackEvent.Builder().isSuccess(true).setItem(response.body()).Build());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<ScTrackContent>> call, Throwable t) {
-                EventBus.getDefault().post(new ScTrackEvent.OnMostPopularTrackEvent.Builder().isSuccess(false).Build());
+            public void onFailure(Call<ScTrackContent> call, Throwable t) {
+                EventBus.getDefault().post(new ScTrackEvent.OnTopTrackEvent.Builder().isSuccess(false).Build());
+
+            }
+        });
+    }
+
+    @Override
+    public void getNewHotTrack() {
+        Call<ScTrackContent> call = apiInterface.getTopNewHotScTrack(Config.SC_KIND_TRENDING, Config.SC_NEW_HOT_MAX_NUMBER, Config.CLIENT_ID, String.valueOf(1));
+        call.enqueue(new Callback<ScTrackContent>() {
+            @Override
+            public void onResponse(Call<ScTrackContent> call, Response<ScTrackContent> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    EventBus.getDefault().post(new ScTrackEvent.OnNewHotTrackEvent.Builder().isSuccess(true).setItem(response.body()).Build());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ScTrackContent> call, Throwable t) {
+                EventBus.getDefault().post(new ScTrackEvent.OnNewHotTrackEvent.Builder().isSuccess(false).Build());
 
             }
         });

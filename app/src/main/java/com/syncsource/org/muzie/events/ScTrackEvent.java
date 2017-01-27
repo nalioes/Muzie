@@ -11,30 +11,30 @@ import java.util.List;
 
 public class ScTrackEvent {
 
-    public static class OnMostPopularTrackEvent {
+    public static class OnTopTrackEvent {
         private boolean success;
-        private List<ScTrackContent> item;
+        private ScTrackContent item;
 
         public static class Builder {
             public boolean success;
-            public List<ScTrackContent> item;
+            public ScTrackContent item;
 
             public Builder isSuccess(boolean success) {
                 this.success = success;
                 return this;
             }
 
-            public Builder setItem(List<ScTrackContent> item) {
+            public Builder setItem(ScTrackContent item) {
                 this.item = item;
                 return this;
             }
 
-            public OnMostPopularTrackEvent Build() {
-                return new OnMostPopularTrackEvent(this);
+            public OnTopTrackEvent Build() {
+                return new OnTopTrackEvent(this);
             }
         }
 
-        public OnMostPopularTrackEvent(Builder builder) {
+        public OnTopTrackEvent(Builder builder) {
             this.success = builder.success;
             this.item = builder.item;
         }
@@ -43,7 +43,7 @@ public class ScTrackEvent {
             return success;
         }
 
-        public List<ScTrackContent> getItem() {
+        public ScTrackContent getItem() {
             return item;
         }
     }
@@ -72,6 +72,43 @@ public class ScTrackEvent {
         }
 
         public OnTopGenresTrackEvent(Builder builder) {
+            this.success = builder.success;
+            this.item = builder.item;
+        }
+
+        public boolean isSuccess() {
+            return success;
+        }
+
+        public ScTrackContent getItem() {
+            return item;
+        }
+    }
+
+    public static class OnNewHotTrackEvent {
+        private boolean success;
+        private ScTrackContent item;
+
+        public static class Builder {
+            public boolean success;
+            public ScTrackContent item;
+
+            public Builder isSuccess(boolean success) {
+                this.success = success;
+                return this;
+            }
+
+            public Builder setItem(ScTrackContent item) {
+                this.item = item;
+                return this;
+            }
+
+            public OnNewHotTrackEvent Build() {
+                return new OnNewHotTrackEvent(this);
+            }
+        }
+
+        public OnNewHotTrackEvent(Builder builder) {
             this.success = builder.success;
             this.item = builder.item;
         }

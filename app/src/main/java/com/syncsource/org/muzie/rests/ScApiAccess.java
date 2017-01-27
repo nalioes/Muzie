@@ -8,7 +8,9 @@ public interface ScApiAccess {
 
     void getSearchScTrack(String query, String limit, String client_id);
 
-    void getMostPopularTrack();
+    void getTopPopularTrack();
 
     void getTopGenresTrack(String genres, int num);
+
+    void getNewHotTrack();
 }

@@ -48,9 +48,14 @@ public interface ApiInterface {
     @GET("/tracks/{track_id}/related?")
     Call<List<ScTrackContent>> getRelatedScTrack(@Path("track_id") String track_id, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
 
+    @GET("/charts?")
+    Call<ScTrackContent> getTopNewHotScTrack(@Query("kind") String kind, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
 
     @GET("/charts?")
-    Call<List<ScTrackContent>> getTopScTrack(@Query("kind") String kind, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
+    Call<List<ScTrackContent>> getNextTopNewHotScTrack(@Query("kind") String kind, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning, @Query("next_href") String next_href);
+
+    @GET("/charts?")
+    Call<ScTrackContent> getTopScTrack(@Query("kind") String kind, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning);
 
     @GET("/charts?")
     Call<List<ScTrackContent>> getNextTopScTrack(@Query("kind") String kind, @Query("limit") String limit, @Query("client_id") String clientId, @Query("linked_partitioning") String linked_partitioning, @Query("next_href") String next_href);

@@ -1,60 +1,34 @@
 package com.syncsource.org.muzie.activities;
 
-import android.app.ActivityOptions;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.os.PersistableBundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewTreeObserver;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.FrameLayout;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.syncsource.org.muzie.R;
-
 import com.syncsource.org.muzie.adapters.PagerAdapter;
-import com.syncsource.org.muzie.adapters.TrackAdapter;
-import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.fragments.MyScloudFragment;
 import com.syncsource.org.muzie.fragments.MyYtubeFragment;
-import com.syncsource.org.muzie.model.Item;
-import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
-import com.syncsource.org.muzie.model.TrackItem;
-import com.syncsource.org.muzie.rests.ApiClient;
-import com.syncsource.org.muzie.utils.Config;
-import com.syncsource.org.muzie.utils.TrackManageUtil;
-
+import com.syncsource.org.muzie.model.ScTrackContent;
+import com.syncsource.org.muzie.rests.ScApiClient;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MyYtubeFragment.TrackIntetface, MyScloudFragment.SCInterface {
+public class MainActivity extends AppCompatActivity implements MyYtubeFragment.TrackIntetface {
 
     TabLayout tabLayout;
     List<MyTrack> myTracks = new ArrayList<>();
+    ScApiClient scApiClient;
+    ScTrackContent newHotBody;
+    ScTrackContent topTrackBody;
+    PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,17 +41,22 @@ public class MainActivity extends AppCompatActivity implements MyYtubeFragment.T
         tabLayout.addTab(tabLayout.newTab().setText("SoundCloud"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-
-        final PagerAdapter pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+
                 if (tab.getPosition() == 1) {
-                    scReceived();
+                    MyScloudFragment scloudFragment = (MyScloudFragment) pagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
+                    scloudFragment.onReceivedSC(true);
+                } else {
+                    MyYtubeFragment ytubeFragment = (MyYtubeFragment) pagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
+                    ytubeFragment.onReceivedYT(true);
                 }
+
             }
 
             @Override
@@ -146,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements MyYtubeFragment.T
         }
     }
 
-
     @Override
     public List<MyTrack> getMyTrack() {
         if (myTracks.size() > 0) {
@@ -154,10 +132,5 @@ public class MainActivity extends AppCompatActivity implements MyYtubeFragment.T
         } else {
             return null;
         }
-    }
-
-    @Override
-    public boolean scReceived() {
-        return true;
     }
 }

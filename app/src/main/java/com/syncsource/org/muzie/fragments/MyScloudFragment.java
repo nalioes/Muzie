@@ -1,5 +1,6 @@
 package com.syncsource.org.muzie.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -35,38 +36,32 @@ import java.util.List;
 public class MyScloudFragment extends Fragment {
     FragmentSCloudBinding binding;
     private LinearLayoutManager layoutManager;
-    ScApiClient apiClient;
+    ScApiClient scApiClient;
     Parcelable recyclerState;
     List<ScGenreCategory> genreCategoryList = new ArrayList<>();
-    List<ScTrackContent> newHotList = new ArrayList<>();
+    ScTrackContent newHotList;
     List<ScTrackContent> topTrackList = new ArrayList<>();
     GenresCategoryAdapter genresCategoryAdapter;
     public static String[] genreArray;
     public static int genreIndex = 0;
     final public static int itemByCategory = 1;
-    SCInterface scListener;
 
     public static MyScloudFragment scNewInstance() {
         MyScloudFragment fragment = new MyScloudFragment();
-
         return fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        scListener = (SCInterface) context;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        apiClient = ScApiClient.getApiClientInstance();
+        scApiClient = ScApiClient.getApiClientInstance();
+        scApiClient.getNewHotTrack();
+
         genreArray = getActivity().getApplicationContext().getResources().getStringArray(R.array.music_genres);
+        scApiClient.getTopGenresTrack(genreArray[genreIndex], itemByCategory);
         genresCategoryAdapter = new GenresCategoryAdapter(getActivity().getApplicationContext());
-        if (scListener != null) {
-            Toast.makeText(getActivity(), "SC", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     @Nullable
@@ -115,7 +110,7 @@ public class MyScloudFragment extends Fragment {
     public void getTopGenres(ScTrackEvent.OnTopGenresTrackEvent topGenres) {
 
         if (genreIndex + 1 != genreArray.length) {
-            apiClient.getTopGenresTrack(genreArray[++genreIndex], itemByCategory);
+            scApiClient.getTopGenresTrack(genreArray[++genreIndex], itemByCategory);
         }
 
         if (topGenres.isSuccess()) {
@@ -132,7 +127,28 @@ public class MyScloudFragment extends Fragment {
         }
     }
 
-    public interface SCInterface {
-        boolean scReceived();
+    @Subscribe
+    public void getNewHotItem(final ScTrackEvent.OnNewHotTrackEvent newHot) {
+        scApiClient.getTopPopularTrack();
+        if (newHot.isSuccess()) {
+            newHotList = newHot.getItem();
+        }
+    }
+
+    @Subscribe
+    public void getTopItem(final ScTrackEvent.OnTopTrackEvent topTrack) {
+        if (topTrack.isSuccess()) {
+            if (topTrack.getItem().getCollection().size() > 0) {
+
+            }
+        }
+    }
+
+    public void onReceivedSC(boolean isSc) {
+        if (isSc) {
+            if (genreIndex + 1 != genreArray.length) {
+                scApiClient.getTopGenresTrack(genreArray[++genreIndex], itemByCategory);
+            }
+        }
     }
 }

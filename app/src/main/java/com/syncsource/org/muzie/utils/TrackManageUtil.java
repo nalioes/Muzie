@@ -129,7 +129,7 @@ public class TrackManageUtil {
             ScGenreCategory genreCategory = new ScGenreCategory();
             genreCategory.setGenreType(scTrack.getGenre());
             genreCategory.setTitle(scTrack.getGenre());
-            genreCategory.setThumbnail(scTrack.getArtworkUrl().replace("large", "crop"));
+            genreCategory.setThumbnail(scTrack.getArtworkUrl().replace("large", "t500x500"));
             return genreCategory;
         }
         return null;

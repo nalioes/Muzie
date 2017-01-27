@@ -15,6 +15,7 @@ import com.crashlytics.android.Crashlytics;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.ScTrackEvent;
 import com.syncsource.org.muzie.events.TrackEvent;
+import com.syncsource.org.muzie.fragments.MyScloudFragment;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
 import com.syncsource.org.muzie.model.TrackItem;
@@ -34,7 +35,6 @@ import java.util.List;
 public class LoadingActivity extends AppCompatActivity {
 
     private ApiClient apiClient;
-    private ScApiClient scApiClient;
     private List<MostTrackItem> snippetItems = new ArrayList<>();
     private String token;
     private List<TrackItem> trackItems = new ArrayList<>();
@@ -53,8 +53,8 @@ public class LoadingActivity extends AppCompatActivity {
         initBgImage = (ImageView) findViewById(R.id.init_bg_image);
         progress = (ProgressBar) findViewById(R.id.load_more);
         apiClient = ApiClient.getApiClientInstance();
-        scApiClient = ScApiClient.getApiClientInstance();
         errorLayout.setVisibility(View.GONE);
+
         apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
         reloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,7 +85,6 @@ public class LoadingActivity extends AppCompatActivity {
             snippetItems = event.getItem();
             token = event.getToken();
             getTrackDuration(snippetItems);
-            scApiClient.getMostPopularTrack();
 
         } else {
             progress.setVisibility(View.GONE);
@@ -130,20 +129,6 @@ public class LoadingActivity extends AppCompatActivity {
             }
             if (!TextUtils.isEmpty(sb)) {
                 apiClient.getLatestTrackDuration(Config.CONTENTDETAIL + "," + Config.STATISTICS, sb.toString(), Config.SEARCH_APIKEY);
-            }
-        }
-    }
-
-    @Subscribe
-    public void getMostTrack(ScTrackEvent.OnMostPopularTrackEvent mostTrack) {
-        List<MyTrack> myScTracks = new ArrayList<>();
-        if (mostTrack.isSuccess()) {
-//            getTrackDuration(snippetItems);
-            myScTracks = new TrackManageUtil().getScTrackList(mostTrack.getItem());
-            if (myScTracks.size() > 0) {
-                for (MyTrack myTrack : myScTracks) {
-                    myTrackList.add(myTrack);
-                }
             }
         }
     }

@@ -13,13 +13,13 @@ public class ScCollection {
     private ScTrack track;
     @SerializedName("score")
     @Expose
-    private Integer score;
+    private Double score;
 
     public ScTrack getTrack() {
         return track;
     }
 
-    public Integer getScore() {
+    public Double getScore() {
         return score;
     }
 }

@@ -11,14 +11,14 @@
 
     <color name="background_color">#fdfdfe</color>
     <color name="separator_color">#ffd5d6d9</color>
-    <color name="genres_color_trans">#5bd5d6d9</color>
+    <color name="genres_color_trans">#00f7f7f7</color>
     <color name="search_background_color">#f9f9f9</color>
     <color name="txt_color">#ff686868</color>
     <color name="white">#ffffff</color>
     <color name="test">#2a62ef</color>
     <color name="black">#ef080808</color>
     <color name="sec_black">#ef080808</color>
-    <color name="sc_background_color">#f0f0f2</color>
+    <color name="sc_background_color">#FFF7F7F7</color>
 
     <color name="background_scview">#ff919191</color>
     <color name="background_trans_scview">#ac212b2c</color>
