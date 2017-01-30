@@ -69,5 +69,6 @@
         <item>storytelling</item>
         <item>technology</item>
     </string-array>
+    <string name="title_activity_top_sound_cloud">TopSoundCloudActivity</string>
 
 </resources>

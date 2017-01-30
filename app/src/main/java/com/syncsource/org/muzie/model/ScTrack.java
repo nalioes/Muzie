@@ -119,9 +119,9 @@ public class ScTrack {
     @SerializedName("user_id")
     @Expose
     private Integer userId;
-    @SerializedName("visuals")
-    @Expose
-    private String visuals;
+    //    @SerializedName("visuals")
+//    @Expose
+//    private String visuals;
     @SerializedName("waveform_url")
     @Expose
     private String waveformUrl;
@@ -283,9 +283,9 @@ public class ScTrack {
         return userId;
     }
 
-    public String getVisuals() {
-        return visuals;
-    }
+//    public String getVisuals() {
+//        return visuals;
+//    }
 
     public String getWaveformUrl() {
         return waveformUrl;

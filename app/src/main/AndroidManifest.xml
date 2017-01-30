@@ -17,8 +17,8 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/app_name" />
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LoadingActivity"
             android:label="@string/title_activity_loading"
@@ -45,11 +45,16 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="92f044e9a47ae011d2291a3c4855f5ec5f830695" />
+
         <activity
             android:name=".ScTrackActivity"
             android:label="@string/title_activity_sc_track"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity
+            android:name=".TopSoundCloudActivity"
+            android:label="@string/title_activity_top_sound_cloud"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

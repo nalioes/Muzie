@@ -9,7 +9,7 @@ public class Config {
     public static final String CLIENT_ID = "6dbfcdd828adf44359b78580fe4d6023";
 
     public static final String MAX_NUMBER = "10";
-    public static final String SC_MAX_NUMBER = "15";
+    public static final String SC_MAX_NUMBER = "50";
     public static final String SC_NEW_HOT_MAX_NUMBER = "50";
     public static final String URL = "https://www.google.com/";
     public static final String SC_URL = "https://api.soundcloud.com";

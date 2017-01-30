@@ -18,7 +18,7 @@
     <color name="test">#2a62ef</color>
     <color name="black">#ef080808</color>
     <color name="sec_black">#ef080808</color>
-    <color name="sc_background_color">#FFF7F7F7</color>
+    <color name="sc_background_color">#fffefe</color>
 
     <color name="background_scview">#ff919191</color>
     <color name="background_trans_scview">#ac212b2c</color>
@@ -26,6 +26,7 @@
     <color name="divx_light_gray">#ff919191</color>
     <color name="white_text">#ffffffff</color>
     <color name="transparent">#00ffffff</color>
+    <color name="view_transparent">#38ffffff</color>
     <color name="sc_background_trans">#98fdfdfe</color>
     <color name="genres_txt_color">#ff686868</color>
 </resources>

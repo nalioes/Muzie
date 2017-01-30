@@ -1,6 +1,7 @@
 package com.syncsource.org.muzie.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.TopSoundCloudActivity;
 import com.syncsource.org.muzie.databinding.ItemGenresCategoryBinding;
 import com.syncsource.org.muzie.model.ScGenreCategory;
 import com.syncsource.org.muzie.model.ScTrackContent;
@@ -47,6 +49,14 @@ public class GenresCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                 .load(genresCategory.get(position).getThumbnail())
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(((ItemViewHolder) holder).getBinding().backgroundImage);
+        ((ItemViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, TopSoundCloudActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

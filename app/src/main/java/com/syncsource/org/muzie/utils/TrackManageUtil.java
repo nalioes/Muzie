@@ -8,6 +8,7 @@ import android.view.View;
 import com.syncsource.org.muzie.model.Item;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
+import com.syncsource.org.muzie.model.SCMusic;
 import com.syncsource.org.muzie.model.ScGenreCategory;
 import com.syncsource.org.muzie.model.ScTrack;
 import com.syncsource.org.muzie.model.ScTrackContent;
@@ -135,6 +136,36 @@ public class TrackManageUtil {
         return null;
     }
 
+    public static List<SCMusic> getScTopMusicList(ScTrackContent content) {
+        List<SCMusic> scMusics = new ArrayList<>();
+        if (content.getCollection().size() > 0) {
+            for (int i = 0; i < content.getCollection().size(); i++) {
+                SCMusic music = new SCMusic();
+                ScTrack track = content.getCollection().get(i).getTrack();
+                music.setTitle(track.getTitle());
+                music.setArtist_name(track.getUser().getUsername());
+                music.setCreated_at("");
+                music.setDuration(milliSecondsToTimer(track.getDuration()));
+                music.setGenre(track.getGenre());
+                music.setId(track.getId());
+                if (track.getLikesCount() > 0) {
+                    music.setLikes_count(convertViewCount(String.valueOf(track.getLikesCount())));
+                }
+                if (track.getPlaybackCount() > 0) {
+                    music.setPlayback_count(convertViewCount(String.valueOf(track.getPlaybackCount())));
+                }
+                music.setKind(content.getKind());
+                music.setStreamUrl(track.getUri() + "/stream");
+                if (!TextUtils.isEmpty(track.getArtworkUrl())) {
+                    music.setThumbnail(track.getArtworkUrl().replace("large", "t500x500"));
+                }
+
+                scMusics.add(music);
+            }
+
+        }
+        return scMusics;
+    }
 
     public static String getCurrentTime() {
         Calendar calendar = Calendar.getInstance();

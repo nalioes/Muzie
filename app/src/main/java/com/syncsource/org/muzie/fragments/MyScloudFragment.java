@@ -2,11 +2,13 @@ package com.syncsource.org.muzie.fragments;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +16,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.TopSoundCloudActivity;
 import com.syncsource.org.muzie.adapters.GenresCategoryAdapter;
+import com.syncsource.org.muzie.adapters.NewHotAdapter;
+import com.syncsource.org.muzie.adapters.TopAdapter;
 import com.syncsource.org.muzie.analytics.AnalyticsManager;
 import com.syncsource.org.muzie.databinding.FragmentSCloudBinding;
 import com.syncsource.org.muzie.events.ScTrackEvent;
+import com.syncsource.org.muzie.model.SCMusic;
 import com.syncsource.org.muzie.model.ScGenreCategory;
 import com.syncsource.org.muzie.model.ScTrackContent;
 import com.syncsource.org.muzie.rests.ScApiClient;
@@ -36,12 +42,17 @@ import java.util.List;
 public class MyScloudFragment extends Fragment {
     FragmentSCloudBinding binding;
     private LinearLayoutManager layoutManager;
+    private LinearLayoutManager newHotLayoutManager;
+
     ScApiClient scApiClient;
     Parcelable recyclerState;
     List<ScGenreCategory> genreCategoryList = new ArrayList<>();
-    ScTrackContent newHotList;
-    List<ScTrackContent> topTrackList = new ArrayList<>();
+    List<SCMusic> newHotList = new ArrayList<>();
+    List<SCMusic> topMusics = new ArrayList<>();
+
     GenresCategoryAdapter genresCategoryAdapter;
+    NewHotAdapter newHotAdapter;
+    TopAdapter topAdapter;
     public static String[] genreArray;
     public static int genreIndex = 0;
     final public static int itemByCategory = 1;
@@ -61,6 +72,8 @@ public class MyScloudFragment extends Fragment {
         genreArray = getActivity().getApplicationContext().getResources().getStringArray(R.array.music_genres);
         scApiClient.getTopGenresTrack(genreArray[genreIndex], itemByCategory);
         genresCategoryAdapter = new GenresCategoryAdapter(getActivity().getApplicationContext());
+        newHotAdapter = new NewHotAdapter(getActivity().getApplicationContext());
+        topAdapter = new TopAdapter(getActivity().getApplicationContext());
 
     }
 
@@ -69,6 +82,7 @@ public class MyScloudFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_s_cloud, container, false);
         layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
+        newHotLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
 
         binding.genreRecycle.setLayoutManager(layoutManager);
         binding.genreRecycle.setHasFixedSize(true);
@@ -76,6 +90,25 @@ public class MyScloudFragment extends Fragment {
         binding.genreRecycle.scrollToPosition(0);
         binding.genreRecycle.setAdapter(genresCategoryAdapter);
 
+        binding.newHotRecycle.setLayoutManager(newHotLayoutManager);
+        binding.newHotRecycle.setHasFixedSize(true);
+        binding.newHotRecycle.setNestedScrollingEnabled(false);
+        binding.newHotRecycle.scrollToPosition(0);
+        binding.newHotRecycle.setAdapter(newHotAdapter);
+
+        binding.topTracksRecycle.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        binding.topTracksRecycle.setHasFixedSize(true);
+        binding.topTracksRecycle.setNestedScrollingEnabled(false);
+        binding.topTracksRecycle.scrollToPosition(0);
+        binding.topTracksRecycle.setAdapter(topAdapter);
+
+        binding.moreView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(), TopSoundCloudActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
         return binding.getRoot();
     }
 
@@ -121,7 +154,6 @@ public class MyScloudFragment extends Fragment {
                     genreCategoryList.add(scGenreCategory);
                     genresCategoryAdapter.addNewItemView(genreCategoryList);
                 }
-
             }
 
         }
@@ -131,15 +163,19 @@ public class MyScloudFragment extends Fragment {
     public void getNewHotItem(final ScTrackEvent.OnNewHotTrackEvent newHot) {
         scApiClient.getTopPopularTrack();
         if (newHot.isSuccess()) {
-            newHotList = newHot.getItem();
+            newHotList = TrackManageUtil.getScTopMusicList(newHot.getItem());
+            if (newHotList.size() > 0) {
+                newHotAdapter.addMoreData(newHotList);
+            }
         }
     }
 
     @Subscribe
     public void getTopItem(final ScTrackEvent.OnTopTrackEvent topTrack) {
         if (topTrack.isSuccess()) {
-            if (topTrack.getItem().getCollection().size() > 0) {
-
+            topMusics = TrackManageUtil.getScTopMusicList(topTrack.getItem());
+            if (topMusics.size() > 0) {
+                topAdapter.addMoreItem(topMusics);
             }
         }
     }
