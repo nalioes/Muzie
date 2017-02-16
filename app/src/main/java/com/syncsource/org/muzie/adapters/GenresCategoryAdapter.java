@@ -43,7 +43,7 @@ public class GenresCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ((ItemViewHolder) holder).getBinding().genresCategoryTitle.setText(genresCategory.get(position).getTitle());
         Glide.with(context)
                 .load(genresCategory.get(position).getThumbnail())
@@ -52,7 +52,7 @@ public class GenresCategoryAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         ((ItemViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, TopSoundCloudActivity.class);
+                Intent intent = TopSoundCloudActivity.getIntentNewObj(context, genresCategory.get(position).getKind(), genresCategory.get(position).getGenreType(), genresCategory.get(position).getQueryGenre());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

@@ -5,10 +5,19 @@ package com.syncsource.org.muzie.model;
  */
 
 public class ScGenreCategory {
+    private String kind;
     private String thumbnail;
     private String title;
     private String queryGenre;
     private String genreType;
+
+    public String getKind() {
+        return kind;
+    }
+
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
 
     public String getThumbnail() {
         return thumbnail;

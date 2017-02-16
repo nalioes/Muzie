@@ -27,6 +27,7 @@ import com.syncsource.org.muzie.model.SCMusic;
 import com.syncsource.org.muzie.model.ScGenreCategory;
 import com.syncsource.org.muzie.model.ScTrackContent;
 import com.syncsource.org.muzie.rests.ScApiClient;
+import com.syncsource.org.muzie.utils.Config;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -105,7 +106,7 @@ public class MyScloudFragment extends Fragment {
         binding.moreView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), TopSoundCloudActivity.class);
+                Intent intent = TopSoundCloudActivity.getIntentNewInstance(getActivity().getApplicationContext(), Config.SC_KIND_TRENDING);
                 getActivity().startActivity(intent);
             }
         });
@@ -151,11 +152,11 @@ public class MyScloudFragment extends Fragment {
                 if (TrackManageUtil.getGenreCategory(topGenres.getItem().getCollection().get(0).getTrack()) != null) {
                     ScGenreCategory scGenreCategory = TrackManageUtil.getGenreCategory(topGenres.getItem().getCollection().get(0).getTrack());
                     scGenreCategory.setQueryGenre(topGenres.getItem().getGenre());
+                    scGenreCategory.setKind(topGenres.getItem().getKind());
                     genreCategoryList.add(scGenreCategory);
                     genresCategoryAdapter.addNewItemView(genreCategoryList);
                 }
             }
-
         }
     }
 
