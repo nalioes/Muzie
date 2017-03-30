@@ -38,7 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchActivity extends AppCompatActivity implements SearchResultFragment.MyTrackDataInterface {
+public class SearchActivity extends BaseActivity implements SearchResultFragment.MyTrackDataInterface {
 
     private ApiClient apiClient;
     private List<Item> snippetItems = new ArrayList<>();
@@ -135,17 +135,6 @@ public class SearchActivity extends AppCompatActivity implements SearchResultFra
         AnalyticsManager.getObjInstance().sendScreenView(getString(R.string.search_music_screen));
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        EventBus.getDefault().unregister(this);
-        super.onStop();
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

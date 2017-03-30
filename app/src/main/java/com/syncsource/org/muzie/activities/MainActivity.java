@@ -21,7 +21,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MyYtubeFragment.TrackIntetface {
+public class MainActivity extends BaseActivity implements MyYtubeFragment.TrackIntetface {
 
     TabLayout tabLayout;
     List<MyTrack> myTracks = new ArrayList<>();
@@ -84,18 +84,6 @@ public class MainActivity extends AppCompatActivity implements MyYtubeFragment.T
     protected void onResume() {
         super.onResume();
 
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
     @Override

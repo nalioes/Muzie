@@ -81,6 +81,7 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:4.48'
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'me.pushy:sdk:1.0.10'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.google.android.gms:play-services-analytics:9.0.2'
     compile files('libs/YouTubeAndroidPlayerApi.jar')

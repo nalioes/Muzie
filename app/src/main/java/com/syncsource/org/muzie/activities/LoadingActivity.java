@@ -1,9 +1,12 @@
 package com.syncsource.org.muzie.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.syncsource.org.muzie.MuzieApp;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.ScTrackEvent;
 import com.syncsource.org.muzie.events.TrackEvent;
@@ -22,9 +26,11 @@ import com.syncsource.org.muzie.model.TrackItem;
 import com.syncsource.org.muzie.rests.ApiClient;
 import com.syncsource.org.muzie.rests.ScApiClient;
 import com.syncsource.org.muzie.utils.Config;
+import com.syncsource.org.muzie.utils.NetworkChecker;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
 import io.fabric.sdk.android.Fabric;
+import me.pushy.sdk.Pushy;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -32,7 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends BaseActivity {
 
     private ApiClient apiClient;
     private List<MostTrackItem> snippetItems = new ArrayList<>();
@@ -42,6 +48,7 @@ public class LoadingActivity extends AppCompatActivity {
     private LinearLayout errorLayout;
     private Button reloadButton;
     private ImageView initBgImage;
+    private String registrationID;
     ProgressBar progress;
 
     @Override
@@ -54,7 +61,9 @@ public class LoadingActivity extends AppCompatActivity {
         progress = (ProgressBar) findViewById(R.id.load_more);
         apiClient = ApiClient.getApiClientInstance();
         errorLayout.setVisibility(View.GONE);
-
+        if (NetworkChecker.isNetworkAvailable(this)) {
+            new RegisterForPushNotificationsAsync().execute();
+        }
         apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
         reloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,18 +74,6 @@ public class LoadingActivity extends AppCompatActivity {
                 apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
     @Subscribe
@@ -132,4 +129,46 @@ public class LoadingActivity extends AppCompatActivity {
             }
         }
     }
+
+    private class RegisterForPushNotificationsAsync extends AsyncTask<Void, Void, Exception> {
+        protected Exception doInBackground(Void... params) {
+            try {
+                // Ask Pushy to assign a unique registration ID to this device
+                registrationID = Pushy.register(MuzieApp.getContext());
+                Log.d("REGIS ID", registrationID);
+                // Send the registration ID to your backend server via an HTTP GET request
+
+            } catch (Exception exc) {
+                // Return exc to onPostExecute
+                return exc;
+            }
+
+            // Success
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Exception exc) {
+            // Failed?
+            if (exc != null) {
+
+                final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(LoadingActivity.this);
+                builder.setTitle("Connection Error");
+                builder.setMessage("A private connection can't be established because your device's date and time are incorrect or something was wrong.");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+
+//                Toast.makeText(CityExpressApp.getContext(), exc.toString(), Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            // Succeeded, do something to alert the user
+        }
+    }
+
 }
