@@ -104,7 +104,9 @@
 -keep public class com.android.vending.licensing.ILicensingService
 
 -keepattributes Signature
-
+-keepclassmembers class com.syncsource.org.muzie.model.**{
+public *;
+}
 # For using GSON @Expose annotation
 -keepattributes *Annotation*
 

@@ -15,6 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.syncsource.org.muzie.BuildConfig;
 import com.syncsource.org.muzie.MuzieApp;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.events.ScTrackEvent;
@@ -23,6 +30,7 @@ import com.syncsource.org.muzie.fragments.MyScloudFragment;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
 import com.syncsource.org.muzie.model.TrackItem;
+import com.syncsource.org.muzie.model.Version;
 import com.syncsource.org.muzie.rests.ApiClient;
 import com.syncsource.org.muzie.rests.ScApiClient;
 import com.syncsource.org.muzie.utils.Config;
@@ -50,6 +58,8 @@ public class LoadingActivity extends BaseActivity {
     private ImageView initBgImage;
     private String registrationID;
     ProgressBar progress;
+    public static final String FIREBASE_URL = "https://musync-141018.firebaseio.com/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +82,30 @@ public class LoadingActivity extends BaseActivity {
                 progress.setVisibility(View.VISIBLE);
                 initBgImage.setVisibility(View.VISIBLE);
                 apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
+            }
+        });
+        Firebase.setAndroidContext(this);
+        Firebase ref = new Firebase(FIREBASE_URL);
+        final Version version = new Version();
+        version.setVersionCode(String.valueOf(1000));
+        version.setVersionName("release version");
+        ref.child("Version").setValue(version);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    //Getting the data from snapshot
+                    Version ver = postSnapshot.getValue(Version.class);
+                    //Adding it to a string
+                    if (Integer.valueOf(ver.getVersionCode()) > BuildConfig.VERSION_CODE) {
+                        Toast.makeText(LoadingActivity.this, "New Version Release!!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                System.out.println("The read failed: " + firebaseError.getMessage());
             }
         });
     }

@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 def majorVersion = 1
-def minorVersion = 0
+def minorVersion = 1
 def patchVersion = 0
 
 repositories {
@@ -17,7 +17,7 @@ android {
         config {
             keyAlias 'muzie'
             keyPassword 'syncsource'
-            storeFile file('/home/nalioes/Desktop/Projects/Muzie/app/muzie.jks')
+            storeFile file('/home/nls/Muzie/app/muzie.jks')
             storePassword 'syncsource'
         }
     }
@@ -30,6 +30,7 @@ android {
         applicationId "com.syncsource.org.muzie"
         minSdkVersion 15
         targetSdkVersion 24
+        versionCode majorVersion * 10000 + minorVersion * 1000 + patchVersion * 100
         versionName "${majorVersion}.${minorVersion}.${patchVersion}"
         buildConfigField "String", "SC_URL", sc_url
         buildConfigField "String", "YOUTUBE_URL", youtube_url
@@ -53,6 +54,7 @@ android {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/DEPENDENCIES'
