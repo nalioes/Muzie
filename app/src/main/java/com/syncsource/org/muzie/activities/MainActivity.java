@@ -1,5 +1,8 @@
 package com.syncsource.org.muzie.activities;
 
+import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -7,8 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
+import android.widget.TextView;
+
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.PagerAdapter;
+import com.syncsource.org.muzie.databinding.ActivityMainBinding;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.fragments.MyScloudFragment;
 import com.syncsource.org.muzie.fragments.MyYtubeFragment;
@@ -21,52 +29,63 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements MyYtubeFragment.TrackIntetface {
+public class MainActivity extends AppCompatActivity {
 
-    TabLayout tabLayout;
+    ActivityMainBinding binding;
     List<MyTrack> myTracks = new ArrayList<>();
     ScApiClient scApiClient;
     ScTrackContent newHotBody;
     ScTrackContent topTrackBody;
-    PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Youtube"));
-        tabLayout.addTab(tabLayout.newTab().setText("SoundCloud"));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        pagerAdapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        binding.searchView.onActionViewCollapsed();
+        binding.searchView.clearFocus();
+        binding.searchView.setIconifiedByDefault(false);
+        int plateId = binding.searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View view = binding.searchView.findViewById(plateId);
+
+        if (view != null) {
+            view.setBackgroundColor(Color.parseColor("#00FFFFFF"));
+            int searchTextId = view.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+            TextView searchText = (TextView) view.findViewById(searchTextId);
+            if (searchText != null) {
+                searchText.setTextColor(Color.parseColor("#fdfdfd"));
+                searchText.setFocusable(false);
+                searchText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+                    }
+                });
+            }
+        }
+
+        binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-
-                if (tab.getPosition() == 1) {
-                    MyScloudFragment scloudFragment = (MyScloudFragment) pagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
-                    scloudFragment.onReceivedSC(true);
-                } else {
-                    MyYtubeFragment ytubeFragment = (MyYtubeFragment) pagerAdapter.getRegisteredFragment(viewPager.getCurrentItem());
-                    ytubeFragment.onReceivedYT(true);
-                }
-
+            public boolean onQueryTextSubmit(String s) {
+                return false;
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+            public boolean onQueryTextChange(String s) {
 
+                return false;
             }
+        });
 
+        binding.youtube.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
+            public void onClick(View view) {
+                Intent intent = YouTubeActivity.intentInstance(getApplicationContext());
+                startActivity(intent);
             }
         });
 
@@ -104,21 +123,5 @@ public class MainActivity extends BaseActivity implements MyYtubeFragment.TrackI
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    public void myTrackEvent(TrackEvent.OnTrackSyncEvent event) {
-        if (event.isSuccess()) {
-            myTracks = event.getMyTrack();
-        }
-    }
-
-    @Override
-    public List<MyTrack> getMyTrack() {
-        if (myTracks.size() > 0) {
-            return myTracks;
-        } else {
-            return null;
-        }
     }
 }

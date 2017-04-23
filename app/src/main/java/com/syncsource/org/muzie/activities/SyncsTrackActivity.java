@@ -82,7 +82,6 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     private boolean isFetchError = false;
     private boolean isGranted = false;
     MyTrack myTrack;
-    ImageView trackImage;
     TextView title;
     TextView errorMessage;
     TextView viewCount;
@@ -108,7 +107,6 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         setContentView(R.layout.activity_syncs_track);
 
         youtubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
-        trackImage = (ImageView) findViewById(R.id.sync_track_img);
         recyclerView = (RecyclerView) findViewById(R.id.related_recycler);
         title = (TextView) findViewById(R.id.sync_title);
         relatedTitle = (TextView) findViewById(R.id.textView);
@@ -151,11 +149,13 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         progressLayout.setVisibility(View.VISIBLE);
         syncContainer.setVisibility(View.INVISIBLE);
         webView.setVisibility(View.INVISIBLE);
-        webView.loadUrl("https://www.youtube2mp3.cc/button-api/#" + videoId + "|mp3");
+//        webView.loadUrl("https://www.youtube2mp3.cc/button-api/#" + videoId + "|mp3");
+        webView.loadDataWithBaseURL(null, "<iframe src=\"https://ycapi.org/button/?v=KMU0tzLwhbE&fc=#ffffff&bc=#2975ac\" width=\"120\" height=\"38\" scrolling=\"no\" style=\"border:none;\"></iframe>\n", "text/html", "UTF-8", null);
         webView.setWebViewClient(new RequestWebViewClient());
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
-        webSettings.setUseWideViewPort(true);
+        webSettings.setUseWideViewPort(false);
+        webSettings.setLoadWithOverviewMode(false);
         trackDownload();
     }
 
@@ -303,11 +303,6 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         if (track != null) {
             videoId = track.getVideoID();
             title.setText(track.getTitle().toString());
-            Glide.with(getApplicationContext())
-                    .load(track.getThumbnail())
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .centerCrop()
-                    .into(trackImage);
             duration.setText(track.getDuration());
             viewCount.setText(track.getViewCount());
         }

@@ -21,7 +21,9 @@
     <string name="search_music_screen">Search music screen</string>
     <string name="download_music_screen">Download music screen</string>
     <string name="title_activity_sc_track"></string>
-    <string name="search_the_music">Search Music</string>
+    <string name="youtube">YouTube</string>
+    <string name="soundcloud">SoundCloud</string>
+    <string name="search_the_music">Search for independent music</string>
 
     <string-array name="music_genres">
         <item>soundcloud:genres:alternativerock</item>
@@ -70,5 +72,6 @@
         <item>technology</item>
     </string-array>
     <string name="title_activity_top_sound_cloud">TopSoundCloudActivity</string>
+    <string name="title_activity_you_tube">YouTubeActivity</string>
 
 </resources>

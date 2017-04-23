@@ -14,25 +14,25 @@ public class Title extends TextView {
 
     public Title(Context context) {
         super(context);
-        mmTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/Zawgyi.ttf");
+        mmTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/zawgyi.ttf");
         setMMFont(this);
     }
 
     public Title(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mmTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/Zawgyi.ttf");
+        mmTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/zawgyi.ttf");
         setMMFont(this);
     }
 
     public Title(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mmTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/Zawgyi.ttf");
+        mmTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/zawgyi.ttf");
         setMMFont(this);
     }
 
     public Title(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        mmTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/Zawgyi.ttf");
+        mmTypeFace = Typeface.createFromAsset(context.getAssets(), "fonts/zawgyi.ttf");
         setMMFont(this);
     }
 

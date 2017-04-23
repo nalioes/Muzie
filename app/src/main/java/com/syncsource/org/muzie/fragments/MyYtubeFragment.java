@@ -83,46 +83,7 @@ public class MyYtubeFragment extends Fragment {
         binding.latestTrackRecycler.setNestedScrollingEnabled(false);
         binding.latestTrackRecycler.scrollToPosition(0);
         binding.latestTrackRecycler.addOnScrollListener(recyclerViewScroller);
-
-        binding.mSearchBar.searchView.onActionViewCollapsed();
-        binding.mSearchBar.searchView.clearFocus();
-        binding.mSearchBar.searchView.setIconifiedByDefault(false);
-        int plateId = binding.mSearchBar.searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-        View view = binding.mSearchBar.searchView.findViewById(plateId);
-
-        if (view != null) {
-            view.setBackgroundColor(Color.parseColor("#00FFFFFF"));
-            int searchTextId = view.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
-            TextView searchText = (TextView) view.findViewById(searchTextId);
-            if (searchText != null) {
-                searchText.setTextColor(Color.WHITE);
-                searchText.setFocusable(false);
-                searchText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(getActivity().getApplicationContext(), SearchActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent);
-                    }
-                });
-            }
-        }
-
         binding.latestTrackRecycler.setAdapter(adapter);
-
-        binding.mSearchBar.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-
-                return false;
-            }
-        });
         return binding.getRoot();
     }
 

@@ -17,15 +17,18 @@
     <dimen name="large_margin">16dp</dimen>
 
     <dimen name="error_text">18sp</dimen>
+    <dimen name="medium_text">13.5sp</dimen>
     <dimen name="normal_text">16sp</dimen>
     <dimen name="popular_image_size">170dp</dimen>
     <dimen name="search_bar_height">64dp</dimen>
     <dimen name="track_image_size">80dp</dimen>
-    <dimen name="yt_relate_image_width">120dp</dimen>
-    <dimen name="yt_relate_image_height">90dp</dimen>
+    <dimen name="yt_relate_image_width">100dp</dimen>
+    <dimen name="yt_relate_image_height">80dp</dimen>
     <dimen name="ini_bg_image">120dp</dimen>
 
     <dimen name="listview_thumbnail_height">100.0dip</dimen>
     <dimen name="listview_thumbnail_width">100.0dip</dimen>
     <dimen name="card_corner">1dp</dimen>
+    <dimen name="x_large_margin">20dp</dimen>
+    <dimen name="separator_height">0.5dp</dimen>
 </resources>

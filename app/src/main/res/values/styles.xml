@@ -14,13 +14,6 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!--<style name="AppTheme.NoActionBar" parent="AppTheme.AppBarOverlay">-->
-    <!--<item name="windowActionBar">false</item>-->
-    <!--<item name="windowNoTitle">true</item>-->
-    <!--<item name="android:itemBackground">@android:color/white</item>-->
-    <!--<item name="android:titleTextStyle">@style/MyActionBar</item>-->
-    <!--</style>-->
-
     <style name="MyActionBar">
         <item name="android:textColor">@android:color/white</item>
     </style>
@@ -36,7 +29,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:colorControlHighlight">#0087cf</item>
+        <item name="android:colorControlHighlight">#cacaca</item>
     </style>
 
     <style name="back_button_style" parent="android:Widget.Button">
@@ -54,77 +47,26 @@
         <item name="android:layout_width">fill_parent</item>
     </style>
 
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">17.5sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Base.Widget.AppCompat.SearchView.Title" parent="Base.Widget.AppCompat.SearchView.Title">
+        <item name="android:textSize">@dimen/medium_text</item>
+        <item name="android:textColorHint">@color/txt_color</item>
+        <item name="android:textColor">@color/text_color</item>
+
+    </style>
+
     <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-
-    <!--<style name="AppTheme" parent="@style/Theme.AppCompat.NoActionBar">-->
-    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-    <!--<item name="colorAccent">@color/colorAccent</item>-->
-    <!--<item name="preferenceTheme">@style/MyPreferencesStyle</item>-->
-    <!--</style>-->
-
-
-    <!--<style name="AppTheme.ListView" parent="@style/AppTheme">-->
-    <!--<item name="android:background">@color/background_listview</item>-->
-    <!--<item name="android:scrollbars">none</item>-->
-    <!--<item name="android:layout_width">fill_parent</item>-->
-    <!--<item name="android:layout_height">fill_parent</item>-->
-    <!--<item name="android:listSelector">@drawable/listview_selector</item>-->
-    <!--<item name="android:drawSelectorOnTop">true</item>-->
-    <!--<item name="android:dividerHeight">0.0dip</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppTheme.ListView.Layout" parent="@style/AppTheme.ListView">-->
-    <!--<item name="android:orientation">vertical</item>-->
-    <!--<item name="android:background">@color/background_listview</item>-->
-    <!--<item name="android:layout_width">fill_parent</item>-->
-    <!--<item name="android:layout_height">fill_parent</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppTheme.ListViewItem" parent="@style/AppTheme" />-->
-
-    <!--<style name="AppTheme.ListViewItem.Image" parent="@style/AppTheme.ListViewItem">-->
-    <!--<item name="android:layout_width">@dimen/listview_thumbnail_width</item>-->
-    <!--<item name="android:layout_height">@dimen/listview_thumbnail_height</item>-->
-    <!--<item name="android:layout_margin">5.0dip</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppTheme.ListViewItem.Layout" parent="@style/AppTheme.ListViewItem">-->
-    <!--<item name="android:orientation">horizontal</item>-->
-    <!--<item name="android:background">@color/background_listview_cell</item>-->
-    <!--<item name="android:layout_width">fill_parent</item>-->
-    <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppTheme.ListViewItem.Subtitle" parent="@style/Base.TextAppearance.AppCompat.Small">-->
-    <!--<item name="android:textColor">@color/divx_light_gray</item>-->
-    <!--<item name="android:layout_width">fill_parent</item>-->
-    <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppTheme.ListViewItem.TextLayout" parent="@style/AppTheme.ListViewItem">-->
-    <!--<item name="android:layout_gravity">center</item>-->
-    <!--<item name="android:orientation">vertical</item>-->
-    <!--<item name="android:layout_width">fill_parent</item>-->
-    <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--<item name="android:layout_marginRight">8.0dip</item>-->
-    <!--<item name="android:animateLayoutChanges">true</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppTheme.ListViewItem.Title" parent="@style/Base.TextAppearance.AppCompat.Medium">-->
-    <!--<item name="android:textColor">@color/white_text</item>-->
-    <!--<item name="android:layout_width">fill_parent</item>-->
-    <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppTheme.AnimatedDrawable" parent="@style/AppTheme" />-->
-
-    <!--<style name="AppTheme.AnimatedDrawable.ImageView" parent="@style/AppTheme.AnimatedDrawable">-->
-    <!--<item name="android:layout_gravity">center</item>-->
-    <!--<item name="android:layout_width">wrap_content</item>-->
-    <!--<item name="android:layout_height">wrap_content</item>-->
-    <!--</style>-->
+    <style name="Switch.Theme" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorSwitchThumbNormal">@color/background_grey</item>
+        <item name="android:colorForeground">@color/white</item>
+        <item name="trackTint">@color/white</item>
+    </style>
 </resources>

@@ -57,7 +57,7 @@
         <activity
             android:name=".TopSoundCloudActivity"
             android:label="@string/title_activity_top_sound_cloud"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <!-- Pushy Declarations -->
 
@@ -101,6 +101,10 @@
         <service android:name="me.pushy.sdk.services.PushySocketService" />
 
         <!-- End Pushy Declarations -->
+        <activity
+            android:name=".activities.YouTubeActivity"
+            android:label="@string/title_activity_you_tube"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

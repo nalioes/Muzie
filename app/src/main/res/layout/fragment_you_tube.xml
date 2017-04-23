@@ -16,10 +16,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <include
-                    android:id="@+id/m_search_bar"
-                    layout="@layout/search_content" />
-
                 <FrameLayout
                     android:id="@+id/base_layout"
                     android:layout_width="match_parent"

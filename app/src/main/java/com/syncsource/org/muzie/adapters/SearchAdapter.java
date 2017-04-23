@@ -87,15 +87,6 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 }
             });
 
-            ((ImageViewHolder) holder).getBindView().downloadTrack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, SyncsTrackActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.putExtra(SyncsTrackActivity.SYNCID, myTrack);
-                    context.startActivity(intent);
-                }
-            });
         }
     }
 

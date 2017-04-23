@@ -1,17 +1,21 @@
 package com.syncsource.org.muzie.activities;
 
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +23,7 @@ import android.widget.Toast;
 import com.syncsource.org.muzie.BuildConfig;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.analytics.AnalyticsManager;
+import com.syncsource.org.muzie.databinding.ActivitySearchBinding;
 import com.syncsource.org.muzie.events.TrackEvent;
 import com.syncsource.org.muzie.fragments.ProgressFragment;
 import com.syncsource.org.muzie.fragments.SearchResultFragment;
@@ -40,6 +45,7 @@ import java.util.List;
 
 public class SearchActivity extends BaseActivity implements SearchResultFragment.MyTrackDataInterface {
 
+    ActivitySearchBinding binding;
     private ApiClient apiClient;
     private List<Item> snippetItems = new ArrayList<>();
     private List<TrackItem> trackItems = new ArrayList<>();
@@ -47,6 +53,7 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
     SearchView searchView;
     TextView searchText;
     FrameLayout baseLayoutContainer;
+
     final int myColor = 0xffffff;
     Drawable drawable;
     private String token;
@@ -55,16 +62,22 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
-        baseLayoutContainer = (FrameLayout) findViewById(R.id.search_content_container);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
+        baseLayoutContainer = (FrameLayout) binding.searchContentContainer;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+
         if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setTitle("");
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.chevron_left));
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setHomeButtonEnabled(false);
         }
+
+
         drawable = new ColorDrawable(myColor);
         apiClient = ApiClient.getApiClientInstance();
         searchView = (SearchView) findViewById(R.id.searchView);
@@ -79,7 +92,6 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
             int searchTextId = view.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
             searchText = (TextView) view.findViewById(searchTextId);
             if (searchText != null) {
-                searchText.setTextColor(Color.WHITE);
                 searchText.setFocusable(true);
             }
         }
@@ -93,9 +105,11 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
                         final int myColor = 0x6E080808;
                         final Drawable drawable = new ColorDrawable(myColor);
                         baseLayoutContainer.setForeground(drawable);
+                        binding.searchFilterView.setVisibility(View.VISIBLE);
                     }
                 } else {
                     if (baseLayoutContainer != null) {
+                        binding.searchFilterView.setVisibility(View.GONE);
                         baseLayoutContainer.setForeground(drawable);
                     }
                 }
@@ -123,8 +137,17 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
                     final int myColor = 0x6E080808;
                     final Drawable drawable = new ColorDrawable(myColor);
                     baseLayoutContainer.setForeground(drawable);
+                    binding.searchFilterView.setVisibility(View.VISIBLE);
+                } else {
+                    binding.searchFilterView.setVisibility(View.GONE);
                 }
                 return false;
+            }
+        });
+        binding.mSearchBar.backImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SearchActivity.super.onBackPressed();
             }
         });
     }

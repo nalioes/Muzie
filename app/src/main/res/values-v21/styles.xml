@@ -15,12 +15,12 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
-        <item name="android:colorControlHighlight">#653c6ce4</item>
+        <item name="android:colorControlHighlight">#cacaca</item>
     </style>
 
     <style name="myItem" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:colorControlHighlight">#2d3c6ce4</item>
+        <item name="android:colorControlHighlight">#cacaca</item>
 
     </style>
 </resources>

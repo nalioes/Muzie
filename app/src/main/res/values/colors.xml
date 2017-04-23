@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3c6ce4</color>
-    <color name="colorPrimaryDark">#3148df</color>
-    <color name="colorAccent">#3963ed</color>
 
     <color name="my_pb_color_1">#fffc5e5e</color>
     <color name="my_pb_color_2">#fff165d7</color>
@@ -10,11 +7,9 @@
     <color name="default_color">#ff33b5e5</color>
 
     <color name="background_color">#fdfdfe</color>
-    <color name="separator_color">#ffd5d6d9</color>
     <color name="genres_color_trans">#00f7f7f7</color>
     <color name="search_background_color">#f9f9f9</color>
     <color name="txt_color">#ff686868</color>
-    <color name="white">#ffffff</color>
     <color name="test">#2a62ef</color>
     <color name="black">#ef080808</color>
     <color name="sec_black">#ef080808</color>
@@ -29,4 +24,20 @@
     <color name="view_transparent">#38ffffff</color>
     <color name="sc_background_trans">#98fdfdfe</color>
     <color name="genres_txt_color">#ff686868</color>
+
+    <color name="colorPrimary">#2975ac</color>
+    <color name="colorPrimaryDark">#2975ac</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="text_grey">#969696</color>
+    <color name="drop_down_color">#FFCECECE</color>
+    <color name="background_grey">#d4f2f2f2</color>
+    <color name="second_background_grey">#d4f2f2f2</color>
+    <color name="separator_color">#ffd5d6d9</color>
+    <color name="white">#fdfdfd</color>
+    <color name="dark_color">#000</color>
+    <color name="text_color">#ff686868</color>
+    <color name="text_color_dark">#606060</color>
+    <color name="white_transparent">#7ffdfdfd</color>
+    <color name="slide_color">#b9b5b5</color>
+    <color name="blue">#4a8af4</color>
 </resources>
