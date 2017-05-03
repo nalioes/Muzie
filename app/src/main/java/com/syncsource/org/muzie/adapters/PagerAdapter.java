@@ -5,40 +5,38 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.fragments.GenreFragment;
 import com.syncsource.org.muzie.fragments.MyScloudFragment;
 import com.syncsource.org.muzie.fragments.MyYtubeFragment;
+import com.syncsource.org.muzie.fragments.NewAndHotFragment;
+import com.syncsource.org.muzie.fragments.TopFragment;
 
 /**
  * Created by nls on 1/23/17.
  */
 
 public class PagerAdapter extends SmartFragmentStatePagerAdapter {
-    int numOfFragment;
+
     FragmentManager mFragmentManager;
 
-    public PagerAdapter(FragmentManager fm, int numOfFragment) {
+    public PagerAdapter(FragmentManager fm) {
         super(fm);
         mFragmentManager = fm;
-        this.numOfFragment = numOfFragment;
+
     }
 
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-//                String name = makeFragmentName(R.id.viewPager, position);
-//                Fragment f = mFragmentManager.findFragmentByTag(name);
-//
-//                if(f == null){
-//                               }
-                MyYtubeFragment ytubeFragment = new MyYtubeFragment();
-                return ytubeFragment;
-
+                TopFragment fragment = new TopFragment();
+                return fragment;
             case 1:
-
-                MyScloudFragment scloudFragment = MyScloudFragment.scNewInstance();
-                return scloudFragment;
-
+                NewAndHotFragment newAndHotFragment = new NewAndHotFragment();
+                return newAndHotFragment;
+            case 2:
+                GenreFragment genreFragment = new GenreFragment();
+                return genreFragment;
             default:
                 return null;
         }
@@ -46,10 +44,7 @@ public class PagerAdapter extends SmartFragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return numOfFragment;
+        return 3;
     }
 
-    private static String makeFragmentName(int viewId, int index) {
-        return "android:switcher:" + viewId + ":" + index;
-    }
 }

@@ -25,11 +25,33 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="1dp"
+                    android:layout_marginLeft="@dimen/x_large_margin"
                     android:layout_marginRight="1dp"
                     android:layout_marginTop="1dp"
                     android:background="@drawable/filterrect"
                     android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.syncsource.org.muzie.views.Title
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:text="@string/search_by"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/dark_color"
+                            android:textSize="@dimen/medium_text_two" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/separator_height"
+                        android:background="@color/separator_color" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -40,7 +62,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/x_large_margin"
                             android:gravity="center">
 
                             <ImageView
@@ -64,7 +85,7 @@
                                 android:text="@string/youtube"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:textColor="@color/dark_color"
-                                android:textSize="@dimen/normal_text" />
+                                android:textSize="@dimen/medium_text_two" />
 
                             <android.support.v7.widget.SwitchCompat
                                 android:layout_width="wrap_content"
@@ -86,7 +107,6 @@
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/separator_height"
-                        android:layout_marginLeft="70dp"
                         android:background="@color/separator_color" />
 
                     <LinearLayout
@@ -98,7 +118,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="@dimen/x_large_margin"
                             android:gravity="center">
 
                             <ImageView
@@ -122,7 +141,7 @@
                                 android:text="@string/soundcloud"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:textColor="@color/dark_color"
-                                android:textSize="@dimen/normal_text" />
+                                android:textSize="@dimen/medium_text_two" />
 
                             <android.support.v7.widget.SwitchCompat
                                 android:layout_width="wrap_content"
@@ -149,7 +168,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
         </LinearLayout>
 
     </android.support.design.widget.CoordinatorLayout>

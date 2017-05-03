@@ -87,6 +87,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
     TextView viewCount;
     TextView relatedTitle;
     Button reloadData;
+    WebSettings webSettings;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     RelatedTrackAdapter adapter;
@@ -150,9 +151,9 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         syncContainer.setVisibility(View.INVISIBLE);
         webView.setVisibility(View.INVISIBLE);
 //        webView.loadUrl("https://www.youtube2mp3.cc/button-api/#" + videoId + "|mp3");
-        webView.loadDataWithBaseURL(null, "<iframe src=\"https://ycapi.org/button/?v=KMU0tzLwhbE&fc=#ffffff&bc=#2975ac\" width=\"120\" height=\"38\" scrolling=\"no\" style=\"border:none;\"></iframe>\n", "text/html", "UTF-8", null);
+        webView.loadDataWithBaseURL(null, "<iframe src=\"https://ycapi.org/button/?v=" + videoId + "&fc=#ffffff&bc=#2975ac\" width=\"120\" height=\"38\" scrolling=\"no\" style=\"border:none;\"></iframe>", "text/html", "UTF-8", null);
         webView.setWebViewClient(new RequestWebViewClient());
-        WebSettings webSettings = webView.getSettings();
+        webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setUseWideViewPort(false);
         webSettings.setLoadWithOverviewMode(false);
@@ -210,6 +211,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
                 progressLayout.setVisibility(View.INVISIBLE);
                 webView.setVisibility(View.VISIBLE);
                 syncContainer.setVisibility(View.VISIBLE);
+                webSettings.setJavaScriptEnabled(false);
                 isStoragePermissionGranted();
             }
 //            htmlData = "<link rel=\"stylesheet\" type=\"text/css\" href=\"button_api.css\" />";
@@ -479,7 +481,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
             }
 
             if (!loading && (totalItem - visibleItemCount) <= (firstVisibleItem + visibleThreshold) && myRelatedTrackList.size() != TOTAL_ITEM) {
-                apiClient.getNextRelatedTrackID(myRelatedTrackList.get(adapter.getItemCount() - 3).getNextToken(),Config.SNIPPET, videoId, Config.MAX_NUMBER, Config.SEARCH_APIKEY);
+                apiClient.getNextRelatedTrackID(myRelatedTrackList.get(adapter.getItemCount() - 3).getNextToken(), Config.SNIPPET, videoId, Config.MAX_NUMBER, Config.SEARCH_APIKEY);
                 loading = true;
             }
         }

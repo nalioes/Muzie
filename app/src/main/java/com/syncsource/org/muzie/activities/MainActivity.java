@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.PagerAdapter;
@@ -85,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = YouTubeActivity.intentInstance(getApplicationContext());
+                startActivity(intent);
+            }
+        });
+        binding.soundcloud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = SoundcloudActivity.intentInstance(getApplicationContext());
                 startActivity(intent);
             }
         });
