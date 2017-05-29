@@ -74,5 +74,7 @@
     </string-array>
     <string name="title_activity_top_sound_cloud">TopSoundCloudActivity</string>
     <string name="title_activity_you_tube">YouTubeActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main3">Main3Activity</string>
 
 </resources>

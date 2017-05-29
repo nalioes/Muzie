@@ -69,4 +69,16 @@
         <item name="android:colorForeground">@color/white</item>
         <item name="trackTint">@color/white</item>
     </style>
+
+    <style name="MuzieTablayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/TabTextAppearance</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textSize">@dimen/medium_text_two</item>
+        <item name="android:textColor">@color/white_text</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="textAllCaps">false</item>
+    </style>
 </resources>

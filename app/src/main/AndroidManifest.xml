@@ -105,7 +105,15 @@
             android:name=".activities.YouTubeActivity"
             android:label="@string/title_activity_you_tube"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SoundcloudActivity"></activity>
+        <activity android:name=".activities.SoundcloudActivity" />
+        <activity
+            android:name=".activities.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activities.Main3Activity"
+            android:label="@string/title_activity_main3"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

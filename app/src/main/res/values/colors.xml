@@ -7,6 +7,8 @@
     <color name="default_color">#ff33b5e5</color>
 
     <color name="background_color">#fdfdfe</color>
+    <color name="filter_background_color">#FFF8F8F8</color>
+
     <color name="genres_color_trans">#00f7f7f7</color>
     <color name="search_background_color">#f9f9f9</color>
     <color name="txt_color">#ff686868</color>
@@ -35,6 +37,7 @@
     <color name="separator_color">#ffd5d6d9</color>
     <color name="white">#fdfdfd</color>
     <color name="dark_color">#000</color>
+    <color name="filter_color">#FF010101</color>
     <color name="text_color">#ff686868</color>
     <color name="text_color_dark">#606060</color>
     <color name="white_transparent">#7ffdfdfd</color>

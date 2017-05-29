@@ -34,9 +34,9 @@ public class PagerAdapter extends SmartFragmentStatePagerAdapter {
             case 1:
                 NewAndHotFragment newAndHotFragment = new NewAndHotFragment();
                 return newAndHotFragment;
-            case 2:
-                GenreFragment genreFragment = new GenreFragment();
-                return genreFragment;
+//            case 2:
+//                GenreFragment genreFragment = new GenreFragment();
+//                return genreFragment;
             default:
                 return null;
         }
@@ -44,7 +44,7 @@ public class PagerAdapter extends SmartFragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
 }

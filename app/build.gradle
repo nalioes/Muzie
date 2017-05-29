@@ -28,7 +28,7 @@ android {
             enabled = true
         }
         applicationId "com.syncsource.org.muzie"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode majorVersion * 10000 + minorVersion * 1000 + patchVersion * 100
         versionName "${majorVersion}.${minorVersion}.${patchVersion}"
@@ -84,6 +84,7 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-android:4.48'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'me.pushy:sdk:1.0.10'
+    compile 'com.github.mancj:SlideUp-Android:2.2.3'
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.google.android.gms:play-services-analytics:9.0.2'
     compile files('libs/YouTubeAndroidPlayerApi.jar')
@@ -92,6 +93,5 @@ dependencies {
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }
-    compile files('libs/divxMobile.jar')
 }
 apply plugin: 'com.google.gms.google-services'

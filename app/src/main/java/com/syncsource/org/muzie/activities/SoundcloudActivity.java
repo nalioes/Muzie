@@ -3,13 +3,18 @@ package com.syncsource.org.muzie.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.mancj.slideup.SlideUp;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.PagerAdapter;
 import com.syncsource.org.muzie.databinding.ActivitySoundcloudBinding;
@@ -34,6 +39,7 @@ public class SoundcloudActivity extends AppCompatActivity {
         if (actionBar != null) {
             setTitle("SoundCloud");
             actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.chevron_left));
             actionBar.setDefaultDisplayHomeAsUpEnabled(true);
         }
         binding.viewPager.setAdapter(pagerAdapter);
@@ -57,10 +63,16 @@ public class SoundcloudActivity extends AppCompatActivity {
             }
         });
         if (binding.viewPager.getCurrentItem() == 0) {
-            binding.tabLayout.getTabAt(0).setText("Top(50)");
+            binding.tabLayout.getTabAt(0).setText("Top 50");
             binding.tabLayout.getTabAt(1).setText("New & Hot");
-            binding.tabLayout.getTabAt(2).setText("All genre");
+//            binding.tabLayout.getTabAt(2).setText("All genre");
         }
+        binding.filterGenre.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
