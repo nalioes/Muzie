@@ -6,7 +6,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_scview"
+        android:background="@color/light_dark"
         android:fitsSystemWindows="true"
         tools:context="com.syncsource.org.muzie.ScTrackActivity">
 
@@ -17,15 +17,158 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/light_dark">
 
-                <ImageView
-                    android:id="@+id/sc_track_image"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/background" />
+                    android:layout_height="wrap_content"
+                    android:weightSum="2.5">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/sc_track_image"
+                            android:layout_width="match_parent"
+                            android:layout_height="140dp"
+                            android:layout_marginBottom="@dimen/medium_margin"
+                            android:layout_marginLeft="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/sc_imagerect"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/background" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5">
+
+                        <LinearLayout
+                            android:id="@+id/title_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="@dimen/card_tiny_margin"
+                            android:layout_marginRight="@dimen/card_tiny_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:background="@android:color/transparent"
+                            android:weightSum="4">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="@dimen/normal_margin"
+                                android:layout_marginLeft="@dimen/normal_margin"
+                                android:layout_marginRight="@dimen/medium_margin"
+                                android:layout_marginTop="@dimen/small_margin"
+                                android:layout_weight="4"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/scTrackTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:fontFamily="sans-serif"
+                                    android:gravity="left"
+                                    android:lineSpacingMultiplier="1.2"
+                                    android:maxLines="2"
+                                    android:paddingLeft="4dp"
+                                    android:paddingRight="4dp"
+                                    android:text="GreatestSiaGreatestSiaGreatestSiaGreatestSiaGreatestSia "
+                                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                                    android:textColor="@color/white"
+                                    android:textSize="16.5sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/subTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/normal_margin"
+                                    android:paddingLeft="4dp"
+                                    android:paddingRight="4dp"
+                                    android:text="SiaVEVO created at "
+                                    android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+                                    android:textColor="@color/separator_color"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_below="@id/title_view"
+                            android:layout_marginBottom="@dimen/medium_margin"
+                            android:layout_marginTop="@dimen/medium_margin"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:weightSum="3">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2.2"
+                                android:gravity="bottom|center"
+                                android:orientation="horizontal"
+                                android:weightSum="3">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.5"
+                                    android:gravity="center">
+
+                                    <ImageView
+                                        android:id="@+id/playTrack"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/back_state_rect"
+                                        app:srcCompat="@drawable/ic_play" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1.5"
+                                    android:gravity="center">
+
+                                    <ImageView
+                                        android:id="@+id/play_next"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:background="@drawable/back_state_rect"
+                                        app:srcCompat="@drawable/next" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="0.8"
+                                android:gravity="center">
+                                <ImageView
+                                    android:id="@+id/fileDownload"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/seekbar_thumb_rect"
+                                    android:padding="6dp"
+                                    app:srcCompat="@drawable/arrow_down" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -34,111 +177,37 @@
                     android:layout_marginLeft="@dimen/medium_margin"
                     android:layout_marginTop="@dimen/medium_margin"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_arrow_back" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginLeft="@dimen/card_tiny_margin"
-                    android:layout_marginRight="@dimen/card_tiny_margin"
-                    android:background="@color/background_trans_scview"
-                    android:weightSum="5">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/normal_margin"
-                        android:layout_marginLeft="@dimen/medium_margin"
-                        android:layout_marginRight="@dimen/medium_margin"
-                        android:layout_weight="4"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/scTrackTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/normal_margin"
-                            android:ellipsize="end"
-                            android:fontFamily="sans-serif"
-                            android:gravity="left"
-                            android:lineSpacingMultiplier="1.2"
-                            android:maxLines="2"
-                            android:paddingLeft="4dp"
-                            android:paddingRight="4dp"
-                            android:text="GreatestSia "
-                            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-                            android:textColor="@color/white"
-                            android:textSize="16.5sp"
-                            android:textStyle="normal" />
-
-                        <TextView
-                            android:id="@+id/subTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/normal_margin"
-                            android:paddingLeft="4dp"
-                            android:paddingRight="4dp"
-                            android:text="SiaVEVO created at "
-                            android:textAppearance="@android:style/TextAppearance.Holo.Medium"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                    </LinearLayout>
-
-                </LinearLayout>
 
             </FrameLayout>
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/card_tiny_margin"
-                android:layout_marginRight="@dimen/card_tiny_margin"
-                app:cardBackgroundColor="@color/background_listview_cell"
-                app:cardCornerRadius="@dimen/card_corner"
-                app:cardUseCompatPadding="false">
+                app:cardBackgroundColor="@color/light_dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/normal_margin"
-                    android:layout_marginTop="@dimen/normal_margin">
+                    android:layout_marginBottom="@dimen/large_margin"
+                    android:layout_marginTop="@dimen/large_margin"
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:orientation="horizontal"
-                        android:weightSum="4">
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="0.4"
-                            android:gravity="center">
-
-                            <ImageView
-                                android:id="@+id/playTrack"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:srcCompat="@drawable/ic_play" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
+                            android:layout_marginLeft="@dimen/small_margin"
+                            android:layout_marginRight="@dimen/small_margin"
                             android:gravity="center"
                             android:orientation="horizontal"
-                            android:weightSum="3.2">
+                            android:weightSum="4">
 
                             <TextView
                                 android:id="@+id/current_duration"
@@ -148,64 +217,47 @@
                                 android:layout_weight="0.5"
                                 android:gravity="center"
                                 android:text="0:00:00"
-                                android:textColor="@color/white" />
+                                android:textAlignment="center"
+                                android:textColor="@color/separator_color" />
 
                             <SeekBar
                                 android:id="@+id/progress_length"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2" />
+                                android:layout_weight="3"
+                                android:theme="@style/seekBar"
+                                android:thumb="@drawable/seekbar_thumb" />
 
                             <TextView
                                 android:id="@+id/total_duration"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="0.7"
+                                android:layout_weight="0.5"
                                 android:gravity="center"
                                 android:text="1:00:02"
-                                android:textColor="@color/white" />
+                                android:textAlignment="center"
+                                android:textColor="@color/separator_color" />
 
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.4"
-                            android:gravity="center">
-
-                            <ImageView
-                                android:id="@+id/fileDownload"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                app:srcCompat="@drawable/ic_file_download" />
                         </LinearLayout>
 
                     </LinearLayout>
                 </LinearLayout>
 
-            </android.support.v7.widget.CardView>
+            </LinearLayout>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/card_tiny_margin"
-                android:layout_marginRight="@dimen/card_tiny_margin"
-                android:layout_marginTop="@dimen/small_margin"
-                app:cardBackgroundColor="@color/background_listview_cell"
-                app:cardCornerRadius="@dimen/card_corner"
-                app:cardElevation="@dimen/tiny_margin"
-                app:cardUseCompatPadding="false">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/light_dark"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/small_margin"
-                        android:layout_marginRight="@dimen/small_margin"
                         android:orientation="vertical">
 
                         <TextView
@@ -226,10 +278,7 @@
                             android:textColor="@color/white"
                             android:textSize="16.5sp"
                             android:textStyle="normal" />
-                        <!--<View-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="0.7dp"-->
-                        <!--android:background="@color/divx_light_gray"/>-->
+
                     </LinearLayout>
 
                     <android.support.v7.widget.RecyclerView
@@ -238,12 +287,7 @@
                         android:layout_height="match_parent" />
 
                 </LinearLayout>
-
             </android.support.v7.widget.CardView>
-
         </LinearLayout>
-
-
     </android.support.design.widget.CoordinatorLayout>
-
 </layout>

@@ -1,28 +1,49 @@
 package com.syncsource.org.muzie.activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Point;
+import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.mancj.slideup.SlideUp;
+import android.view.Window;
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.adapters.FilterAdapter;
 import com.syncsource.org.muzie.adapters.PagerAdapter;
 import com.syncsource.org.muzie.databinding.ActivitySoundcloudBinding;
+import com.syncsource.org.muzie.databinding.ItemFilterBinding;
+import com.syncsource.org.muzie.databinding.ViewFilterGenreBinding;
+import com.syncsource.org.muzie.fragments.NewAndHotFragment;
+import com.syncsource.org.muzie.fragments.TopFragment;
+import com.syncsource.org.muzie.model.Filter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SoundcloudActivity extends AppCompatActivity {
     ActivitySoundcloudBinding binding;
-
+    AlertDialog.Builder builder;
+    AlertDialog filterDialog;
     PagerAdapter pagerAdapter;
+    private Filter filterGeneres;
+    private Filter topFilter;
+    private Filter newHotFilter;
+    private boolean isSelectedTop = false;
+    private boolean isSelectedNewHot = false;
+    private boolean isFiltered = false;
+    int itemPosition = 0;
 
     public static Intent intentInstance(Context context) {
         Intent intent = new Intent(context, SoundcloudActivity.class);
@@ -42,6 +63,8 @@ public class SoundcloudActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.chevron_left));
             actionBar.setDefaultDisplayHomeAsUpEnabled(true);
         }
+
+        builder = new AlertDialog.Builder(SoundcloudActivity.this);
         binding.viewPager.setAdapter(pagerAdapter);
         binding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
@@ -54,7 +77,39 @@ public class SoundcloudActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                if (position == 0) {
+                    isSelectedTop = true;
+                    isSelectedNewHot = false;
+                    if (filterGeneres != null) {
+                        if (topFilter == null) {
+                            TopFragment topFragment = (TopFragment) pagerAdapter.getRegisteredFragment(binding.viewPager.getCurrentItem());
+                            topFragment.setData(filterGeneres);
+                            topFilter = filterGeneres;
+                        } else {
+                            if (!topFilter.getName().equals(filterGeneres.getName())) {
+                                TopFragment topFragment = (TopFragment) pagerAdapter.getRegisteredFragment(binding.viewPager.getCurrentItem());
+                                topFragment.setData(filterGeneres);
+                                topFilter = filterGeneres;
+                            }
+                        }
+                    }
+                } else if (position == 1) {
+                    isSelectedNewHot = true;
+                    isSelectedTop = false;
+                    if (filterGeneres != null) {
+                        if (newHotFilter == null) {
+                            NewAndHotFragment newAndHotFragment = (NewAndHotFragment) pagerAdapter.getRegisteredFragment(binding.viewPager.getCurrentItem());
+                            newAndHotFragment.setData(filterGeneres);
+                            newHotFilter = filterGeneres;
+                        } else {
+                            if (!newHotFilter.getName().equals(filterGeneres.getName())) {
+                                NewAndHotFragment newAndHotFragment = (NewAndHotFragment) pagerAdapter.getRegisteredFragment(binding.viewPager.getCurrentItem());
+                                newAndHotFragment.setData(filterGeneres);
+                                newHotFilter = filterGeneres;
+                            }
+                        }
+                    }
+                }
             }
 
             @Override
@@ -63,14 +118,59 @@ public class SoundcloudActivity extends AppCompatActivity {
             }
         });
         if (binding.viewPager.getCurrentItem() == 0) {
+            isSelectedTop = true;
+            isSelectedNewHot = false;
             binding.tabLayout.getTabAt(0).setText("Top 50");
             binding.tabLayout.getTabAt(1).setText("New & Hot");
-//            binding.tabLayout.getTabAt(2).setText("All genre");
         }
         binding.filterGenre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                ViewFilterGenreBinding filterBinding = DataBindingUtil.inflate(LayoutInflater.from(getApplicationContext()), R.layout.view_filter_genre, null, false);
+                filterBinding.genreRecycle.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                final FilterAdapter filterAdapter = new FilterAdapter(getApplicationContext());
+
+                if (itemPosition > 0) {
+                    filterBinding.genreRecycle.scrollToPosition(itemPosition);
+                } else {
+                    filterBinding.genreRecycle.scrollToPosition(0);
+                }
+
+                filterAdapter.addItem(getGenreChart(), new FilterAdapter.filterListener() {
+                    @Override
+                    public void isChecked(Boolean check, int position, Filter filter) {
+                        if (check) {
+                            isFiltered = true;
+                            filterGeneres = filter;
+                            filterAdapter.notifyDataSetChanged();
+                            itemPosition = position;
+                            filterDialog.dismiss();
+                            binding.genresTitle.setText(filter.getName());
+                            binding.genresTitle.setTextColor(getResources().getColor(R.color.colorPrimary));
+                            binding.img.setImageDrawable(getResources().getDrawable(R.drawable.menu_down_check));
+                            if (isSelectedTop) {
+                                topFilter = filter;
+                                TopFragment topFragment = (TopFragment) pagerAdapter.getRegisteredFragment(binding.viewPager.getCurrentItem());
+                                topFragment.setData(filter);
+                            } else {
+                                newHotFilter = filter;
+                                NewAndHotFragment newAndHotFragment = (NewAndHotFragment) pagerAdapter.getRegisteredFragment(binding.viewPager.getCurrentItem());
+                                newAndHotFragment.setData(filter);
+                            }
+
+                        }
+                    }
+                }, itemPosition);
+
+                filterBinding.genreRecycle.setHasFixedSize(true);
+                filterBinding.genreRecycle.setAdapter(filterAdapter);
+                filterDialog = builder.create();
+                filterDialog.setView(filterBinding.getRoot());
+                filterDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                Window window = filterDialog.getWindow();
+                window.setGravity(Gravity.FILL);
+                filterDialog.show();
             }
         });
     }
@@ -82,5 +182,15 @@ public class SoundcloudActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public List<Filter> getGenreChart() {
+        String[] genreArray = getApplicationContext().getResources().getStringArray(R.array.music_genres);
+        String[] genreValArray = getApplicationContext().getResources().getStringArray(R.array.music_genres_value);
+        List<Filter> genreFilter = new ArrayList<>();
+        for (int index = 0; index < genreArray.length; index++) {
+            genreFilter.add(new Filter(genreArray[index], genreValArray[index]));
+        }
+        return genreFilter;
     }
 }

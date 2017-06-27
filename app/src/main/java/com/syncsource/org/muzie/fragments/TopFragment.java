@@ -14,8 +14,10 @@ import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.TopAdapter;
 import com.syncsource.org.muzie.databinding.FragmentTopBinding;
 import com.syncsource.org.muzie.events.ScTrackEvent;
+import com.syncsource.org.muzie.model.Filter;
 import com.syncsource.org.muzie.model.SCMusic;
 import com.syncsource.org.muzie.rests.ScApiClient;
+import com.syncsource.org.muzie.utils.Config;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -85,6 +87,25 @@ public class TopFragment extends Fragment {
             topMusics = TrackManageUtil.getScTopMusicList(topTrack.getItem());
             if (topMusics.size() > 0) {
                 topAdapter.addMoreItem(topMusics);
+            }
+        }
+    }
+
+    public void setData(Filter filter) {
+        scApiClient.getGenresTrack(filter.getValue(), Config.SC_MAX_NUMBER);
+        binding.topTracksRecycle.setVisibility(View.GONE);
+        binding.load.setVisibility(View.VISIBLE);
+    }
+
+    @Subscribe
+    public void getGenersData(ScTrackEvent.OnTopGeneresEvent event) {
+        if (event.isSuccess()) {
+            binding.load.setVisibility(View.GONE);
+            binding.topTracksRecycle.setVisibility(View.VISIBLE);
+            topMusics = TrackManageUtil.getScTopMusicList(event.getItem());
+            if (topMusics.size() > 0) {
+                topAdapter = new TopAdapter(getContext(), topMusics);
+                binding.topTracksRecycle.setAdapter(topAdapter);
             }
         }
     }

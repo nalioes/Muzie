@@ -10,7 +10,9 @@ public interface ScApiAccess {
 
     void getTopPopularTrack();
 
-    void getTopGenresTrack(String genres, int num);
+    void getGenresTrack(String genres, String num);
+
+    void getNewHotGenresTrack(String genres, String num);
 
     void getNewHotTrack();
 }

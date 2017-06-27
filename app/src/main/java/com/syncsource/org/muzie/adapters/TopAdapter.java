@@ -1,6 +1,7 @@
 package com.syncsource.org.muzie.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.ScTrackActivity;
+import com.syncsource.org.muzie.activities.SyncsTrackActivity;
 import com.syncsource.org.muzie.databinding.ItemTopBinding;
 import com.syncsource.org.muzie.model.SCMusic;
 
@@ -29,7 +32,11 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public TopAdapter(Context context) {
         this.context = context;
     }
-
+    public TopAdapter(Context context,List<SCMusic> topMusic) {
+        this.context = context;
+        this.topMusic = topMusic;
+        notifyDataSetChanged();
+    }
     public void addMoreItem(List<SCMusic> topMusic) {
         this.topMusic = topMusic;
         notifyDataSetChanged();
@@ -50,7 +57,6 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((ItemViewHolder) holder).getBinding().artistName.setText(music.getArtist_name());
         if (!TextUtils.isEmpty(music.getLikes_count())) {
             ((ItemViewHolder) holder).getBinding().likeCount.setText(music.getLikes_count());
-
         } else {
 
         }
@@ -65,11 +71,14 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((ItemViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(context, ScTrackActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(ScTrackActivity.SCYNCID, music);
+                context.startActivity(intent);
             }
         });
-    }
 
+    }
 
     @Override
     public int getItemCount() {

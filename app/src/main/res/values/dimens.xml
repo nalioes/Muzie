@@ -5,6 +5,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">270dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="sc_img">240dp</dimen>
+
 
     <dimen name="margin_header">5dp</dimen>
     <dimen name="dialog_bottom_margin">10dp</dimen>
@@ -19,6 +21,7 @@
     <dimen name="error_text">18sp</dimen>
     <dimen name="medium_text">13.5sp</dimen>
     <dimen name="medium_text_two">14.5sp</dimen>
+    <dimen name="medium_text_three">15.5sp</dimen>
     <dimen name="normal_text">16sp</dimen>
     <dimen name="popular_image_size">170dp</dimen>
     <dimen name="search_bar_height">64dp</dimen>

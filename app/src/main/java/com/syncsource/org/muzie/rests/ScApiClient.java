@@ -7,8 +7,6 @@ import com.syncsource.org.muzie.utils.Config;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,19 +62,38 @@ public class ScApiClient implements ScApiAccess {
     }
 
     @Override
-    public void getTopGenresTrack(String genres, int maxNum) {
-        Call<ScTrackContent> call = apiInterface.getTopGenreScTrack(Config.SC_KIND_TOP, genres, String.valueOf(maxNum), Config.CLIENT_ID, String.valueOf(1));
+    public void getGenresTrack(String genres, String maxNum) {
+        Call<ScTrackContent> call = apiInterface.getTopGenreScTrack(Config.SC_KIND_TOP, genres, maxNum, Config.CLIENT_ID, String.valueOf(1));
         call.enqueue(new Callback<ScTrackContent>() {
             @Override
             public void onResponse(Call<ScTrackContent> call, Response<ScTrackContent> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    EventBus.getDefault().post(new ScTrackEvent.OnTopGenresTrackEvent.Builder().isSuccess(true).setItem(response.body()).Build());
+                    EventBus.getDefault().post(new ScTrackEvent.OnTopGeneresEvent.Builder().isSuccess(true).setItem(response.body()).Build());
                 }
             }
 
             @Override
             public void onFailure(Call<ScTrackContent> call, Throwable t) {
-                EventBus.getDefault().post(new ScTrackEvent.OnTopGenresTrackEvent.Builder().isSuccess(false).Build());
+                EventBus.getDefault().post(new ScTrackEvent.OnTopGeneresEvent.Builder().isSuccess(false).Build());
+
+            }
+        });
+    }
+
+    @Override
+    public void getNewHotGenresTrack(String genres, String num) {
+        Call<ScTrackContent> call = apiInterface.getTopGenreScTrack(Config.SC_KIND_TRENDING, genres, num, Config.CLIENT_ID, String.valueOf(1));
+        call.enqueue(new Callback<ScTrackContent>() {
+            @Override
+            public void onResponse(Call<ScTrackContent> call, Response<ScTrackContent> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    EventBus.getDefault().post(new ScTrackEvent.OnNewHotGeneresEvent.Builder().isSuccess(true).setItem(response.body()).Build());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ScTrackContent> call, Throwable t) {
+                EventBus.getDefault().post(new ScTrackEvent.OnNewHotGeneresEvent.Builder().isSuccess(false).Build());
 
             }
         });

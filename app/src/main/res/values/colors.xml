@@ -14,6 +14,7 @@
     <color name="txt_color">#ff686868</color>
     <color name="test">#2a62ef</color>
     <color name="black">#ef080808</color>
+    <color name="light_dark">#1a1b1f</color>
     <color name="sec_black">#ef080808</color>
     <color name="sc_background_color">#fffefe</color>
 

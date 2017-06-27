@@ -19,25 +19,21 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 import com.syncsource.org.muzie.BuildConfig;
 import com.syncsource.org.muzie.MuzieApp;
 import com.syncsource.org.muzie.R;
-import com.syncsource.org.muzie.events.ScTrackEvent;
 import com.syncsource.org.muzie.events.TrackEvent;
-import com.syncsource.org.muzie.fragments.MyScloudFragment;
 import com.syncsource.org.muzie.model.MostTrackItem;
 import com.syncsource.org.muzie.model.MyTrack;
 import com.syncsource.org.muzie.model.TrackItem;
 import com.syncsource.org.muzie.model.Version;
 import com.syncsource.org.muzie.rests.ApiClient;
-import com.syncsource.org.muzie.rests.ScApiClient;
+
 import com.syncsource.org.muzie.utils.Config;
-import com.syncsource.org.muzie.utils.NetworkChecker;
+
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
-import io.fabric.sdk.android.Fabric;
 import me.pushy.sdk.Pushy;
 
 import org.greenrobot.eventbus.EventBus;
@@ -71,9 +67,9 @@ public class LoadingActivity extends BaseActivity {
         progress = (ProgressBar) findViewById(R.id.load_more);
         apiClient = ApiClient.getApiClientInstance();
         errorLayout.setVisibility(View.GONE);
-        if (NetworkChecker.isNetworkAvailable(this)) {
-            new RegisterForPushNotificationsAsync().execute();
-        }
+//        if (NetworkChecker.isNetworkAvailable(this)) {
+//            new RegisterForPushNotificationsAsync().execute();
+//        }
         apiClient.getLatestTrack(Config.SNIPPET, TrackManageUtil.getPreviousTime(), TrackManageUtil.getCurrentTime(), Config.SEARCH_APIKEY);
         reloadButton.setOnClickListener(new View.OnClickListener() {
             @Override

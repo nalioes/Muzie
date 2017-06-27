@@ -41,27 +41,31 @@ public class TrackManageUtil {
     public List<MyTrack> getTrackList(List<Item> snippetItems, List<TrackItem> trackItems, String token) {
         if (trackItems.size() > 0) {
             myTracks = new ArrayList<>();
-
-            for (int i = 0; i < trackItems.size(); i++) {
-                for (int j = 0; j < snippetItems.size(); j++) {
-                    if (!TextUtils.isEmpty(snippetItems.get(j).getId().getVideoId())) {
-                        if (trackItems.get(i).getId().toString().compareToIgnoreCase(snippetItems.get(j).getId().getVideoId().toString()) == 0) {
-                            MyTrack myTrack = new MyTrack();
-                            myTrack.setYouTube(true);
-                            myTrack.setVideoID(trackItems.get(i).getId());
-                            myTrack.setViewCount(convertViewCount(trackItems.get(i).getStatistics().getViewCount()) + " views");
-                            myTrack.setDuration(convertDuration(trackItems.get(i).getContentDetails().getDuration()));
-                            myTrack.setTitle(snippetItems.get(j).getSnippet().getTitle());
-                            myTrack.setDescription(snippetItems.get(j).getSnippet().getDescription());
-                            myTrack.setThumbnail(snippetItems.get(j).getSnippet().getThumbnails().getHigh().getUrl());
-                            myTrack.setNextToken(token);
-                            myTrack.setChannelTitle(snippetItems.get(i).getSnippet().getChannelTitle());
-                            myTracks.add(myTrack);
+            try {
+                for (int i = 0; i < trackItems.size(); i++) {
+                    for (int j = 0; j < snippetItems.size(); j++) {
+                        if (!TextUtils.isEmpty(snippetItems.get(j).getId().getVideoId())) {
+                            if (trackItems.get(i).getId().toString().compareToIgnoreCase(snippetItems.get(j).getId().getVideoId().toString()) == 0) {
+                                MyTrack myTrack = new MyTrack();
+                                myTrack.setYouTube(true);
+                                myTrack.setVideoID(trackItems.get(i).getId());
+                                myTrack.setViewCount(convertViewCount(trackItems.get(i).getStatistics().getViewCount()) + " views");
+                                myTrack.setDuration(convertDuration(trackItems.get(i).getContentDetails().getDuration()));
+                                myTrack.setTitle(snippetItems.get(j).getSnippet().getTitle());
+                                myTrack.setDescription(snippetItems.get(j).getSnippet().getDescription());
+                                myTrack.setThumbnail(snippetItems.get(j).getSnippet().getThumbnails().getHigh().getUrl());
+                                myTrack.setNextToken(token);
+                                myTrack.setChannelTitle(snippetItems.get(i).getSnippet().getChannelTitle());
+                                myTracks.add(myTrack);
+                            }
                         }
+
                     }
 
                 }
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }
@@ -72,28 +76,32 @@ public class TrackManageUtil {
         if (trackItems.size() > 0) {
             myTracks = new ArrayList<>();
 
-            for (int i = 0; i < trackItems.size(); i++) {
-                for (int j = 0; j < snippetItems.size(); j++) {
-                    if (!TextUtils.isEmpty(snippetItems.get(j).getId())) {
-                        if (trackItems.get(i).getId().toString().compareToIgnoreCase(snippetItems.get(j).getId().toString()) == 0) {
-                            MyTrack myTrack = new MyTrack();
-                            myTrack.setYouTube(true);
-                            myTrack.setVideoID(trackItems.get(i).getId());
-                            myTrack.setViewCount(convertViewCount(trackItems.get(i).getStatistics().getViewCount()) + " views");
-                            myTrack.setDuration(convertDuration(trackItems.get(i).getContentDetails().getDuration()));
-                            myTrack.setTitle(snippetItems.get(j).getSnippet().getTitle());
-                            myTrack.setDescription(snippetItems.get(j).getSnippet().getDescription());
-                            myTrack.setThumbnail(snippetItems.get(j).getSnippet().getThumbnails().getHigh().getUrl());
-                            myTrack.setNextToken(token);
-                            myTrack.setChannelTitle(snippetItems.get(i).getSnippet().getChannelTitle());
-                            myTracks.add(myTrack);
+            try {
+                for (int i = 0; i < trackItems.size(); i++) {
+                    for (int j = 0; j < snippetItems.size(); j++) {
+                        if (!TextUtils.isEmpty(snippetItems.get(j).getId())) {
+                            if (trackItems.get(i).getId().toString().compareToIgnoreCase(snippetItems.get(j).getId().toString()) == 0) {
+                                MyTrack myTrack = new MyTrack();
+                                myTrack.setYouTube(true);
+                                myTrack.setVideoID(trackItems.get(i).getId());
+                                myTrack.setViewCount(convertViewCount(trackItems.get(i).getStatistics().getViewCount()) + " views");
+                                myTrack.setDuration(convertDuration(trackItems.get(i).getContentDetails().getDuration()));
+                                myTrack.setTitle(snippetItems.get(j).getSnippet().getTitle());
+                                myTrack.setDescription(snippetItems.get(j).getSnippet().getDescription());
+                                myTrack.setThumbnail(snippetItems.get(j).getSnippet().getThumbnails().getHigh().getUrl());
+                                myTrack.setNextToken(token);
+                                myTrack.setChannelTitle(snippetItems.get(i).getSnippet().getChannelTitle());
+                                myTracks.add(myTrack);
+                            }
                         }
+
                     }
 
                 }
 
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
         }
         return myTracks;
     }
@@ -101,7 +109,7 @@ public class TrackManageUtil {
     public List<MyTrack> getScTrackList(List<ScTrackContent> trackContents) {
         if (trackContents.size() > 0) {
             myTracks = new ArrayList<>();
-            for (ScTrackContent trackContent : trackContents) {
+//            for (ScTrackContent trackContent : trackContents) {
 //                if (trackContent.getArtworkUrl() != null && trackContent.getStreamUrl() != null && trackContent.getTitle() != null && trackContent.getGenre() != null && !TextUtils.isEmpty(trackContent.getGenre())) {
 //                    MyTrack myTrack = new MyTrack();
 //                    myTrack.setSoundCloud(true);
@@ -119,8 +127,8 @@ public class TrackManageUtil {
 //
 //                    myTracks.add(myTrack);
 //                }
-
-            }
+//
+//            }
         }
         return myTracks;
     }
@@ -139,28 +147,45 @@ public class TrackManageUtil {
     public static List<SCMusic> getScTopMusicList(ScTrackContent content) {
         List<SCMusic> scMusics = new ArrayList<>();
         if (content.getCollection().size() > 0) {
-            for (int i = 0; i < content.getCollection().size(); i++) {
-                SCMusic music = new SCMusic();
-                ScTrack track = content.getCollection().get(i).getTrack();
-                music.setTitle(track.getTitle());
-                music.setArtist_name(track.getUser().getUsername());
-                music.setCreated_at("");
-                music.setDuration(milliSecondsToTimer(track.getDuration()));
-                music.setGenre(track.getGenre());
-                music.setId(track.getId());
-                if (track.getLikesCount() > 0) {
-                    music.setLikes_count(convertViewCount(String.valueOf(track.getLikesCount())));
-                }
-                if (track.getPlaybackCount() > 0) {
-                    music.setPlayback_count(convertViewCount(String.valueOf(track.getPlaybackCount())));
-                }
-                music.setKind(content.getKind());
-                music.setStreamUrl(track.getUri() + "/stream");
-                if (!TextUtils.isEmpty(track.getArtworkUrl())) {
-                    music.setThumbnail(track.getArtworkUrl().replace("large", "t500x500"));
+            try {
+                for (int i = 0; i < content.getCollection().size(); i++) {
+                    SCMusic music = new SCMusic();
+                    ScTrack track = content.getCollection().get(i).getTrack();
+                    music.setCreated_at("");
+                    music.setDuration(milliSecondsToTimer(track.getDuration()));
+
+                    music.setId(track.getId());
+                    if (track.getLikesCount() > 0) {
+                        music.setLikes_count(convertViewCount(String.valueOf(track.getLikesCount())));
+                    }
+                    if (track.getPlaybackCount() > 0) {
+                        music.setPlayback_count(convertViewCount(String.valueOf(track.getPlaybackCount())));
+                    }
+                    if (!TextUtils.isEmpty(track.getTitle())) {
+                        music.setTitle(track.getTitle());
+                    }
+                    if (!TextUtils.isEmpty(track.getUser().getUsername())) {
+                        music.setArtist_name(track.getUser().getUsername());
+                    }
+                    if (!TextUtils.isEmpty(track.getGenre())) {
+                        music.setGenre(track.getGenre());
+                    }
+                    if (!TextUtils.isEmpty(track.getUri() + "/stream")) {
+                        music.setStreamUrl(track.getUri() + "/stream");
+                    }
+                    if (!TextUtils.isEmpty(content.getKind())) {
+                        music.setKind(content.getKind());
+                    }
+
+                    if (!TextUtils.isEmpty(track.getArtworkUrl())) {
+                        music.setThumbnail(track.getArtworkUrl().replace("large", "t500x500"));
+                    }
+
+                    scMusics.add(music);
                 }
 
-                scMusics.add(music);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
 
         }

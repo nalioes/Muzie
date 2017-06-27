@@ -59,61 +59,12 @@
             android:label="@string/title_activity_top_sound_cloud"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <!-- Pushy Declarations -->
-
-
-        <!-- Pushy Notification Receiver -->
-        <!-- Incoming push notifications will invoke the following BroadcastReceiver -->
-        <receiver
-            android:name=".receiver.PushReceiver"
-            android:exported="false">
-            <intent-filter>
-
-                <!-- Do not modify this -->
-                <action android:name="pushy.me" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Pushy Update Receiver -->
-        <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
-        <receiver
-            android:name="me.pushy.sdk.receivers.PushyUpdateReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_REPLACED" />
-
-                <data android:scheme="package" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Pushy Boot Receiver -->
-        <!-- Do not modify - internal BroadcastReceiver that restarts the listener service -->
-        <receiver
-            android:name="me.pushy.sdk.receivers.PushyBootReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Pushy Socket Service -->
-        <!-- Do not modify - internal socket service -->
-        <service android:name="me.pushy.sdk.services.PushySocketService" />
-
-        <!-- End Pushy Declarations -->
         <activity
             android:name=".activities.YouTubeActivity"
             android:label="@string/title_activity_you_tube"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SoundcloudActivity" />
-        <activity
-            android:name=".activities.Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.Main3Activity"
-            android:label="@string/title_activity_main3"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <service android:name=".utils.MuzieMediaPlayer" />
     </application>
 
 </manifest>

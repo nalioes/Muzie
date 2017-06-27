@@ -64,6 +64,7 @@
                             android:clickable="true">
 
                             <com.syncsource.org.muzie.views.Title
+                                android:id="@+id/genres_title"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="false"
@@ -74,9 +75,10 @@
                                 android:text="All music genres"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
                                 android:textColor="@color/filter_color"
-                                android:textSize="@dimen/medium_text_two" />
+                                android:textSize="@dimen/medium_text_three" />
 
                             <ImageView
+                                android:id="@+id/img"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -90,7 +92,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
+                        android:layout_height="0.7dp"
                         android:background="@color/separator_color" />
                 </LinearLayout>
 

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,6 +18,9 @@ import me.pushy.sdk.Pushy;
  */
 
 public class BaseActivity extends AppCompatActivity {
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
     @Override
     protected void onStart() {
         super.onStart();

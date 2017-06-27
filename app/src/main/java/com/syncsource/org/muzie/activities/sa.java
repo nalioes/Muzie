@@ -1,11 +1,5 @@
 package com.syncsource.org.muzie;
 
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.databinding.DataBindingUtil;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -13,10 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -25,9 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.syncsource.org.muzie.databinding.ActivityScTrackBinding;
 import com.syncsource.org.muzie.model.MyTrack;
-import com.syncsource.org.muzie.model.SCMusic;
 import com.syncsource.org.muzie.utils.Config;
-import com.syncsource.org.muzie.utils.MuzieMediaPlayer;
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
 import java.io.File;
@@ -38,30 +28,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.syncsource.org.muzie.utils.MuzieMediaPlayer.mediaPlayer;
-
-public class ScTrackActivity extends AppCompatActivity {
+public class sa extends AppCompatActivity {
     public static final String SCYNCID = "sc_sync_id";
     private ActivityScTrackBinding binding;
-    //    private MediaPlayer mediaPlayer;
-    private SCMusic myTrack;
+    private MediaPlayer mediaPlayer;
+    private MyTrack myTrack;
     private Handler handler;
-    private static MuzieMediaPlayer muzieMediaPlayer;
-    static boolean serviceBound = false;
-    public static final String Broadcast_PLAY_NEW_AUDIO = "com.syncsource.org.muzie.PlayNewAudio";
-    public static ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            MuzieMediaPlayer.ClientBinder clientBInder = (MuzieMediaPlayer.ClientBinder) service;
-            muzieMediaPlayer = clientBInder.getService();
-            serviceBound = true;
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            serviceBound = false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,57 +41,28 @@ public class ScTrackActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sc_track);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-        muzieMediaPlayer = MuzieMediaPlayer.getPlayerInstance();
+        mediaPlayer = new MediaPlayer();
         handler = new Handler();
+
         if (getIntent().hasExtra(SCYNCID)) {
-            myTrack = (SCMusic) getIntent().getSerializableExtra(SCYNCID);
+            myTrack = (MyTrack) getIntent().getSerializableExtra(SCYNCID);
             Glide.with(this)
                     .load(myTrack.getThumbnail())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.scTrackImage);
             binding.scTrackTitle.setText(myTrack.getTitle());
             binding.currentDuration.setText("00:00");
-            binding.subTitle.setText(myTrack.getArtist_name());
             binding.totalDuration.setText(myTrack.getDuration());
             binding.playTrack.setImageResource(R.drawable.ic_play_delay);
             binding.playTrack.setEnabled(false);
         }
-        if (mediaPlayer != null) {
-            if (MuzieMediaPlayer.getId() != 0) {
 
-                if (MuzieMediaPlayer.getId() == myTrack.getId()) {
-                    if (mediaPlayer.isPlaying()) {
-                        mediaPlayer.start();
-                        binding.playTrack.setImageResource(R.drawable.ic_pause);
-                        updateTimeProgress();
-                    }
-                } else {
-                    mediaPlayer.reset();
-                    MuzieMediaPlayer.setId(myTrack.getId());
-                    playAudio(myTrack.getStreamUrl() + "?client_id=" + Config.CLIENT_ID);
-                }
-            } else {
-                MuzieMediaPlayer.setId(myTrack.getId());
-                playAudio(myTrack.getStreamUrl() + "?client_id=" + Config.CLIENT_ID);
-            }
-
-        }
-
-        MuzieMediaPlayer.setMediaListener(new MuzieMediaPlayer.MediaListener() {
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
-            public void isOnPrepared(boolean prepare) {
+            public void onPrepared(MediaPlayer mediaPlayer) {
                 binding.playTrack.setImageResource(R.drawable.ic_play);
                 binding.playTrack.setEnabled(true);
-            }
-        });
-        binding.playNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ScTrackActivity.this, "next", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -129,11 +72,15 @@ public class ScTrackActivity extends AppCompatActivity {
                 checkingPlay();
             }
         });
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+            }
+        });
 
         binding.fileDownload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ScTrackActivity.this, "download", Toast.LENGTH_SHORT).show();
                 new DownloadFileFromURL().execute(myTrack.getStreamUrl() + "?client_id=" + Config.CLIENT_ID);
             }
         });
@@ -167,15 +114,20 @@ public class ScTrackActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    @Override
     public void onBackPressed() {
         super.onBackPressed();
         if (mediaPlayer != null) {
-//     handler.removeCallbacks(timeProgress);
+            handler.removeCallbacks(timeProgress);
+            mediaPlayer.release();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            handler.removeCallbacks(timeProgress);
+            mediaPlayer.release();
         }
     }
 
@@ -198,7 +150,7 @@ public class ScTrackActivity extends AppCompatActivity {
                 int size = huc.getContentLength();
 
                 if (huc != null) {
-                    String fileName = myTrack.getTitle() + ".mp3";
+                    String fileName = myTrack.getTitle();
                     String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
                     File f = new File(storagePath, fileName);
 
@@ -239,75 +191,39 @@ public class ScTrackActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Boolean success) {
             if (success) {
-                Toast.makeText(ScTrackActivity.this, "Download Finished", Toast.LENGTH_SHORT).show();
+                Toast.makeText(sa.this, "Download Finished", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        savedInstanceState.putBoolean("ServiceState", serviceBound);
-        super.onSaveInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        serviceBound = savedInstanceState.getBoolean("ServiceState");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (serviceBound) {
-//            unbindService(serviceConnection);
-            //service is active
-//            muzieMediaPlayer.stopSelf();
         }
     }
 
     private void playSong() {
-
-    }
-
-    private void playAudio(String media) {
-        //Check is service is active
-        if (!serviceBound) {
-
-            Intent playerIntent = new Intent(this, MuzieMediaPlayer.class);
-            playerIntent.putExtra("media", media);
-            startService(playerIntent);
-            bindService(playerIntent, serviceConnection, Context.BIND_AUTO_CREATE);
+        try {
+            mediaPlayer.reset();
+            mediaPlayer.setDataSource(myTrack.getStreamUrl() + "?client_id=" + Config.CLIENT_ID);
+            mediaPlayer.prepareAsync();
             binding.progressLength.setProgress(0);
             binding.progressLength.setMax(100);
             updateTimeProgress();
-        } else {
-            //Service is active
-            //Send media with BroadcastReceiver
-            Intent broadcastIntent = new Intent(Broadcast_PLAY_NEW_AUDIO);
-            broadcastIntent.putExtra("media", media);
-            sendBroadcast(broadcastIntent);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     private void checkingPlay() {
-        if (mediaPlayer != null) {
-            if (mediaPlayer.isPlaying()) {
-                if (mediaPlayer != null) {
-                    mediaPlayer.pause();
-                    binding.playTrack.setImageResource(R.drawable.ic_play);
-                }
-            } else {
-                if (mediaPlayer != null) {
-                    mediaPlayer.start();
-                    binding.playTrack.setImageResource(R.drawable.ic_pause);
-                }
+        if (mediaPlayer.isPlaying()) {
+            if (mediaPlayer != null) {
+                mediaPlayer.pause();
+                binding.playTrack.setImageResource(R.drawable.ic_play);
             }
-            updateTimeProgress();
+        } else {
+            if (mediaPlayer != null) {
+                mediaPlayer.start();
+                binding.playTrack.setImageResource(R.drawable.ic_pause);
+            }
         }
     }
 
-    public void updateTimeProgress() {
+    private void updateTimeProgress() {
         if (mediaPlayer != null) {
             handler.postDelayed(timeProgress, 100);
         }
@@ -316,22 +232,16 @@ public class ScTrackActivity extends AppCompatActivity {
     private Runnable timeProgress = new Runnable() {
         @Override
         public void run() {
-            if (mediaPlayer != null) {
-                if (mediaPlayer.isPlaying()) {
-                    long totalDuration = mediaPlayer.getDuration();
-                    long currentDuration = mediaPlayer.getCurrentPosition();
-                    binding.currentDuration.setText(String.valueOf(TrackManageUtil.milliSecondsToTimer(currentDuration)));
+            long totalDuration = mediaPlayer.getDuration();
+            long currentDuration = mediaPlayer.getCurrentPosition();
+            binding.currentDuration.setText(String.valueOf(TrackManageUtil.milliSecondsToTimer(currentDuration)));
 //            binding.totalDuration.setText(String.valueOf(TrackManageUtil.milliSecondsToTimer(totalDuration)));
-                    int progress = Integer.valueOf(TrackManageUtil.getProgressPercentage(currentDuration, totalDuration));
-                    binding.progressLength.setProgress(progress);
-                    if (progress == 100) {
-                        binding.playTrack.setImageResource(R.drawable.ic_play);
-                    }
-                    handler.postDelayed(this, 100);
-                }
-
+            int progress = Integer.valueOf(TrackManageUtil.getProgressPercentage(currentDuration, totalDuration));
+            binding.progressLength.setProgress(progress);
+            if (progress == 100) {
+                binding.playTrack.setImageResource(R.drawable.ic_play);
             }
-
+            handler.postDelayed(this, 100);
         }
     };
 }

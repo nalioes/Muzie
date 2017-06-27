@@ -7,37 +7,23 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.syncsource.org.muzie.R;
-import com.syncsource.org.muzie.adapters.PagerAdapter;
 import com.syncsource.org.muzie.databinding.ActivityMainBinding;
-import com.syncsource.org.muzie.events.TrackEvent;
-import com.syncsource.org.muzie.fragments.MyScloudFragment;
-import com.syncsource.org.muzie.fragments.MyYtubeFragment;
-import com.syncsource.org.muzie.model.MyTrack;
-import com.syncsource.org.muzie.model.ScTrackContent;
-import com.syncsource.org.muzie.rests.ScApiClient;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    List<MyTrack> myTracks = new ArrayList<>();
-    ScApiClient scApiClient;
-    ScTrackContent newHotBody;
-    ScTrackContent topTrackBody;
-
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

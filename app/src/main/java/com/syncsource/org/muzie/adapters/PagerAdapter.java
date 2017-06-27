@@ -2,12 +2,6 @@ package com.syncsource.org.muzie.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-
-import com.syncsource.org.muzie.R;
-import com.syncsource.org.muzie.fragments.GenreFragment;
-import com.syncsource.org.muzie.fragments.MyScloudFragment;
-import com.syncsource.org.muzie.fragments.MyYtubeFragment;
 import com.syncsource.org.muzie.fragments.NewAndHotFragment;
 import com.syncsource.org.muzie.fragments.TopFragment;
 

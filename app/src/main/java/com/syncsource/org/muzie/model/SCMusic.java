@@ -1,10 +1,14 @@
 package com.syncsource.org.muzie.model;
 
+import android.databinding.BaseObservable;
+
+import java.io.Serializable;
+
 /**
  * Created by nalioes on 1/27/17.
  */
 
-public class SCMusic {
+public class SCMusic extends BaseObservable implements Serializable {
     private Integer id;
     private String kind;
     private String thumbnail;
