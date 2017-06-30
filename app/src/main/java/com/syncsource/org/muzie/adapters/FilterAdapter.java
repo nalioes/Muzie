@@ -49,11 +49,11 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             ((ItemViewHolder) holder).getBinding().getRoot().setSelected(true);
             ((ItemViewHolder)holder).getBinding().selectorImg.setVisibility(View.VISIBLE);
             ((ItemViewHolder)holder).getBinding().selectorImg.setImageResource(R.drawable.arr_filter);
-            ((ItemViewHolder)holder).getBinding().filterTitle.setTextColor(Color.parseColor("#2975ac"));
+            ((ItemViewHolder) holder).getBinding().filterTitle.setTextColor(Color.parseColor("#fb496c"));
         } else {
             ((ItemViewHolder) holder).getBinding().getRoot().setSelected(false);
             ((ItemViewHolder)holder).getBinding().selectorImg.setVisibility(View.GONE);
-            ((ItemViewHolder)holder).getBinding().filterTitle.setTextColor(Color.parseColor("#FF010101"));
+            ((ItemViewHolder) holder).getBinding().filterTitle.setTextColor(Color.parseColor("#fdfdfd"));
         }
 
         ((ItemViewHolder)holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
@@ -61,11 +61,11 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             public void onClick(View v) {
                 if (selected_position == position) {
                     ((ItemViewHolder)holder).getBinding().selectorImg.setVisibility(View.INVISIBLE);
-                    ((ItemViewHolder)holder).getBinding().filterTitle.setTextColor(Color.parseColor("#FF010101"));
+                    ((ItemViewHolder) holder).getBinding().filterTitle.setTextColor(Color.parseColor("#fdfdfd"));
                     notifyItemChanged(selected_position);
                 } else {
                     selected_position = position;
-                    ((ItemViewHolder)holder).getBinding().filterTitle.setTextColor(Color.parseColor("#2975ac"));
+                    ((ItemViewHolder) holder).getBinding().filterTitle.setTextColor(Color.parseColor("#fb496c"));
                     ((ItemViewHolder)holder).getBinding().selectorImg.setVisibility(View.VISIBLE);
                     if (filterListener!=null){
                         filterListener.isChecked(true,position,chartsgenres.get(position));

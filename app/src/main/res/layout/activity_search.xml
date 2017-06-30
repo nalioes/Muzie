@@ -20,7 +20,12 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/search_filter_view"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="false"
+                app:cardCornerRadius="0dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/light_dark"
+                android:background="@color/light_dark">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -39,19 +44,19 @@
                         <com.syncsource.org.muzie.views.Title
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/medium_margin"
+                            android:layout_marginBottom="@dimen/normal_margin"
                             android:layout_marginTop="@dimen/medium_margin"
                             android:text="@string/search_by"
                             android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:textColor="@color/dark_color"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/medium_text_two" />
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separator_height"
-                        android:background="@color/separator_color" />
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/separator_height"-->
+                    <!--android:background="@color/text_color_dark" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -84,7 +89,7 @@
                                 android:layout_centerInParent="true"
                                 android:text="@string/youtube"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:textColor="@color/dark_color"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/medium_text_two" />
 
                             <android.support.v7.widget.SwitchCompat
@@ -92,9 +97,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerInParent="true"
-                                android:layout_marginBottom="@dimen/large_margin"
+                                android:layout_marginBottom="@dimen/medium_margin"
                                 android:layout_marginRight="@dimen/large_margin"
-                                android:layout_marginTop="@dimen/large_margin"
+                                android:layout_marginTop="@dimen/medium_margin"
                                 android:background="@drawable/switchrect"
                                 android:checked="true"
                                 android:longClickable="false"
@@ -104,10 +109,10 @@
 
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/separator_height"
-                        android:background="@color/separator_color" />
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/separator_height"-->
+                    <!--android:background="@color/text_color_dark" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -140,7 +145,7 @@
                                 android:layout_centerInParent="true"
                                 android:text="@string/soundcloud"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:textColor="@color/dark_color"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/medium_text_two" />
 
                             <android.support.v7.widget.SwitchCompat
@@ -148,9 +153,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:layout_centerInParent="true"
-                                android:layout_marginBottom="@dimen/large_margin"
+                                android:layout_marginBottom="@dimen/medium_margin"
                                 android:layout_marginRight="@dimen/large_margin"
-                                android:layout_marginTop="@dimen/large_margin"
+                                android:layout_marginTop="@dimen/medium_margin"
                                 android:background="@drawable/switchrect"
                                 android:checked="false"
                                 android:longClickable="false"
@@ -167,6 +172,7 @@
                 android:id="@+id/search_content_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/light_dark_background"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </LinearLayout>
 

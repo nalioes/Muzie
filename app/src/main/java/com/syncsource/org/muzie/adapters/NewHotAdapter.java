@@ -43,6 +43,7 @@ public class NewHotAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         final SCMusic music = newHotItem.get(position);
         Glide.with(context)
                 .load(music.getThumbnail())
+                .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(((ItemViewHolder) holder).getBinding().backgroundImage);
 

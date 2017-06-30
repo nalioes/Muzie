@@ -15,6 +15,7 @@ public class ImageBindingAdapter {
     public static void bindImage(ImageView imageView,String path){
         Glide.with(imageView.getContext())
                     .load(path)
+                .asBitmap()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
                     .into(imageView);

@@ -64,8 +64,8 @@
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Switch.Theme" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/colorPrimary</item>
-        <item name="colorSwitchThumbNormal">@color/background_grey</item>
+        <item name="colorControlActivated">@color/my_color_2</item>
+        <item name="colorSwitchThumbNormal">@color/light_dark</item>
         <item name="android:colorForeground">@color/white</item>
         <item name="trackTint">@color/white</item>
     </style>
@@ -87,22 +87,25 @@
         <item name="android:windowExitAnimation">@anim/slide_bottom</item>
     </style>
 
-    <style name="DialogTheme" parent="android:Theme.Dialog">
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
 
-
-        <!-- No backgrounds, titles or window float -->
-        <item name="android:windowBackground">@color/white</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:layout_marginTop">32dp</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
+
     </style>
 
     <style name="seekBar" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/my_color_2</item>
         <item name="colorControlNormal">@color/text_color_dark</item>
-        <item name="colorControlHighlight">@color/white</item>
-        <item name="trackTint">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/light_dark</item>
+        <item name="trackTint">@color/my_color_2</item>
     </style>
 
+    <style name="HintColor" parent="Theme.AppCompat.Light">
+        <item name="android:textColorHint">@color/white</item>
+    </style>
 </resources>

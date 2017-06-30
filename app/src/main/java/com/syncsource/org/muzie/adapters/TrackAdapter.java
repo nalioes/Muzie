@@ -99,10 +99,11 @@ public class TrackAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 ((ImageViewHolder) holder).binding.viewCount.setText(myTrack.getViewCount());
                 Glide.with(context)
                         .load(myTrack.getThumbnail())
+                        .asBitmap()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .into(((ImageViewHolder) holder).binding.trackImage);
 
-                ((ImageViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
+                ((ImageViewHolder) holder).getBinding().container.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, SyncsTrackActivity.class);

@@ -53,7 +53,6 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
     SearchView searchView;
     TextView searchText;
     FrameLayout baseLayoutContainer;
-
     final int myColor = 0xffffff;
     Drawable drawable;
     private String token;
@@ -77,7 +76,6 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
             actionBar.setHomeButtonEnabled(false);
         }
 
-
         drawable = new ColorDrawable(myColor);
         apiClient = ApiClient.getApiClientInstance();
         searchView = (SearchView) findViewById(R.id.searchView);
@@ -91,6 +89,8 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
             view.setBackgroundColor(Color.parseColor("#00FFFFFF"));
             int searchTextId = view.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
             searchText = (TextView) view.findViewById(searchTextId);
+            searchText.setTextColor(getResources().getColor(R.color.white));
+            searchText.setHintTextColor(getResources().getColor(R.color.white));
             if (searchText != null) {
                 searchText.setFocusable(true);
             }

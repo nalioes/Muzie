@@ -24,8 +24,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
             android:orientation="vertical">
 
             <LinearLayout
@@ -36,12 +36,13 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.github.siyamed.shapeimageview.RoundedImageView
                     android:id="@+id/track_image"
-                    android:layout_width="100dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/yt_relate_image_width"
+                    android:layout_height="@dimen/yt_relate_image_height"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
+                    app:siRadius="@dimen/tiny_margin"
                     android:padding="4dp"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{item.thumbnail}"
@@ -67,7 +68,7 @@
                         android:maxLines="1"
                         android:text="@{item.title}"
                         android:textAppearance="@android:style/TextAppearance.Holo.Medium"
-                        android:textColor="@color/dark_color"
+                        android:textColor="@color/white"
                         android:textSize="15.5sp" />
 
                     <RelativeLayout
@@ -106,7 +107,7 @@
                                 android:paddingRight="8dp"
                                 android:paddingTop="4dp"
                                 android:text="@{item.duration}"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/txt_color"
                                 android:textSize="12sp"
                                 tools:text="4:33" />
 
@@ -118,11 +119,11 @@
             </LinearLayout>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separator_height"
-            android:layout_below="@+id/trackLayout"
-            android:background="@color/separator_color" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/separator_height"-->
+        <!--android:layout_below="@+id/trackLayout"-->
+        <!--android:background="@color/separator_color" />-->
 
     </LinearLayout>
 </layout>

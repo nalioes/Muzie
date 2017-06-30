@@ -2,7 +2,7 @@
 <resources>
 
     <color name="my_pb_color_1">#fffc5e5e</color>
-    <color name="my_pb_color_2">#fff165d7</color>
+    <color name="my_color_2">#fb496c</color>
     <color name="my_pb_color_3">#fffc6e4a</color>
     <color name="default_color">#ff33b5e5</color>
 
@@ -14,7 +14,9 @@
     <color name="txt_color">#ff686868</color>
     <color name="test">#2a62ef</color>
     <color name="black">#ef080808</color>
-    <color name="light_dark">#1a1b1f</color>
+    <color name="light_dark">#FF1A1B1F</color>
+    <color name="light_dark_dialog_background">#E61A1B1F</color>
+    <color name="light_dark_background">#ea1a1b1f</color>
     <color name="sec_black">#ef080808</color>
     <color name="sc_background_color">#fffefe</color>
 
@@ -28,8 +30,8 @@
     <color name="sc_background_trans">#98fdfdfe</color>
     <color name="genres_txt_color">#ff686868</color>
 
-    <color name="colorPrimary">#2975ac</color>
-    <color name="colorPrimaryDark">#2975ac</color>
+    <color name="colorPrimary">#FF1A1B1F</color>
+    <color name="colorPrimaryDark">#FF1A1B1F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="text_grey">#969696</color>
     <color name="drop_down_color">#FFCECECE</color>

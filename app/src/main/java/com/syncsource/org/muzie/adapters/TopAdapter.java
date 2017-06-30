@@ -52,6 +52,7 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         final SCMusic music = topMusic.get(position);
         Glide.with(context)
                 .load(music.getThumbnail())
+                .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(((ItemViewHolder) holder).getBinding().trackImage);
         ((ItemViewHolder) holder).getBinding().artistName.setText(music.getArtist_name());

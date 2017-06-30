@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/youtube_view"
-            android:background="#ffffff"
+            android:background="@color/light_dark"
             android:theme="@style/myTheme"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -31,6 +31,7 @@
                 <FrameLayout
                     android:id="@+id/sync_view"
                     android:layout_width="match_parent"
+                    android:background="@color/light_dark"
                     android:layout_height="match_parent">
 
                     <LinearLayout
@@ -90,6 +91,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center|left"
+                                android:background="@color/light_dark"
                                 android:orientation="vertical">
 
                                 <com.syncsource.org.muzie.views.Title
@@ -103,7 +105,7 @@
                                     android:fontFamily="sans-serif"
                                     android:maxLines="1"
                                     android:textAppearance="?android:textAppearanceMedium"
-                                    android:textColor="@android:color/black"
+                                    android:textColor="@android:color/white"
                                     android:textSize="15.5sp"
                                     android:textStyle="normal"
                                     tools:text="Seller Information asdfa sdf sadfaf asdfasdfasfsaf" />
@@ -150,6 +152,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
+                            android:background="@color/light_dark"
                             android:layout_marginLeft="@dimen/normal_margin"
                             android:layout_below="@+id/track_base_layout"
                             android:layout_gravity="center"
@@ -177,7 +180,7 @@
                             android:layout_marginBottom="4dp"
                             android:layout_marginTop="2dp"
                             android:indeterminate="true"
-                            android:indeterminateTint="@color/colorPrimary"
+                            android:indeterminateTint="@color/my_color_2"
                             android:indeterminateTintMode="src_in"
                             android:theme="@style/Material.Drawable.CircularProgress.Determinate" />
 
@@ -199,7 +202,7 @@
                         android:layout_marginLeft="@dimen/medium_margin"
                         android:fontFamily="san-serif"
                         android:text="Play related tracks"
-                        android:textColor="@android:color/black"
+                        android:textColor="@android:color/white"
                         android:textSize="@dimen/normal_text"
                         android:visibility="gone" />
 
@@ -212,7 +215,6 @@
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
-
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
 

@@ -30,7 +30,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-                        <ImageView
+                        <com.github.siyamed.shapeimageview.RoundedImageView
                             android:id="@+id/sc_track_image"
                             android:layout_width="match_parent"
                             android:layout_height="140dp"
@@ -38,6 +38,7 @@
                             android:layout_marginLeft="@dimen/medium_margin"
                             android:layout_marginTop="@dimen/medium_margin"
                             android:adjustViewBounds="true"
+                            app:siRadius="@dimen/small_margin"
                             android:background="@drawable/sc_imagerect"
                             android:scaleType="centerCrop"
                             android:src="@drawable/background" />

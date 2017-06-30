@@ -30,6 +30,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         EventBus.getDefault().unregister(this);
+        System.gc();
         super.onStop();
     }
 

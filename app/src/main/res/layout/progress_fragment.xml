@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTint="@color/my_color_2"
             android:indeterminateTintMode="src_in"
             android:theme="@style/Material.Drawable.CircularProgress.Determinate"
             android:layout_marginBottom="@dimen/margin_header"

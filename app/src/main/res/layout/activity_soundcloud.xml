@@ -14,6 +14,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/light_dark"
                 android:orientation="vertical">
 
                 <android.support.v7.widget.Toolbar
@@ -43,16 +44,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.7dp"
-                        android:background="@color/separator_color" />
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0.7dp"-->
+                    <!--android:background="@color/separator_color" />-->
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:background="@color/filter_background_color"
+                        android:background="@drawable/myrect"
+                        android:layout_marginLeft="1dp"
+                        android:layout_marginRight="1dp"
                         android:weightSum="1">
 
                         <RelativeLayout
@@ -74,7 +77,7 @@
                                 android:layout_marginTop="@dimen/medium_margin"
                                 android:text="All music genres"
                                 android:textAppearance="?android:attr/textAppearanceSmall"
-                                android:textColor="@color/filter_color"
+                                android:textColor="@color/white"
                                 android:textSize="@dimen/medium_text_three" />
 
                             <ImageView
@@ -90,10 +93,10 @@
                         </RelativeLayout>
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.7dp"
-                        android:background="@color/separator_color" />
+                    <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0.7dp"-->
+                    <!--android:background="@color/separator_color" />-->
                 </LinearLayout>
 
                 <android.support.v4.view.ViewPager

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -20,12 +21,13 @@
                 android:layout_marginTop="@dimen/normal_margin"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.github.siyamed.shapeimageview.RoundedImageView
                     android:id="@+id/background_image"
                     android:layout_width="@dimen/yt_relate_image_width"
                     android:layout_height="@dimen/yt_relate_image_height"
                     android:adjustViewBounds="true"
                     android:layout_marginLeft="@dimen/normal_margin"
+                    app:siRadius="@dimen/tiny_margin"
                     android:scaleType="centerCrop"
                     android:src="@drawable/background" />
 
@@ -67,7 +69,7 @@
                             android:layout_marginRight="@dimen/normal_margin"
                             android:gravity="right"
                             android:text="4:33"
-                            android:textColor="@android:color/black"
+                            android:textColor="@color/txt_color"
                             android:textSize="12sp" />
 
                     </RelativeLayout>
@@ -83,16 +85,16 @@
                         android:paddingRight="4dp"
                         android:text="SiaVEVO"
                         android:textAppearance="@android:style/TextAppearance.Holo.Medium"
-                        android:textColor="@color/dark_color"
+                        android:textColor="@color/white"
                         android:textSize="15sp" />
                 </LinearLayout>
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/separator_height"
-                android:background="@color/separator_color" />
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/separator_height"-->
+            <!--android:background="@color/separator_color" />-->
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 

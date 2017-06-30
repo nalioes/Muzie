@@ -20,7 +20,14 @@
 
     <style name="myItem" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:colorControlHighlight">#cacaca</item>
+        <item name="android:colorControlHighlight">@color/text_color</item>
 
     </style>
+
+    <style name="myPopularItem" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:colorControlHighlight">@color/text_color</item>
+        <item name="android:background">@color/light_dark</item>
+    </style>
+
 </resources>

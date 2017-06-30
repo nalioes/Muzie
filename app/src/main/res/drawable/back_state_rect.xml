@@ -8,9 +8,6 @@
 
 		<size android:width="16dp" android:height="16dp"/>
 
-		<stroke
-			android:color="@color/white"
-			android:width="1dp"  />
 	</shape>
 </item>
 
@@ -20,9 +17,6 @@
 		<solid android:color="@color/light_dark"  />
 
 		<size android:width="16dp" android:height="16dp"/>
-		<stroke
-			android:color="@color/white"
-			android:width="1dp"  />
 
 	</shape>
 </item>

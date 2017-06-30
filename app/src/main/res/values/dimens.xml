@@ -13,10 +13,12 @@
 
     <dimen name="card_tiny_margin">1.5dp</dimen>
     <dimen name="tiny_margin">2dp</dimen>
+    <dimen name="rounded_margin">2dp</dimen>
     <dimen name="small_margin">4dp</dimen>
     <dimen name="normal_margin">8dp</dimen>
     <dimen name="medium_margin">12dp</dimen>
     <dimen name="large_margin">16dp</dimen>
+    <dimen name="image_border_curvature">2dp</dimen>
 
     <dimen name="error_text">18sp</dimen>
     <dimen name="medium_text">13.5sp</dimen>

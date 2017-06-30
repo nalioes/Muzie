@@ -27,7 +27,6 @@ public class MuzieApp extends Application {
         Fabric.with(this, new Crashlytics());
         context = getApplicationContext();
         MUSIE = this;
-
     }
 
     public static ScTrackEvent.OnTopTrackEvent getTopTrackEvent() {

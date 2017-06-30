@@ -79,8 +79,10 @@ public class ScTrackActivity extends AppCompatActivity {
             myTrack = (SCMusic) getIntent().getSerializableExtra(SCYNCID);
             Glide.with(this)
                     .load(myTrack.getThumbnail())
+                    .asBitmap()
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(binding.scTrackImage);
+
             binding.scTrackTitle.setText(myTrack.getTitle());
             binding.currentDuration.setText("00:00");
             binding.subTitle.setText(myTrack.getArtist_name());
@@ -137,7 +139,7 @@ public class ScTrackActivity extends AppCompatActivity {
                 new DownloadFileFromURL().execute(myTrack.getStreamUrl() + "?client_id=" + Config.CLIENT_ID);
             }
         });
-
+        binding.progressLength.setIndeterminateDrawable(getResources().getDrawable(R.drawable.gradient));
         binding.progressLength.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -146,11 +148,13 @@ public class ScTrackActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                binding.progressLength.setThumb(getResources().getDrawable(R.drawable.seekbar_thumb_activite));
                 handler.removeCallbacks(timeProgress);
             }
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+                binding.progressLength.setThumb(getResources().getDrawable(R.drawable.seekbar_thumb));
                 handler.removeCallbacks(timeProgress);
                 int totalDuration = mediaPlayer.getDuration();
                 int currentDuration = TrackManageUtil.progressToTimer(seekBar.getProgress(), totalDuration);

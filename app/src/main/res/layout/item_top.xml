@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,15 +17,15 @@
             android:layout_marginRight="@dimen/medium_margin"
             android:layout_marginTop="@dimen/medium_margin">
 
-            <ImageView
+            <com.github.siyamed.shapeimageview.RoundedImageView
                 android:id="@+id/trackImage"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/popular_image_size"
+                app:siRadius="@dimen/tiny_margin"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/normal_margin"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/background" />
+                android:scaleType="centerCrop" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -94,7 +93,7 @@
                         android:paddingRight="4dp"
                         android:text="SiaVEVO"
                         android:textAppearance="@android:style/TextAppearance.Holo.Medium"
-                        android:textColor="@color/dark_color"
+                        android:textColor="@color/white"
                         android:textSize="15.5sp" />
 
                     <com.syncsource.org.muzie.views.Title
@@ -107,7 +106,7 @@
                         android:paddingLeft="4dp"
                         android:paddingRight="4dp"
                         android:text="4:33"
-                        android:textColor="@color/dark_color"
+                        android:textColor="@color/text_color"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -140,7 +139,7 @@
                         android:paddingRight="4dp"
                         android:text="ghfghfg"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
-                        android:textColor="@color/txt_color"
+                        android:textColor="@color/text_color"
                         android:textSize="14sp"
                         android:textStyle="normal" />
 
@@ -170,7 +169,7 @@
                         android:paddingRight="4dp"
                         android:text="14M"
                         android:textAppearance="@android:style/TextAppearance.Holo.Medium"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/text_color"
                         android:textSize="12sp" />
 
                 </LinearLayout>
@@ -178,10 +177,10 @@
 
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separator_height"
-            android:layout_below="@+id/trackLayout"
-            android:background="@color/separator_color" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/separator_height"-->
+        <!--android:layout_below="@+id/trackLayout"-->
+        <!--android:background="@color/separator_color" />-->
     </LinearLayout>
 </layout>

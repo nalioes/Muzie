@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -19,6 +20,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.FilterAdapter;
 import com.syncsource.org.muzie.adapters.PagerAdapter;
@@ -64,7 +67,7 @@ public class SoundcloudActivity extends AppCompatActivity {
             actionBar.setDefaultDisplayHomeAsUpEnabled(true);
         }
 
-        builder = new AlertDialog.Builder(SoundcloudActivity.this);
+        builder = new AlertDialog.Builder(SoundcloudActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
         binding.viewPager.setAdapter(pagerAdapter);
         binding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
         binding.tabLayout.setupWithViewPager(binding.viewPager);
@@ -147,7 +150,7 @@ public class SoundcloudActivity extends AppCompatActivity {
                             itemPosition = position;
                             filterDialog.dismiss();
                             binding.genresTitle.setText(filter.getName());
-                            binding.genresTitle.setTextColor(getResources().getColor(R.color.colorPrimary));
+                            binding.genresTitle.setTextColor(getResources().getColor(R.color.my_color_2));
                             binding.img.setImageDrawable(getResources().getDrawable(R.drawable.menu_down_check));
                             if (isSelectedTop) {
                                 topFilter = filter;
@@ -168,8 +171,11 @@ public class SoundcloudActivity extends AppCompatActivity {
                 filterDialog = builder.create();
                 filterDialog.setView(filterBinding.getRoot());
                 filterDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                filterDialog.getWindow().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.light_dark_dialog_background)));
+                filterDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+                filterDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 Window window = filterDialog.getWindow();
-                window.setGravity(Gravity.FILL);
+                window.setGravity(Gravity.BOTTOM);
                 filterDialog.show();
             }
         });

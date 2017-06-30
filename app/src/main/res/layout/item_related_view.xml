@@ -26,8 +26,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
             android:orientation="vertical">
 
             <LinearLayout
@@ -38,13 +38,13 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <ImageView
+                <com.github.siyamed.shapeimageview.RoundedImageView
                     android:id="@+id/track_image"
                     android:layout_width="@dimen/yt_relate_image_width"
                     android:layout_height="@dimen/yt_relate_image_height"
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
-                    android:padding="4dp"
+                    app:siRadius="@dimen/rounded_margin"
                     android:scaleType="centerCrop"
                     app:imageUrl="@{relatedtrack.thumbnail}"
                     tools:src="@drawable/background" />
@@ -66,7 +66,7 @@
                         android:padding="4dp"
                         android:text="@{relatedtrack.title}"
                         android:textAppearance="@android:style/TextAppearance.Holo.Medium"
-                        android:textColor="@android:color/black"
+                        android:textColor="@color/white"
                         android:textSize="15.5sp"
                         tools:text="Love Yourself (Purpose : The Movement) " />
 
@@ -109,7 +109,7 @@
                                 android:paddingRight="8dp"
                                 android:paddingTop="4dp"
                                 android:text="@{relatedtrack.duration}"
-                                android:textColor="@android:color/black"
+                                android:textColor="@color/txt_color"
                                 android:textSize="12sp"
                                 tools:text="4:33" />
 
@@ -120,10 +120,10 @@
             </LinearLayout>
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/separator_color" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0.5dp"-->
+        <!--android:background="@color/separator_color" />-->
 
     </LinearLayout>
 

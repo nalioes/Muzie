@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
             int searchTextId = view.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
             TextView searchText = (TextView) view.findViewById(searchTextId);
             if (searchText != null) {
-                searchText.setTextColor(Color.parseColor("#fdfdfd"));
+                searchText.setHintTextColor(getResources().getColor(R.color.white));
+                searchText.setTextColor(getResources().getColor(R.color.white));
                 searchText.setFocusable(false);
                 searchText.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds search_items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 

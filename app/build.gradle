@@ -89,6 +89,7 @@ dependencies {
     compile files('libs/YouTubeAndroidPlayerApi.jar')
     compile 'com.google.firebase:firebase-database:9.0.2'
     compile 'com.firebase:firebase-client-android:2.5.2+'
+    compile 'com.github.siyamed:android-shape-imageview:0.9.+@aar'
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
         transitive = true;
     }

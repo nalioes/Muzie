@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:foreground="?android:attr/selectableItemBackground"
         android:orientation="vertical">
 
@@ -49,14 +49,14 @@
                 android:maxLines="1"
                 android:text="L"
                 android:textAppearance="@android:style/TextAppearance.Holo.Medium"
-                android:textColor="@color/dark_color"
+                android:textColor="@color/white"
                 android:textSize="14.5sp" />
         </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/separator_height"
-            android:background="@color/separator_color" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/separator_height"-->
+        <!--android:background="@color/text_color_dark" />-->
 
     </LinearLayout>
 </layout>
