@@ -151,7 +151,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
         syncContainer.setVisibility(View.INVISIBLE);
         webView.setVisibility(View.INVISIBLE);
 //        webView.loadUrl("https://www.youtube2mp3.cc/button-api/#" + videoId + "|mp3");
-        webView.loadDataWithBaseURL(null, "<iframe src=\"https://ycapi.org/button/?v=" + videoId + "&fc=#ffffff&bc=#2975ac\" width=\"120\" height=\"38\" scrolling=\"no\" style=\"border:none;\"></iframe>", "text/html", "UTF-8", null);
+        webView.loadDataWithBaseURL(null, "<iframe src=\"https://ycapi.org/button/?v=" + videoId + "&fc=#ffffff&bc=#fb496c\" width=\"120\" height=\"38\" scrolling=\"no\" style=\"border:none;\"></iframe>", "text/html", "UTF-8", null);
         webView.setWebViewClient(new RequestWebViewClient());
         webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -187,8 +187,8 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
             } else {
                 isError = true;
             }
-            String mainUrl = "https://www.youtube2mp3.cc/";
-            if (mainUrl.compareTo(url) == 0) {
+            String mainUrl = "https://ycapi.org/";
+            if (mainUrl.equals(url)) {
                 reloadData.setVisibility(GONE);
                 errorMessage.setText(getString(R.string.fetch_error_message));
                 progressLayout.setVisibility(View.VISIBLE);
@@ -201,6 +201,8 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
 
         @Override
         public void onPageFinished(WebView view, String url) {
+            view.setBackgroundColor(getResources().getColor(R.color.light_dark));
+            view.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
             if (isError) {
                 webView.setVisibility(GONE);
@@ -293,7 +295,7 @@ public class SyncsTrackActivity extends YouTubeBaseActivity implements YouTubePl
                 TrackManageUtil trackManageUtil = new TrackManageUtil();
                 myRelatedTrackList = trackManageUtil.getTrackList(snippetItems, trackItems, token);
                 if (myRelatedTrackList.size() > 0) {
-                    relatedTitle.setVisibility(View.VISIBLE);
+//                    relatedTitle.setVisibility(View.VISIBLE);
                     adapter = new RelatedTrackAdapter(getApplicationContext(), myRelatedTrackList);
                     recyclerView.setAdapter(adapter);
                 }
