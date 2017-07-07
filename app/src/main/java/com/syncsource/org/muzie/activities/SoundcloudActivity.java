@@ -182,7 +182,7 @@ public class SoundcloudActivity extends AppCompatActivity {
                 filterDialog.show();
             }
         });
-
+        new MusicBarView().displayPlayBar(SoundcloudActivity.this, getApplicationContext(), binding.barContainer);
     }
 
     @Override
@@ -208,8 +208,6 @@ public class SoundcloudActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new MusicBarView().displayPlayBar(SoundcloudActivity.this, getApplicationContext(), binding.getRoot());
+
     }
-
-
 }

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         binding.searchView.setIconifiedByDefault(false);
         int plateId = binding.searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
         View view = binding.searchView.findViewById(plateId);
-
+        new MusicBarView().displayPlayBar(MainActivity.this, getApplicationContext(), binding.barLayount);
         if (view != null) {
             view.setBackgroundColor(Color.parseColor("#00FFFFFF"));
             int searchTextId = view.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new MusicBarView().displayPlayBar(MainActivity.this, getApplicationContext(), binding.getRoot());
+
     }
 
     @Override

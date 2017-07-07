@@ -105,6 +105,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/bar_bottom_margin" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/barContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:orientation="vertical" />
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>
