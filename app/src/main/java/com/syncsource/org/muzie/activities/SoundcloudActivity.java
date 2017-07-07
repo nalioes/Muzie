@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,19 +20,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.adapters.FilterAdapter;
 import com.syncsource.org.muzie.adapters.PagerAdapter;
 import com.syncsource.org.muzie.databinding.ActivitySoundcloudBinding;
 import com.syncsource.org.muzie.databinding.ItemFilterBinding;
 import com.syncsource.org.muzie.databinding.ViewFilterGenreBinding;
+import com.syncsource.org.muzie.databinding.ViewPlayingTrackBinding;
 import com.syncsource.org.muzie.fragments.NewAndHotFragment;
 import com.syncsource.org.muzie.fragments.TopFragment;
 import com.syncsource.org.muzie.model.Filter;
+import com.syncsource.org.muzie.views.MusicBarView;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class SoundcloudActivity extends AppCompatActivity {
     ActivitySoundcloudBinding binding;
@@ -47,6 +48,10 @@ public class SoundcloudActivity extends AppCompatActivity {
     private boolean isSelectedNewHot = false;
     private boolean isFiltered = false;
     int itemPosition = 0;
+
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
 
     public static Intent intentInstance(Context context) {
         Intent intent = new Intent(context, SoundcloudActivity.class);
@@ -66,7 +71,6 @@ public class SoundcloudActivity extends AppCompatActivity {
             actionBar.setHomeAsUpIndicator(getResources().getDrawable(R.drawable.chevron_left));
             actionBar.setDefaultDisplayHomeAsUpEnabled(true);
         }
-
         builder = new AlertDialog.Builder(SoundcloudActivity.this, android.R.style.Theme_DeviceDefault_Light_Dialog_Alert);
         binding.viewPager.setAdapter(pagerAdapter);
         binding.tabLayout.setTabMode(TabLayout.MODE_FIXED);
@@ -161,7 +165,6 @@ public class SoundcloudActivity extends AppCompatActivity {
                                 NewAndHotFragment newAndHotFragment = (NewAndHotFragment) pagerAdapter.getRegisteredFragment(binding.viewPager.getCurrentItem());
                                 newAndHotFragment.setData(filter);
                             }
-
                         }
                     }
                 }, itemPosition);
@@ -179,6 +182,7 @@ public class SoundcloudActivity extends AppCompatActivity {
                 filterDialog.show();
             }
         });
+
     }
 
     @Override
@@ -199,4 +203,13 @@ public class SoundcloudActivity extends AppCompatActivity {
         }
         return genreFilter;
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        new MusicBarView().displayPlayBar(SoundcloudActivity.this, getApplicationContext(), binding.getRoot());
+    }
+
+
 }

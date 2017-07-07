@@ -7,13 +7,20 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.MediaSync;
+import android.media.TimedText;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.view.View;
+import android.widget.Toast;
 
 import com.syncsource.org.muzie.ScTrackActivity;
+import com.syncsource.org.muzie.adapters.TopAdapter;
+import com.syncsource.org.muzie.model.SCMusic;
 
 import java.io.IOException;
 
@@ -33,8 +40,13 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
     private boolean ongoingCall = false;
     private PhoneStateListener phoneStateListener;
     private TelephonyManager telephonyManager;
-    private static int id ;
+    private static int id;
     private static MediaListener listener;
+    public static SCMusic scMusic;
+    public static boolean isPrepareComplete = false;
+
+    public static MediaSyncInterface syncListener;
+    public static MediaInitializeListener mInitializeListener;
 
     public MuzieMediaPlayer() {
         player = this;
@@ -50,15 +62,25 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
 
     private final IBinder binder = new ClientBinder();
 
-    public static void setMediaListener(MediaListener mediaListener){
+    public static void setInitializeListener(MediaInitializeListener initializeListener) {
+        mInitializeListener = initializeListener;
+    }
+
+    public static void setSyncMediaListener(MediaSyncInterface syncInterface) {
+        syncListener = syncInterface;
+    }
+
+    public static void setMediaListener(MediaListener mediaListener) {
         listener = mediaListener;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
         callStateListener();
         registerBecomingNoisyReceiver();
         register_playNewAudio();
+
     }
 
     @Nullable
@@ -119,10 +141,10 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
 
     @Override
     public void onPrepared(MediaPlayer mp) {
-        if (listener!=null){
+        if (listener != null) {
             listener.isOnPrepared(true);
+            isPrepareComplete = true;
         }
-//        playMedia();
     }
 
     @Override
@@ -166,8 +188,16 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
         MuzieMediaPlayer.id = id;
     }
 
+    public static SCMusic getMusic() {
+        return scMusic;
+    }
+
+    public static void setMusic(SCMusic music) {
+        scMusic = music;
+    }
+
     public void initMediaPlayer() {
-        mediaPlayer.reset();
+
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setOnCompletionListener(this);
         mediaPlayer.setOnErrorListener(this);
@@ -176,14 +206,30 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
         mediaPlayer.setOnPreparedListener(this);
         mediaPlayer.setOnBufferingUpdateListener(this);
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-
+        isPrepareComplete = false;
+        if (mInitializeListener != null) {
+            mInitializeListener.isInitialize(true);
+        }
         try {
             mediaPlayer.setDataSource(mediaFile);
         } catch (IOException e) {
             e.printStackTrace();
             stopSelf();
         }
+        if (syncListener != null) {
+            if (getMusic() != null) {
+                syncListener.getMusic(getMusic());
+            }
+        }
+//        TopAdapter.setPostMedia(new TopAdapter.PostMediaInterface() {
+//            @Override
+//            public void postMedia(SCMusic scMusic) {
+//                music = scMusic;
+//                if (syncListener != null) {
+//                    syncListener.getMusic(scMusic);
+//                }
+//            }
+//        });
         mediaPlayer.prepareAsync();
 
     }
@@ -262,6 +308,8 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
 
             //A PLAY_NEW_AUDIO action received
             //reset mediaPlayer to play the new Audio
+
+
             stopMedia();
             mediaPlayer.reset();
             mediaFile = intent.getExtras().getString("media");
@@ -323,7 +371,13 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
             return MuzieMediaPlayer.getPlayerInstance();
         }
     }
-    public interface MediaListener{
+
+    public interface MediaListener {
         void isOnPrepared(boolean prepare);
     }
+
+    public interface MediaInitializeListener {
+        void isInitialize(boolean isIntialize);
+    }
+
 }

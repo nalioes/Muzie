@@ -47,7 +47,7 @@ public class ScTrackActivity extends AppCompatActivity {
     private SCMusic myTrack;
     private Handler handler;
     private static MuzieMediaPlayer muzieMediaPlayer;
-    static boolean serviceBound = false;
+    public static boolean serviceBound = false;
     public static final String Broadcast_PLAY_NEW_AUDIO = "com.syncsource.org.muzie.PlayNewAudio";
     public static ServiceConnection serviceConnection = new ServiceConnection() {
         @Override
@@ -87,9 +87,30 @@ public class ScTrackActivity extends AppCompatActivity {
             binding.currentDuration.setText("00:00");
             binding.subTitle.setText(myTrack.getArtist_name());
             binding.totalDuration.setText(myTrack.getDuration());
+
+        }
+        if (!MuzieMediaPlayer.isPrepareComplete) {
             binding.playTrack.setImageResource(R.drawable.ic_play_delay);
             binding.playTrack.setEnabled(false);
+        } else {
+            binding.playTrack.setEnabled(true);
+            if (mediaPlayer != null) {
+                if (mediaPlayer.isPlaying()) {
+                    if (mediaPlayer != null) {
+                        mediaPlayer.start();
+                        binding.playTrack.setImageResource(R.drawable.ic_pause);
+                    }
+                } else {
+                    if (mediaPlayer != null) {
+                        mediaPlayer.pause();
+                        binding.playTrack.setImageResource(R.drawable.ic_play);
+
+                    }
+                }
+                updateTimeProgress();
+            }
         }
+
         if (mediaPlayer != null) {
             if (MuzieMediaPlayer.getId() != 0) {
 
@@ -114,14 +135,11 @@ public class ScTrackActivity extends AppCompatActivity {
         MuzieMediaPlayer.setMediaListener(new MuzieMediaPlayer.MediaListener() {
             @Override
             public void isOnPrepared(boolean prepare) {
-                binding.playTrack.setImageResource(R.drawable.ic_play);
-                binding.playTrack.setEnabled(true);
-            }
-        });
-        binding.playNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ScTrackActivity.this, "next", Toast.LENGTH_SHORT).show();
+                if (prepare) {
+                    binding.playTrack.setImageResource(R.drawable.ic_play);
+                    binding.playTrack.setEnabled(true);
+                }
+
             }
         });
 
@@ -181,6 +199,7 @@ public class ScTrackActivity extends AppCompatActivity {
         if (mediaPlayer != null) {
 //     handler.removeCallbacks(timeProgress);
         }
+        overridePendingTransition(R.anim.back_enter, R.anim.back_exit);
     }
 
     class DownloadFileFromURL extends AsyncTask<String, Integer, Boolean> {
@@ -274,7 +293,7 @@ public class ScTrackActivity extends AppCompatActivity {
 
     }
 
-    private void playAudio(String media) {
+    public void playAudio(String media) {
         //Check is service is active
         if (!serviceBound) {
 
@@ -338,4 +357,5 @@ public class ScTrackActivity extends AppCompatActivity {
 
         }
     };
+
 }

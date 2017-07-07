@@ -34,8 +34,6 @@ import com.syncsource.org.muzie.utils.Config;
 
 import com.syncsource.org.muzie.utils.TrackManageUtil;
 
-import me.pushy.sdk.Pushy;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -164,7 +162,7 @@ public class LoadingActivity extends BaseActivity {
         protected Exception doInBackground(Void... params) {
             try {
                 // Ask Pushy to assign a unique registration ID to this device
-                registrationID = Pushy.register(MuzieApp.getContext());
+//                registrationID = Pushy.register(MuzieApp.getContext());
                 Log.d("REGIS ID", registrationID);
                 // Send the registration ID to your backend server via an HTTP GET request
 

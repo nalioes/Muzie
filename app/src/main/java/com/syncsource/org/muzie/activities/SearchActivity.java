@@ -158,7 +158,6 @@ public class SearchActivity extends BaseActivity implements SearchResultFragment
         AnalyticsManager.getObjInstance().sendScreenView(getString(R.string.search_music_screen));
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds search_items to the action bar if it is present.

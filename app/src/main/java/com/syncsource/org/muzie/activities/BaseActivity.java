@@ -8,11 +8,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-
 import org.greenrobot.eventbus.EventBus;
-
-import me.pushy.sdk.Pushy;
-
 /**
  * Created by nls on 3/30/17.
  */
@@ -37,7 +33,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Pushy.listen(this);
         if (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             // Request both READ_EXTERNAL_STORAGE and WRITE_EXTERNAL_STORAGE so that the

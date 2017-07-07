@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
-    List<Filter>chartsgenres = new ArrayList<>();
+    List<Filter> chartsgenres = new ArrayList<>();
     int selected_position = 0;
     filterListener filterListener;
 
@@ -29,7 +29,11 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.context = context;
     }
 
-    public void addItem(List<Filter>chartsgenres, filterListener filterListener, int selected_position){
+    public void setFilterListener(filterListener filterListener) {
+        this.filterListener = filterListener;
+    }
+
+    public void addItem(List<Filter> chartsgenres, filterListener filterListener, int selected_position) {
         this.chartsgenres = chartsgenres;
         this.selected_position = selected_position;
         this.filterListener = filterListener;
@@ -43,32 +47,32 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        ((ItemViewHolder)holder).getBinding().filterTitle.setText(chartsgenres.get(position).getName());
+        ((ItemViewHolder) holder).getBinding().filterTitle.setText(chartsgenres.get(position).getName());
 
         if (selected_position == position) {
             ((ItemViewHolder) holder).getBinding().getRoot().setSelected(true);
-            ((ItemViewHolder)holder).getBinding().selectorImg.setVisibility(View.VISIBLE);
-            ((ItemViewHolder)holder).getBinding().selectorImg.setImageResource(R.drawable.arr_filter);
+            ((ItemViewHolder) holder).getBinding().selectorImg.setVisibility(View.VISIBLE);
+            ((ItemViewHolder) holder).getBinding().selectorImg.setImageResource(R.drawable.arr_filter);
             ((ItemViewHolder) holder).getBinding().filterTitle.setTextColor(Color.parseColor("#fb496c"));
         } else {
             ((ItemViewHolder) holder).getBinding().getRoot().setSelected(false);
-            ((ItemViewHolder)holder).getBinding().selectorImg.setVisibility(View.GONE);
+            ((ItemViewHolder) holder).getBinding().selectorImg.setVisibility(View.GONE);
             ((ItemViewHolder) holder).getBinding().filterTitle.setTextColor(Color.parseColor("#fdfdfd"));
         }
 
-        ((ItemViewHolder)holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
+        ((ItemViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (selected_position == position) {
-                    ((ItemViewHolder)holder).getBinding().selectorImg.setVisibility(View.INVISIBLE);
+                    ((ItemViewHolder) holder).getBinding().selectorImg.setVisibility(View.INVISIBLE);
                     ((ItemViewHolder) holder).getBinding().filterTitle.setTextColor(Color.parseColor("#fdfdfd"));
                     notifyItemChanged(selected_position);
                 } else {
                     selected_position = position;
                     ((ItemViewHolder) holder).getBinding().filterTitle.setTextColor(Color.parseColor("#fb496c"));
-                    ((ItemViewHolder)holder).getBinding().selectorImg.setVisibility(View.VISIBLE);
-                    if (filterListener!=null){
-                        filterListener.isChecked(true,position,chartsgenres.get(position));
+                    ((ItemViewHolder) holder).getBinding().selectorImg.setVisibility(View.VISIBLE);
+                    if (filterListener != null) {
+                        filterListener.isChecked(true, position, chartsgenres.get(position));
                     }
                     notifyItemChanged(selected_position);
                 }
@@ -93,7 +97,8 @@ public class FilterAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return binding;
         }
     }
-    public interface filterListener{
-        void isChecked(Boolean check,int position,Filter filter);
+
+    public interface filterListener {
+        void isChecked(Boolean check, int position, Filter filter);
     }
 }

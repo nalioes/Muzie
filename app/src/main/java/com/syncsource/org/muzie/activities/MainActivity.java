@@ -16,6 +16,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import com.syncsource.org.muzie.R;
 import com.syncsource.org.muzie.databinding.ActivityMainBinding;
+import com.syncsource.org.muzie.views.MusicBarView;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }
-
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -92,12 +92,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        new MusicBarView().displayPlayBar(MainActivity.this, getApplicationContext(), binding.getRoot());
     }
 
     @Override

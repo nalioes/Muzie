@@ -16,6 +16,7 @@
     <color name="black">#ef080808</color>
     <color name="light_dark">#FF1A1B1F</color>
     <color name="light_dark_dialog_background">#E61A1B1F</color>
+    <color name="light_dark_bar_background">#ee1a1b1f</color>
     <color name="light_dark_background">#ea1a1b1f</color>
     <color name="sec_black">#ef080808</color>
     <color name="sc_background_color">#fffefe</color>

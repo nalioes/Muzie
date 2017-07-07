@@ -9,8 +9,7 @@
 		<size android:width="16dp" android:height="16dp"/>
 
 		<stroke
-			android:color="@color/white"
-			android:width="1dp"  />
+			android:color="@color/white" android:width="0.5dp" />
 	</shape>
 </item>
 
@@ -22,8 +21,7 @@
 		<size android:width="16dp" android:height="16dp"/>
 
 		<stroke
-			android:color="@color/white"
-			android:width="1dp"  />
+			android:color="@color/white" android:width="0.5dp" />
 	</shape>
 </item>
 

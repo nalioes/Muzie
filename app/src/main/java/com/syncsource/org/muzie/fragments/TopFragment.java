@@ -3,6 +3,7 @@ package com.syncsource.org.muzie.fragments;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.syncsource.org.muzie.MuzieApp;
 import com.syncsource.org.muzie.R;
+import com.syncsource.org.muzie.activities.SoundcloudActivity;
 import com.syncsource.org.muzie.adapters.TopAdapter;
 import com.syncsource.org.muzie.databinding.FragmentTopBinding;
 import com.syncsource.org.muzie.events.ScTrackEvent;
@@ -86,7 +88,7 @@ public class TopFragment extends Fragment {
             MuzieApp.setTopTrackEvent(topTrack);
             topMusics = TrackManageUtil.getScTopMusicList(topTrack.getItem());
             if (topMusics.size() > 0) {
-                topAdapter.addMoreItem(topMusics);
+                topAdapter.addMoreItem(topMusics, getActivity());
             }
         }
     }
