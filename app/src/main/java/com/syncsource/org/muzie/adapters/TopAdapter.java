@@ -16,11 +16,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.syncsource.org.muzie.R;
-import com.syncsource.org.muzie.ScTrackActivity;
-import com.syncsource.org.muzie.activities.SyncsTrackActivity;
+import com.syncsource.org.muzie.activities.ViewSCActivity;
 import com.syncsource.org.muzie.databinding.ItemTopBinding;
 import com.syncsource.org.muzie.model.SCMusic;
 import com.syncsource.org.muzie.utils.Config;
+import com.syncsource.org.muzie.utils.MediaObjs;
 import com.syncsource.org.muzie.utils.MuzieMediaPlayer;
 
 import java.util.ArrayList;
@@ -38,7 +38,9 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
     List<SCMusic> topMusic = new ArrayList<>();
     FragmentActivity compat;
-    public static PostMediaInterface mediaInterface;
+
+    public TopAdapter() {
+    }
 
     public TopAdapter(Context context) {
         this.context = context;
@@ -54,10 +56,6 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         this.topMusic = topMusic;
         this.compat = compat;
         notifyDataSetChanged();
-    }
-
-    public void setPostMedia(PostMediaInterface postMediaInterface) {
-        mediaInterface = postMediaInterface;
     }
 
     @Override
@@ -90,6 +88,10 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         ((ItemViewHolder) holder).getBinding().getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(context, ViewSCActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(ViewSCActivity.POSTMEDIA, new MediaObjs(topMusic, position));
+                context.startActivity(intent);
 
                 if (MuzieMediaPlayer.mediaPlayer == null) {
 
@@ -153,7 +155,4 @@ public class TopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
-    public interface PostMediaInterface {
-        void postMedia(SCMusic scMusic);
-    }
 }

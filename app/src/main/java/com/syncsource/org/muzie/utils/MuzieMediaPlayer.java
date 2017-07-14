@@ -44,6 +44,7 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
     private static MediaListener listener;
     public static SCMusic scMusic;
     public static boolean isPrepareComplete = false;
+    private static MediaStateListener stateListener;
 
     public static MediaSyncInterface syncListener;
     public static MediaInitializeListener mInitializeListener;
@@ -60,6 +61,9 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
         return player;
     }
 
+    public static void setMediaStateListener(MediaStateListener mediaStateListener) {
+        stateListener = mediaStateListener;
+    }
     private final IBinder binder = new ClientBinder();
 
     public static void setInitializeListener(MediaInitializeListener initializeListener) {
@@ -127,6 +131,9 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
     public void onCompletion(MediaPlayer mp) {
         stopMedia();
         stopSelf();
+        if (stateListener != null) {
+            stateListener.isStoping(true);
+        }
     }
 
     @Override
@@ -380,4 +387,7 @@ public class MuzieMediaPlayer extends Service implements MediaPlayer.OnCompletio
         void isInitialize(boolean isIntialize);
     }
 
+    public interface MediaStateListener {
+        void isStoping(boolean isStoping);
+    }
 }

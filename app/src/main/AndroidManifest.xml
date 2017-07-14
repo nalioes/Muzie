@@ -14,7 +14,7 @@
     <application
         android:name=".MuzieApp"
         android:allowBackup="true"
-        android:icon="@drawable/muzie"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
@@ -58,13 +58,18 @@
             android:name=".TopSoundCloudActivity"
             android:label="@string/title_activity_top_sound_cloud"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".activities.YouTubeActivity"
             android:label="@string/title_activity_you_tube"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.SoundcloudActivity" />
+
         <service android:name=".utils.MuzieMediaPlayer" />
+
+        <activity
+            android:name=".activities.ViewSCActivity"
+            android:label="@string/title_activity_view_sc"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

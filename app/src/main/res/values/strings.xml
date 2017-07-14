@@ -109,5 +109,6 @@
     <string name="title_activity_you_tube">YouTubeActivity</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_main3">Main3Activity</string>
+    <string name="title_activity_view_sc">ViewSCActivity</string>
 
 </resources>
