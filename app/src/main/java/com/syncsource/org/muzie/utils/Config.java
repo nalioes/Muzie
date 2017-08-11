@@ -5,8 +5,8 @@ package com.syncsource.org.muzie.utils;
  */
 public class Config {
 
-    public static final String SEARCH_APIKEY = "AIzaSyBAxGRoLtw5UjMAIuybDgOANm021rmowZU";
-    public static final String CLIENT_ID = "6dbfcdd828adf44359b78580fe4d6023";
+    public static final String SEARCH_APIKEY = "";
+    public static final String CLIENT_ID = "";
 
     public static final String MAX_NUMBER = "10";
     public static final String SC_MAX_NUMBER = "50";
